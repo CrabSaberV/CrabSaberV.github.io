@@ -1859,20 +1859,18 @@ td {
   }
 }
 .header-info-title {
-  background-image: -webkit-linear-gradient(bottom, #f00, #fd8403, #fff);
-  -webkit-background-clip: text;
+  test-align: center;
+  background-image: -webkit-linear-gradient(left, #e7f78b, #695afc 25%, #e7f78b 50%, #695afc 75%, #e7f78b);
   -webkit-text-fill-color: transparent;
-  -webkit-animation: head_title_anime 5s infinite;
+  -webkit-background-clip: text;
+  -webkit-background-size: 200% 100%;
+  -webkit-animation: header-anime 5s infinite linear;
 }
-@-webkit-keyframes head_title_anime {
-  from {
-    background-image: -webkit-linear-gradient(bottom, #f00, #fd8403, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+@-webkit-keyframes header-anime {
+  0% {
+    background-position: 0 0;
   }
-  to {
-    background-image: -webkit-linear-gradient(bottom, #00f, #008000, #fff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  100% {
+    background-position: -100% 0;
   }
 }
