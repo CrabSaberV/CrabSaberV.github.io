@@ -1860,7 +1860,7 @@ td {
 }
 .header-info-title {
   test-align: center;
-  background-image: -webkit-linear-gradient(left, #e7f78b, #695afc 25%, #e7f78b 50%, #695afc 75%, #e7f78b);
+  background-image: -webkit-linear-gradient(left, #fdc234, #4ee679 25%, #fdc234 50%, #4ee679 75%, #fdc234);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   -webkit-background-size: 200% 100%;
@@ -1872,5 +1872,19 @@ td {
   }
   100% {
     background-position: -100% 0;
+  }
+}
+.header-info {
+  -webkit-animation: header-info-1 60s infinite;
+}
+@-webkit-keyframes header-info-1 {
+  0%, 25% {
+    background: url("/assets/image/background1.jpg") no-repeat center/cover;
+  }
+  50%, 75% {
+    background: url("/assets/image/background4.jpg") no-repeat center/cover;
+  }
+  75%, 100% {
+    background: url("/assets/image/background1.jpg") no-repeat center/cover;
   }
 }
