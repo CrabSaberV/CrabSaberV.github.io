@@ -1028,6 +1028,9 @@ td {
 .post-header-meta-reading-count {
   color: #fc6423;
 }
+.post-header-meta .leancloud_visitors {
+  color: #fc6423;
+}
 .post-end {
   margin: 0 0 1rem;
   padding: 1rem 0 0;
@@ -1488,6 +1491,14 @@ td {
   box-sizing: content-box;
   cursor: zoom-out;
   will-change: transform;
+}
+.comments {
+  margin: 1.5rem 0 0;
+  width: 100%;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  float: left;
 }
 .copy-button {
   position: absolute;
