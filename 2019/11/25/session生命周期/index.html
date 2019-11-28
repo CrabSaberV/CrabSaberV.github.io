@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="CrabSaberV, CrabSaberV is here"><meta name="description" content="This is my presonal blog. Here will be conplete.Let's look forward!"><title>session生命周期 | CrabSaberV is here</title><link rel="icon" href="/assets/icons/crab_16x16.png?v=1.5.4" type="image/png" sizes="16x16"><link rel="icon" href="/assets/icons/crab_32x32.png?v=1.5.4" type="image/png" sizes="32x32"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=1.5.4"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  fontawesome: {"prefix":"fa"},
+  sidebar: {"offsetTop":"30px","renderTocDepth":4},
+  header: {"scrollDownIcon":false},
+  back2top: {"enable":true},
+  reward: false,
+  fancybox: false,
+  zoom_image: {"enable":true,"mask_color":"rgba(0,0,0,0.6)"},
+  gallery_waterfall: undefined,
+  lazyload: undefined,
+  pjax: undefined,
+  external_link: {"icon":{"enable":true,"name":"external-link"}},
+  shortcuts: {"switch_post":false},
+  prompt: {"copy_success":"复制成功","copy_error":"复制失败","creative_commons":"知识共享","copy_button":"点击复制"}
+};
+
+window.CONFIG = CONFIG;</script></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav"><div class="header-nav-inner"><div class="header-nav-btn fa fa-bars"></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/"><i class="fa fa-home"></i>首页</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/archives/"><i class="fa fa-folder-open"></i>归档</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/categories/"><i class="fa fa-th"></i>分类</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/tags/"><i class="fa fa-tags"></i>标签</a></div></div></div></nav><div class="header-info"><div class="header-info-inner"><div class="header-info-title">CrabSaberV is here</div><div class="header-info-subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content"><div class="post"><header class="post-header"><h1 class="post-header-title">session生命周期</h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2019-11-25</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2019-11-28</span></span><span class="leancloud_visitors" id="/2019/11/25/session%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" data-flag-title="session生命周期"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span><span class="post-header-meta-reading-count"><i class="fa fa-eye"></i><span>阅读次数 </span><span id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><h2 id="前言"><span class="heading-link">前言</span></h2><blockquote>
+<p>一般我们认为 session 是当浏览器打开时 session 将会创建，关闭浏览器时 session 又会失效，那么究竟是不是这样呢？我们具体来了解以下 session 的生命周期。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="什么是session"><span class="heading-link">什么是session</span></h2><p>session 我们也成为“会话”，一般我们在 web 页面间跳转时，存储在 session 的数据不会丢失。往往我们用 session 来实现 web 页面间数据的共享与访问。</p>
+<h3 id="session-的作用"><span class="heading-link">session 的作用</span></h3><p>session 以 “key-value” 方式存取数据，可以存储一些基本类型，也可以存储 Java 对象等。（cookie 只能存ASCII字符串）。</p>
+<p>我们可以用 session 实现简单的页面间保持用户处于登录状态，等待。</p>
+<h3 id="session-在哪"><span class="heading-link">session 在哪</span></h3><p>session 其实是 Servlet 的一个对象实例，也就是 session 是存在于后端服务器的对象，相当于一个全局对象。</p>
+<p>每个用户访问服务器都会生成一个 session ，由于 HTTP 是一种无状态协议，我们无法得知访问服务器的用户，session 可以生成一个唯一的ID，以此可以作为一个用户的访问。</p>
+<blockquote>
+<p>（session 的具体实现，这里就不说了）</p>
+</blockquote>
+<h2 id="session-生命周期"><span class="heading-link">session 生命周期</span></h2><p>当第一次访问服务端的时候 session 就被创建出来，直到浏览器关闭，或者服务器关闭或服务器重启 session 才会失效（也可以通过设置 session 的时限）。</p>
+<p>我们常常会浏览多个不同域的网页，所以很明显 session 并不只有一个，对于每个我们访问的服务端来说，它们各持有为用户创建出来的 session。</p>
+<p>所以再进一步说，session 在第一次访问 jsp，Servlet 时，就会被创建，而静态页面 HTML 是不会创建的。</p>
+<h2 id="session-isNew-方法"><span class="heading-link">session.isNew() 方法</span></h2><p>之前一直只认为 <code>isNew()</code>方法表示 session 是否为最新，而根据 session 的生命周期，我们可以了解到 <code>session.isNew()</code> 表示当 session 为刚创建时，则返回 true。</p>
+<p>也就是说，<code>session.isNew()</code> 在 session 被创建的那个页面( jsp )或 Servlet 中，返回为 true。<br>当前往服务器所在的其他界面，或访问其他 Servlet <code>session.isNew()</code> 都将返回 false。</p>
+<h2 id="总结"><span class="heading-link">总结</span></h2><ul>
+<li>session 在第一次访问服务器时才被创建，直到浏览器关闭或者服务器关闭或重启，session才会失效</li>
+<li><code>session.isNew()</code> 只有在 session 被创建的页面（jsp）或 servlet 才会返回 false</li>
+</ul>
+</div><footer class="post-footer"><div class="post-end"><span>------ </span><span>本文结束，感谢您的阅读</span><span> ------</span></div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-author-name">本文作者: </span><span class="post-copyright-author-value"><a href="https://crabsaberv.github.io">CrabSaberV</a></span></div><div class="post-copyright-link"><span class="post-copyright-link-name">本文链接: </span><span class="post-copyright-link-value"><a href="https://crabsaberv.github.io/2019/11/25/session%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">https://crabsaberv.github.io/2019/11/25/session%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-notice-name">版权声明: </span><span class="post-copyright-notice-value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><i class="post-tags-item__i fa fa-tags"></i><a class="post-tags-item__a" href="https://crabsaberv.github.io/tags/%E5%89%8D%E7%AB%AF/">前端</a></span><span class="post-tags-item"><i class="post-tags-item__i fa fa-tags"></i><a class="post-tags-item__a" href="https://crabsaberv.github.io/tags/session/">session</a></span></div><nav class="paginator"><div class="paginator-post"><div class="paginator-post-next"><a class="paginator-post-next__a" href="/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/"><span>Tomcat 9.0 配置数据源笔记</span><i class="fa fa-chevron-right"></i></a></div></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><aside class="sidebar" id="sidebar"><div class="sidebar-inner"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#什么是session"><span class="toc-number">2.</span> <span class="toc-text">什么是session</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#session-的作用"><span class="toc-number">2.1.</span> <span class="toc-text">session 的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#session-在哪"><span class="toc-number">2.2.</span> <span class="toc-text">session 在哪</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session-生命周期"><span class="toc-number">3.</span> <span class="toc-text">session 生命周期</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session-isNew-方法"><span class="toc-number">4.</span> <span class="toc-text">session.isNew() 方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></div></section><!-- ov = overview --><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/assets/icons/crab_192x192.png" alt="avatar"></div><p class="sidebar-ov-author__p">CrabSaberV</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social__item" href="https://github.com/CrabSaberV" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><i class="sidebar-ov-social__item--icon fa fa-github"></i></a><a class="sidebar-ov-social__item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><i class="sidebar-ov-social__item--icon fa fa-google"></i></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state__a posts" href="/archives/"><div class="sidebar-ov-state__a--count">13</div><div class="sidebar-ov-state__a--name">归档</div></a><a class="sidebar-ov-state__a categories" href="/categories/"><div class="sidebar-ov-state__a--count">5</div><div class="sidebar-ov-state__a--name">分类</div></a><a class="sidebar-ov-state__a tags" href="/tags/"><div class="sidebar-ov-state__a--count">16</div><div class="sidebar-ov-state__a--name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg" alt="知识共享"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span>你已阅读了 </span><span class="sidebar-reading-info-num">0</span></div><div class="sidebar-reading-line"></div></div></div></aside><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>&copy; 2019</span><span class="fa fa-heart footer-icon"></span><span>CrabSaberV.</span></div><div><span>由 <a href="http://hexo.io/" title="hexo" target="_blank" rel="noopener">hexo</a> 强力驱动</span><span> v4.0.0.</span><span class="separator">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="stun" target="_blank" rel="noopener">stun</a></span><span> v1.5.4.</span></div><div class="busuanzi"><span class="busuanzi-site_uv"><i class="fa fa-user"></i><span>访问人数 </span><span id="busuanzi_value_site_uv"></span></span><span class="separator">|</span><span class="busuanzi-site_pv"><i class="fa fa-eye"></i><span>浏览总量 </span><span id="busuanzi_value_site_pv"></span></span><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script></div></div></footer><div class="loading-bar" id="loading-bar"><div class="progress"></div></div><div class="back2top" id="back2top"><i class="back2top-icon fa fa-rocket"></i></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="60" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+
+  new Valine({
+    el: '#valine-container',
+    appId: 'NP0g42WlTUjy1etGrM34ROCU-gzGzoHsz',
+    appKey: 'g5YhiW7wlofb6Gcvbh9Nh7uG',
+    notify: true,
+    verify: true,
+    placeholder: 'I need Your Comment',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: true,
+    recordIP: true,
+    lang: 'zh-cn' || 'zh-cn'
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=1.5.4"></script><script src="/js/stun-boot.js?v=1.5.4"></script><script src="/js/scroll.js?v=1.5.4"></script><script src="/js/header.js?v=1.5.4"></script><script src="/js/sidebar.js?v=1.5.4"></script></body></html>
