@@ -1,65 +1,1066 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="CrabSaberV, CrabSaberV is here"><meta name="description" content="This is my presonal blog. Here will be conplete.Let's look forward!"><title>CrabSaberV is here</title><link rel="icon" href="/assets/icons/crab_16x16.png?v=1.5.4" type="image/png" sizes="16x16"><link rel="icon" href="/assets/icons/crab_32x32.png?v=1.5.4" type="image/png" sizes="32x32"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=1.5.4"><script>var Stun = window.Stun || {};
-var CONFIG = {
-  root: '/',
-  algolia: undefined,
-  fontawesome: {"prefix":"fa"},
-  sidebar: {"offsetTop":"30px","renderTocDepth":4},
-  header: {"scrollDownIcon":false},
-  back2top: {"enable":true},
-  reward: false,
-  fancybox: false,
-  zoom_image: {"enable":true,"mask_color":"rgba(0,0,0,0.6)"},
-  gallery_waterfall: undefined,
-  lazyload: undefined,
-  pjax: undefined,
-  external_link: {"icon":{"enable":true,"name":"external-link"}},
-  shortcuts: {"switch_post":false},
-  prompt: {"copy_success":"复制成功","copy_error":"复制失败","creative_commons":"知识共享","copy_button":"点击复制"}
-};
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav"><div class="header-nav-inner"><div class="header-nav-btn fa fa-bars"></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/"><i class="fa fa-home"></i>首页</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/archives/"><i class="fa fa-folder-open"></i>归档</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/categories/"><i class="fa fa-th"></i>分类</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/tags/"><i class="fa fa-tags"></i>标签</a></div></div></div></nav><div class="header-info"><div class="header-info-inner"><div class="header-info-title">CrabSaberV is here</div><div class="header-info-subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content content-home"><section class="post-list"><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/02/02/Unity-CharacterController-%E7%A2%B0%E6%92%9E%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB/">Unity-CharacterController 碰撞与触发器之间关系</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-02-02</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-02-02</span></span><span class="leancloud_visitors" id="/2020/02/02/Unity-CharacterController-%E7%A2%B0%E6%92%9E%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB/" data-flag-title="Unity-CharacterController 碰撞与触发器之间关系"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><h2 id="前言"><span class="heading-link">前言</span></h2><p>自从接触了 CharactorController 来控制角色后，异常的有意思，对于控制一些人形角色控制上带来了便利，化简了刚体控制中种种麻烦问题。<br>但是也遇到了 CharactorController 与碰撞体和触发器之间的问题和疑问。</p></body></html></div><div class="post-body-more"><a class="post-body-more__a" href="/2020/02/02/Unity-CharacterController-%E7%A2%B0%E6%92%9E%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB/">阅读全文 »</a></div></div></article><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/01/30/Unity-%E4%BA%BA%E7%89%A9%E8%BD%AC%E5%90%91%E4%B8%80%E9%A3%9E%E5%86%B2%E5%A4%A9%E9%97%AE%E9%A2%98/">Unity-人物转向一飞冲天问题</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-01-30</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-01-30</span></span><span class="leancloud_visitors" id="/2020/01/30/Unity-%E4%BA%BA%E7%89%A9%E8%BD%AC%E5%90%91%E4%B8%80%E9%A3%9E%E5%86%B2%E5%A4%A9%E9%97%AE%E9%A2%98/" data-flag-title="Unity-人物转向一飞冲天问题"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><p>加了“角色控制器”(CharacterController) 的角色是不需要加“刚体”的，去除拥有“角色控制器”的物体的“刚体组件”，就能解决人物旋转一飞冲天的问题。</p>
-</body></html></div></div></article><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/01/29/Unity-%E7%9B%B8%E6%9C%BA%E6%8A%96%E5%8A%A8/">Unity-相机抖动</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-01-29</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-01-30</span></span><span class="leancloud_visitors" id="/2020/01/29/Unity-%E7%9B%B8%E6%9C%BA%E6%8A%96%E5%8A%A8/" data-flag-title="Unity-相机抖动"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><p>当遇到相机跟随物体出现抖动情况时，将跟随代码放在 <code>LaterUpate()</code> 中即可。</p>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="This is my presonal blog. Here will be conplete.Let&#39;s look forward!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CrabSaberV is here">
+<meta property="og:url" content="https://crabsaberv.github.io/page/2/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="This is my presonal blog. Here will be conplete.Let&#39;s look forward!">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="blog">
+<meta property="article:tag" content="computer">
+<meta property="article:tag" content="unity">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="c">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://crabsaberv.github.io/page/2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/02/02/Unity-CharacterController-%E7%A2%B0%E6%92%9E%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/02/Unity-CharacterController-%E7%A2%B0%E6%92%9E%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB/" class="post-title-link" itemprop="url">Unity-CharacterController 碰撞与触发器之间关系</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-02 15:54:17 / 修改时间：16:54:38" itemprop="dateCreated datePublished" datetime="2020-02-02T15:54:17+08:00">2020-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index"><span itemprop="name">Unity3d</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自从接触了 CharactorController 来控制角色后，异常的有意思，对于控制一些人形角色控制上带来了便利，化简了刚体控制中种种麻烦问题。<br>但是也遇到了 CharactorController 与碰撞体和触发器之间的问题和疑问。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/02/Unity-CharacterController-%E7%A2%B0%E6%92%9E%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/30/Unity-%E4%BA%BA%E7%89%A9%E8%BD%AC%E5%90%91%E4%B8%80%E9%A3%9E%E5%86%B2%E5%A4%A9%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/30/Unity-%E4%BA%BA%E7%89%A9%E8%BD%AC%E5%90%91%E4%B8%80%E9%A3%9E%E5%86%B2%E5%A4%A9%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Unity-人物转向一飞冲天问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-30 12:48:12 / 修改时间：12:52:54" itemprop="dateCreated datePublished" datetime="2020-01-30T12:48:12+08:00">2020-01-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index"><span itemprop="name">Unity3d</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>加了“角色控制器”(CharacterController) 的角色是不需要加“刚体”的，去除拥有“角色控制器”的物体的“刚体组件”，就能解决人物旋转一飞冲天的问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/29/Unity-%E7%9B%B8%E6%9C%BA%E6%8A%96%E5%8A%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/29/Unity-%E7%9B%B8%E6%9C%BA%E6%8A%96%E5%8A%A8/" class="post-title-link" itemprop="url">Unity-相机抖动</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-29 23:29:35" itemprop="dateCreated datePublished" datetime="2020-01-29T23:29:35+08:00">2020-01-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-30 12:49:09" itemprop="dateModified" datetime="2020-01-30T12:49:09+08:00">2020-01-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index"><span itemprop="name">Unity3d</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>当遇到相机跟随物体出现抖动情况时，将跟随代码放在 <code>LaterUpate()</code> 中即可。</p>
 <p>原因是由于物体移动的刷新频率与相机跟随刷新率不同导致的。</p>
-</body></html></div></div></article><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/01/18/Spring-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/">Spring-自动装配</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-01-18</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-01-18</span></span><span class="leancloud_visitors" id="/2020/01/18/Spring-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/" data-flag-title="Spring-自动装配"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/18/Spring-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/18/Spring-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/" class="post-title-link" itemprop="url">Spring-自动装配</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-18 18:17:10 / 修改时间：18:39:54" itemprop="dateCreated datePublished" datetime="2020-01-18T18:17:10+08:00">2020-01-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
 <p>简单说说自动装配</p>
-</blockquote></body></html></div><div class="post-body-more"><a class="post-body-more__a" href="/2020/01/18/Spring-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/">阅读全文 »</a></div></div></article><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/01/18/Spring-beans%E9%85%8D%E7%BD%AE/">Spring-beans配置</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-01-18</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-01-18</span></span><span class="leancloud_visitors" id="/2020/01/18/Spring-beans%E9%85%8D%E7%BD%AE/" data-flag-title="Spring-beans配置"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><blockquote>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/18/Spring-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/18/Spring-beans%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/18/Spring-beans%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Spring-beans配置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-18 17:41:43 / 修改时间：20:30:58" itemprop="dateCreated datePublished" datetime="2020-01-18T17:41:43+08:00">2020-01-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
 <p>bean.xml 中 <beans> 的属性配置</beans></p>
-</blockquote></body></html></div><div class="post-body-more"><a class="post-body-more__a" href="/2020/01/18/Spring-beans%E9%85%8D%E7%BD%AE/">阅读全文 »</a></div></div></article><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E7%A9%BA%E5%80%BCnull/">Spring-注入空值null</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-01-08</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-01-18</span></span><span class="leancloud_visitors" id="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E7%A9%BA%E5%80%BCnull/" data-flag-title="Spring-注入空值null"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><p>注入的属性值为空值时，两种办法。</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/18/Spring-beans%E9%85%8D%E7%BD%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E7%A9%BA%E5%80%BCnull/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E7%A9%BA%E5%80%BCnull/" class="post-title-link" itemprop="url">Spring-注入空值null</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-01-08 20:48:18" itemprop="dateCreated datePublished" datetime="2020-01-08T20:48:18+08:00">2020-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-01-18 17:34:08" itemprop="dateModified" datetime="2020-01-18T17:34:08+08:00">2020-01-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>注入的属性值为空值时，两种办法。</p>
 <ol>
 <li><p>空字符串</p>
-<figure class="highlight xml"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">bean</span> <span class="attr">...</span>></span></span><br><span class="line">	<span class="tag"><<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">""</span> /></span></span><br><span class="line"><span class="tag"><!--<span class="name"-->bean</span>></span><br></pre></td></tr></tbody></table></div></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span> <span class="attr">value</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>NULL值</p>
-<figure class="highlight xml"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">bean</span> <span class="attr">...</span>></span></span><br><span class="line">	<span class="tag"><<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span>></span> <span class="tag"><<span class="name">null</span>/></span> <span class="tag"><!--<span class="name"-->property</span>></span><br><span class="line"><span class="tag"><!--<span class="name"-->bean</span>></span><br></pre></td></tr></tbody></table></div></figure></li>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span> <span class="tag">&lt;<span class="name">null</span>/&gt;</span> <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
 </ol>
-</body></html></div></div></article><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E9%9B%86%E5%90%88/">Spring-注入集合</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-01-08</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-01-08</span></span><span class="leancloud_visitors" id="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E9%9B%86%E5%90%88/" data-flag-title="Spring-注入集合"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><p>介绍如何依赖注入集合元素属性。</p></body></html></div><div class="post-body-more"><a class="post-body-more__a" href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E9%9B%86%E5%90%88/">阅读全文 »</a></div></div></article><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E5%86%85%E9%83%A8bean/">Spring-注入内部bean</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-01-08</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-01-08</span></span><span class="leancloud_visitors" id="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E5%86%85%E9%83%A8bean/" data-flag-title="Spring-注入内部bean"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><p>简单说说注入内部 bean </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E9%9B%86%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E9%9B%86%E5%90%88/" class="post-title-link" itemprop="url">Spring-注入集合</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-08 20:22:11 / 修改时间：20:45:51" itemprop="dateCreated datePublished" datetime="2020-01-08T20:22:11+08:00">2020-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>介绍如何依赖注入集合元素属性。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E9%9B%86%E5%90%88/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E5%86%85%E9%83%A8bean/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E5%86%85%E9%83%A8bean/" class="post-title-link" itemprop="url">Spring-注入内部bean</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-08 20:10:54 / 修改时间：20:20:55" itemprop="dateCreated datePublished" datetime="2020-01-08T20:10:54+08:00">2020-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>简单说说注入内部 bean </p>
 <p>依旧是 setter函数依赖注入的例子，内部依赖注入只需要配置 XML为：</p>
-<figure class="highlight xml"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"b"</span> <span class="attr">class</span>=<span class="string">"..."</span>></span></span><br><span class="line">	<span class="tag"><<span class="name">property</span> <span class="attr">name</span>=<span class="string">"a"</span>></span></span><br><span class="line">		<span class="tag"><<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"a"</span> <span class="attr">class</span>=<span class="string">"..."</span> /></span></span><br><span class="line">	<span class="tag"><!--<span class="name"-->property</span>></span><br><span class="line"><span class="tag"><!--<span class="name"-->bean</span>></span><br></pre></td></tr></tbody></table></div></figure></body></html></div></div></article><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">Spring-Setter函数依赖注入</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-01-08</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-01-08</span></span><span class="leancloud_visitors" id="/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" data-flag-title="Spring-Setter函数依赖注入"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><p>继续记录 Spring 的设值（setter）函数 bean.xml 的配置。</p></body></html></div><div class="post-body-more"><a class="post-body-more__a" href="/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">阅读全文 »</a></div></div></article><article class="post"><header class="post-header"><h1 class="post-header-title"><a class="post-header-title__a" href="/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">Spring-构造函数依赖注入</a></h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2020-01-08</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2020-01-08</span></span><span class="leancloud_visitors" id="/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" data-flag-title="Spring-构造函数依赖注入"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span></div></header><div class="post-body"><div class="post-body-excerpt"><html><head></head><body><p>Spring 的构造函数依赖注入中配置 bean.xml 需要注意的。</p></body></html></div><div class="post-body-more"><a class="post-body-more__a" href="/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">阅读全文 »</a></div></div></article></section><nav class="paginator"><div class="paginator-inner"><a class="extend prev" rel="prev" href="/"><i class="fa fa-chevron-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-chevron-right"></i></a></div></nav></div></div><aside class="sidebar" id="sidebar"><div class="sidebar-inner"><section class="sidebar-toc hide"></section><!-- ov = overview --><section class="sidebar-ov"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/assets/icons/crab_192x192.png" alt="avatar"></div><p class="sidebar-ov-author__p">CrabSaberV</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social__item" href="https://github.com/CrabSaberV" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><i class="sidebar-ov-social__item--icon fa fa-github"></i></a><a class="sidebar-ov-social__item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><i class="sidebar-ov-social__item--icon fa fa-google"></i></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state__a posts" href="/archives/"><div class="sidebar-ov-state__a--count">33</div><div class="sidebar-ov-state__a--name">归档</div></a><a class="sidebar-ov-state__a categories" href="/categories/"><div class="sidebar-ov-state__a--count">8</div><div class="sidebar-ov-state__a--name">分类</div></a><a class="sidebar-ov-state__a tags" href="/tags/"><div class="sidebar-ov-state__a--count">34</div><div class="sidebar-ov-state__a--name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg" alt="知识共享"></a></div></section></div></aside><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>&copy; 2020</span><span class="fa fa-heart footer-icon"></span><span>CrabSaberV.</span></div><div><span>由 <a href="http://hexo.io/" title="hexo" target="_blank" rel="noopener">hexo</a> 强力驱动</span><span> v4.2.0.</span><span class="separator">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="stun" target="_blank" rel="noopener">stun</a></span><span> v1.5.4.</span></div><div class="busuanzi"><span class="busuanzi-site_uv"><i class="fa fa-user"></i><span>访问人数 </span><span id="busuanzi_value_site_uv"></span></span><span class="separator">|</span><span class="busuanzi-site_pv"><i class="fa fa-eye"></i><span>浏览总量 </span><span id="busuanzi_value_site_pv"></span></span><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script></div></div></footer><div class="loading-bar" id="loading-bar"><div class="progress"></div></div><div class="back2top" id="back2top"><i class="back2top-icon fa fa-rocket"></i></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="60" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
-  var GUEST_INFO = ['nick', 'mail', 'link'];
-  var guest_info = 'nick,mail,link';
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"b"</span> <span class="attr">class</span>=<span class="string">"..."</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"a"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"a"</span> <span class="attr">class</span>=<span class="string">"..."</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
 
-  guest_info = guest_info.split(',').filter(function(item) {
-    return GUEST_INFO.indexOf(item) > -1;
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">Spring-Setter函数依赖注入</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-08 18:12:18 / 修改时间：20:10:35" itemprop="dateCreated datePublished" datetime="2020-01-08T18:12:18+08:00">2020-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>继续记录 Spring 的设值（setter）函数 bean.xml 的配置。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">Spring-构造函数依赖注入</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-08 17:18:04 / 修改时间：17:43:35" itemprop="dateCreated datePublished" datetime="2020-01-08T17:18:04+08:00">2020-01-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Spring 的构造函数依赖注入中配置 bean.xml 需要注意的。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
   });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
-  new Valine({
-    el: '#valine-container',
-    appId: 'NP0g42WlTUjy1etGrM34ROCU-gzGzoHsz',
-    appKey: 'g5YhiW7wlofb6Gcvbh9Nh7uG',
-    notify: true,
-    verify: true,
-    placeholder: 'I need Your Comment',
-    avatar: 'mp',
-    meta: guest_info,
-    pageSize: '10' || 10,
-    visitor: true,
-    recordIP: true,
-    lang: 'zh-cn' || 'zh-cn'
-  });
-}
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-if (false) {
-  loadValine();
-} else {
-  window.addEventListener('DOMContentLoaded', loadValine, false);
-}</script><script src="/js/utils.js?v=1.5.4"></script><script src="/js/stun-boot.js?v=1.5.4"></script><script src="/js/scroll.js?v=1.5.4"></script><script src="/js/header.js?v=1.5.4"></script><script src="/js/sidebar.js?v=1.5.4"></script></body></html>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

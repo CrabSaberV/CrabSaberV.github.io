@@ -1,60 +1,248 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="CrabSaberV, CrabSaberV is here"><meta name="description" content="This is my presonal blog. Here will be conplete.Let's look forward!"><title>String中的三种空判断的区别 | CrabSaberV is here</title><link rel="icon" href="/assets/icons/crab_16x16.png?v=1.5.4" type="image/png" sizes="16x16"><link rel="icon" href="/assets/icons/crab_32x32.png?v=1.5.4" type="image/png" sizes="32x32"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=1.5.4"><script>var Stun = window.Stun || {};
-var CONFIG = {
-  root: '/',
-  algolia: undefined,
-  fontawesome: {"prefix":"fa"},
-  sidebar: {"offsetTop":"30px","renderTocDepth":4},
-  header: {"scrollDownIcon":false},
-  back2top: {"enable":true},
-  reward: false,
-  fancybox: false,
-  zoom_image: {"enable":true,"mask_color":"rgba(0,0,0,0.6)"},
-  gallery_waterfall: undefined,
-  lazyload: undefined,
-  pjax: undefined,
-  external_link: {"icon":{"enable":true,"name":"external-link"}},
-  shortcuts: {"switch_post":false},
-  prompt: {"copy_success":"复制成功","copy_error":"复制失败","creative_commons":"知识共享","copy_button":"点击复制"}
-};
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav"><div class="header-nav-inner"><div class="header-nav-btn fa fa-bars"></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/"><i class="fa fa-home"></i>首页</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/archives/"><i class="fa fa-folder-open"></i>归档</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/categories/"><i class="fa fa-th"></i>分类</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/tags/"><i class="fa fa-tags"></i>标签</a></div></div></div></nav><div class="header-info"><div class="header-info-inner"><div class="header-info-title">CrabSaberV is here</div><div class="header-info-subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content"><div class="post"><header class="post-header"><h1 class="post-header-title">String中的三种空判断的区别</h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2019-11-07</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2019-11-28</span></span><span class="leancloud_visitors" id="/2019/11/07/String%E4%B8%AD%E7%9A%84%E4%B8%89%E7%A7%8D%E7%A9%BA%E5%88%A4%E6%96%AD%E7%9A%84%E5%8C%BA%E5%88%AB/" data-flag-title="String中的三种空判断的区别"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span><span class="post-header-meta-reading-count"><i class="fa fa-eye"></i><span>阅读次数 </span><span id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><html><head></head><body><h2 id="前言"><span class="heading-link">前言</span></h2><p>我们在程序编写中常常会用到 String 是否为空的判断。<br>一般有三种判断字符串为空的判断方式:</p>
-<figure class="highlight java"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String a;</span><br><span class="line"><span class="comment">// 三种判断空的方法</span></span><br><span class="line">a.equals(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(a==<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">a.isEmpty();</span><br></pre></td></tr></tbody></table></div></figure>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言我们在程序编写中常常会用到 String 是否为空的判断。一般有三种判断字符串为空的判断方式: 1234567String a;&#x2F;&#x2F; 三种判断空的方法a.equals(&quot;&quot;);if(a&#x3D;&#x3D;null);a.isEmpty(); 然而，也是最近使用中发现这三种方法也不是任何情况下可以随便用的。接下来，我会简单提一提。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="String中的三种空判断的区别">
+<meta property="og:url" content="https://crabsaberv.github.io/2019/11/07/String%E4%B8%AD%E7%9A%84%E4%B8%89%E7%A7%8D%E7%A9%BA%E5%88%A4%E6%96%AD%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="前言我们在程序编写中常常会用到 String 是否为空的判断。一般有三种判断字符串为空的判断方式: 1234567String a;&#x2F;&#x2F; 三种判断空的方法a.equals(&quot;&quot;);if(a&#x3D;&#x3D;null);a.isEmpty(); 然而，也是最近使用中发现这三种方法也不是任何情况下可以随便用的。接下来，我会简单提一提。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-07T10:40:20.000Z">
+<meta property="article:modified_time" content="2019-11-28T14:56:15.242Z">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="细节">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://crabsaberv.github.io/2019/11/07/String%E4%B8%AD%E7%9A%84%E4%B8%89%E7%A7%8D%E7%A9%BA%E5%88%A4%E6%96%AD%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>String中的三种空判断的区别 | CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2019/11/07/String%E4%B8%AD%E7%9A%84%E4%B8%89%E7%A7%8D%E7%A9%BA%E5%88%A4%E6%96%AD%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          String中的三种空判断的区别
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-07 18:40:20" itemprop="dateCreated datePublished" datetime="2019-11-07T18:40:20+08:00">2019-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-28 22:56:15" itemprop="dateModified" datetime="2019-11-28T22:56:15+08:00">2019-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>我们在程序编写中常常会用到 String 是否为空的判断。<br>一般有三种判断字符串为空的判断方式:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">String a;</span><br><span class="line"><span class="comment">// 三种判断空的方法</span></span><br><span class="line">a.equals(<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(a==<span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">a.isEmpty();</span><br></pre></td></tr></table></figure>
 <p>然而，也是最近使用中发现这三种方法也不是任何情况下可以随便用的。<br>接下来，我会简单提一提。</p>
 <a id="more"></a>
 
-<h2 id="分析"><span class="heading-link">分析</span></h2><h3 id="1-比较"><span class="heading-link">1. == 比较</span></h3><p><code>==</code>可以说我们是再熟悉不过了。但我们往往会忽略其真正的含义。</p>
-<h4 id="对于-Java-基本类型而言"><span class="heading-link">对于 Java 基本类型而言</span></h4><p>Java 的基本类型这里简单提一下有：<code>byte，long，int，short，float，double，char, boolean</code>。<br>由于这些基本类型作为变量都存储的是“值”，因此 <code>==</code> 对于基本类型而言就是 <strong>按值比较</strong> 。<br>例如：</p>
-<figure class="highlight java"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">if</span>(a == b)</span><br><span class="line">	System.out.println(<span class="string">"true"</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	System.out.println(<span class="string">"false"</span>);</span><br></pre></td></tr></tbody></table></div></figure>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><h3 id="1-比较"><a href="#1-比较" class="headerlink" title="1. == 比较"></a>1. == 比较</h3><p><code>==</code>可以说我们是再熟悉不过了。但我们往往会忽略其真正的含义。</p>
+<h4 id="对于-Java-基本类型而言"><a href="#对于-Java-基本类型而言" class="headerlink" title="对于 Java 基本类型而言"></a>对于 Java 基本类型而言</h4><p>Java 的基本类型这里简单提一下有：<code>byte，long，int，short，float，double，char, boolean</code>。<br>由于这些基本类型作为变量都存储的是“值”，因此 <code>==</code> 对于基本类型而言就是 <strong>按值比较</strong> 。<br>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">int</span> b = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">if</span>(a == b)</span><br><span class="line">	System.out.println(<span class="string">"true"</span>);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">	System.out.println(<span class="string">"false"</span>);</span><br></pre></td></tr></table></figure>
 <p>运行结果：</p>
-<figure class="highlight java"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">true</span></span><br></pre></td></tr></tbody></table></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">true</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="对于-Java-非基本类型"><span class="heading-link">对于 Java 非基本类型</span></h4><p>除了八个基本类型外，剩下的都是非基本类型（例如：<code>String</code>）。</p>
+<h4 id="对于-Java-非基本类型"><a href="#对于-Java-非基本类型" class="headerlink" title="对于 Java 非基本类型"></a>对于 Java 非基本类型</h4><p>除了八个基本类型外，剩下的都是非基本类型（例如：<code>String</code>）。</p>
 <p>非基本类型使用 <code>==</code> 则是 <strong>引用比较</strong>，简单的说就是比较内存地址。</p>
 <p>例如：</p>
-<figure class="highlight java"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">String b = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">String c = <span class="string">"hello"</span>;</span><br><span class="line">String d = <span class="string">"hello"</span>;</span><br><span class="line">		</span><br><span class="line"><span class="keyword">if</span> (a == b) {</span><br><span class="line">	System.out.println(<span class="string">"a==b: true"</span>);</span><br><span class="line">}<span class="keyword">else</span> {</span><br><span class="line">	System.out.println(<span class="string">"a==b: false"</span>);</span><br><span class="line">}</span><br><span class="line">		</span><br><span class="line"><span class="keyword">if</span> (a == c) {</span><br><span class="line">	System.out.println(<span class="string">"a==c: true"</span>);</span><br><span class="line">}<span class="keyword">else</span> {</span><br><span class="line">	System.out.println(<span class="string">"a==c: false"</span>);</span><br><span class="line">}</span><br><span class="line">		</span><br><span class="line"><span class="keyword">if</span> (c == d) {</span><br><span class="line">	System.out.println(<span class="string">"c==d: true"</span>);</span><br><span class="line">}<span class="keyword">else</span> {</span><br><span class="line">	System.out.println(<span class="string">"c==d: false"</span>);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">String a = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">String b = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">String c = <span class="string">"hello"</span>;</span><br><span class="line">String d = <span class="string">"hello"</span>;</span><br><span class="line">		</span><br><span class="line"><span class="keyword">if</span> (a == b) &#123;</span><br><span class="line">	System.out.println(<span class="string">"a==b: true"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">	System.out.println(<span class="string">"a==b: false"</span>);</span><br><span class="line">&#125;</span><br><span class="line">		</span><br><span class="line"><span class="keyword">if</span> (a == c) &#123;</span><br><span class="line">	System.out.println(<span class="string">"a==c: true"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">	System.out.println(<span class="string">"a==c: false"</span>);</span><br><span class="line">&#125;</span><br><span class="line">		</span><br><span class="line"><span class="keyword">if</span> (c == d) &#123;</span><br><span class="line">	System.out.println(<span class="string">"c==d: true"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">	System.out.println(<span class="string">"c==d: false"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>运行结果：</p>
-<figure class="highlight plain"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a==b: false</span><br><span class="line">a==c: false</span><br><span class="line">c==d: true</span><br></pre></td></tr></tbody></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a&#x3D;&#x3D;b: false</span><br><span class="line">a&#x3D;&#x3D;c: false</span><br><span class="line">c&#x3D;&#x3D;d: true</span><br></pre></td></tr></table></figure>
 
 <p>解释：</p>
 <ul>
 <li><code>a==b</code> 由于 a 与 b 都是创建的各自的对象，因此其所对应的内存地址是不同的，使用 <code>==</code>的结果就是 <code>false</code></li>
 <li><code>a==c</code> 其中 c 的内容和 a 相同，但是 a 与 c 指向的 字符串池 是不同的空间，也就是内存地址也不同，因此结果为 <code>fasle</code></li>
-<li><code>c==d</code> c 与 d 使用同样的 <code>="hello"</code>的方式创建，其实关系到 Java 的 String 的一个机制，c 创建一个字符串池内容是 <code>"hello"</code> ,使用赋值符号<code>=</code>,就是 c 指向了这个地址。对于相同的内容，Java 不会重复开创一个空间，因此 b 同样也指向同一个 引用地址 。因此使用 <code>==</code> 结果为 <code>true</code></li>
+<li><code>c==d</code> c 与 d 使用同样的 <code>=&quot;hello&quot;</code>的方式创建，其实关系到 Java 的 String 的一个机制，c 创建一个字符串池内容是 <code>&quot;hello&quot;</code> ,使用赋值符号<code>=</code>,就是 c 指向了这个地址。对于相同的内容，Java 不会重复开创一个空间，因此 b 同样也指向同一个 引用地址 。因此使用 <code>==</code> 结果为 <code>true</code></li>
 </ul>
-<h3 id="2-equals-方法"><span class="heading-link">2. equals() 方法</span></h3><p>我们最常用的字符串比较方法就是 <code>String.equals()</code> 了。<br><code>equals()</code> 其实是定义在 Object 中的方法，因此 <code>equals()</code> 可以比较所有 Object 类及其子类。</p>
+<h3 id="2-equals-方法"><a href="#2-equals-方法" class="headerlink" title="2. equals() 方法"></a>2. equals() 方法</h3><p>我们最常用的字符串比较方法就是 <code>String.equals()</code> 了。<br><code>equals()</code> 其实是定义在 Object 中的方法，因此 <code>equals()</code> 可以比较所有 Object 类及其子类。</p>
 <p>看看API 中对 String 中的 <code>equals()</code> 的解释</p>
-<figure class="highlight plain"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">equals</span><br><span class="line">public boolean equals(Object anObject)</span><br><span class="line"></span><br><span class="line">Compares this string to the specified object. The result is true if and only if the argument is not null and is a String object that represents the same sequence of characters as thisobject.</span><br><span class="line">Overrides:</span><br><span class="line">	equals in class Object</span><br><span class="line">Parameters:</span><br><span class="line">	anObject - The object to compare this String against</span><br><span class="line">Returns:true </span><br><span class="line">	if the given object represents a Stringequivalent to this string, false </span><br><span class="line">otherwiseSee Also:</span><br><span class="line">	compareTo(String), equalsIgnoreCase(String)</span><br></pre></td></tr></tbody></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">equals</span><br><span class="line">public boolean equals(Object anObject)</span><br><span class="line"></span><br><span class="line">Compares this string to the specified object. The result is true if and only if the argument is not null and is a String object that represents the same sequence of characters as thisobject.</span><br><span class="line">Overrides:</span><br><span class="line">	equals in class Object</span><br><span class="line">Parameters:</span><br><span class="line">	anObject - The object to compare this String against</span><br><span class="line">Returns:true </span><br><span class="line">	if the given object represents a Stringequivalent to this string, false </span><br><span class="line">otherwiseSee Also:</span><br><span class="line">	compareTo(String), equalsIgnoreCase(String)</span><br></pre></td></tr></table></figure>
 
 <p>能看出来 <code>equals()</code> 的参数类型是 <code>object</code> ，解释中说将字符串进行比较。因此<code>equals()</code>比较过程中，会比较其类型是否相符，只有在相符的类型下，才会去比较其内容。</p>
 <p>更重要一点是，<strong>参数必须是一个 <code>String</code>  对象且非空。</strong>如果这两点有一点不满足，则都会是<code>false</code> 。况且如果字符串为 <code>null</code> 是不能使用 <code>equals()</code> 或者是非法的，会出现空指针异常。</p>
 <blockquote>
 <p>顺便一提，<code>equals()</code> 其内部就是利用 <code>==</code> 实现的。</p>
 </blockquote>
-<h3 id="3-isEmpty-方法"><span class="heading-link">3. isEmpty() 方法</span></h3><p>一般也能使用 <code>isEmpty()</code>来判断字符串是否为空。</p>
+<h3 id="3-isEmpty-方法"><a href="#3-isEmpty-方法" class="headerlink" title="3. isEmpty() 方法"></a>3. isEmpty() 方法</h3><p>一般也能使用 <code>isEmpty()</code>来判断字符串是否为空。</p>
 <p>这里就简单说一下这个方法。<br>看看API的解释：</p>
-<figure class="highlight plain"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">isEmpty</span><br><span class="line">public boolean isEmpty()</span><br><span class="line"></span><br><span class="line">Returns true if, and only if, length() is 0.</span><br><span class="line">Returns:true if length() is 0, otherwise false</span><br></pre></td></tr></tbody></table></div></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">isEmpty</span><br><span class="line">public boolean isEmpty()</span><br><span class="line"></span><br><span class="line">Returns true if, and only if, length() is 0.</span><br><span class="line">Returns:true if length() is 0, otherwise false</span><br></pre></td></tr></table></figure>
 <p>可以看出，<code>isEmpty()</code>是判断字符串的内容是否为空的。其判断依据是 <code>length() is 0</code>，字符串长度为0 则返回 <code>true</code>。</p>
-<h2 id="总结"><span class="heading-link">总结</span></h2><p>看来以上的详细解释，如果还不了解其直接的差距，那么只能由我简单总结一下。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>看来以上的详细解释，如果还不了解其直接的差距，那么只能由我简单总结一下。</p>
 <p><strong>就 String 字符串为空 判断而言</strong></p>
 <ul>
 <li><code>==</code> 比较 的是 字符串变量的指向的引用/内存地址</li>
@@ -64,37 +252,206 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></he
 <p><strong>所以根据使用情况来总结：</strong></p>
 <ul>
 <li><code>==null</code> 是 String 没有分配空间，仅仅只有声明而已。<br>例如：<code>String a;</code> 或 <code>String a = null</code></li>
-<li><code>equals("")</code> 是 String 已分配空间,内容为空</li>
+<li><code>equals(&quot;&quot;)</code> 是 String 已分配空间,内容为空</li>
 <li><code>isEmpty()</code> 是 String 已分配空间，内容长度为0</li>
 <li><code>String a = new String();</code> 创建的对象，是内容为 空 ，但分配了空间。</li>
 </ul>
 <p>今后判断字符串是否为空，就根据具体可能的情况 使用 合理的判断方式。</p>
-</body></html></div><footer class="post-footer"><div class="post-end"><span>------ </span><span>本文结束，感谢您的阅读</span><span> ------</span></div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-author-name">本文作者: </span><span class="post-copyright-author-value"><a href="https://crabsaberv.github.io">CrabSaberV</a></span></div><div class="post-copyright-link"><span class="post-copyright-link-name">本文链接: </span><span class="post-copyright-link-value"><a href="https://crabsaberv.github.io/2019/11/07/String%E4%B8%AD%E7%9A%84%E4%B8%89%E7%A7%8D%E7%A9%BA%E5%88%A4%E6%96%AD%E7%9A%84%E5%8C%BA%E5%88%AB/">https://crabsaberv.github.io/2019/11/07/String%E4%B8%AD%E7%9A%84%E4%B8%89%E7%A7%8D%E7%A9%BA%E5%88%A4%E6%96%AD%E7%9A%84%E5%8C%BA%E5%88%AB/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-notice-name">版权声明: </span><span class="post-copyright-notice-value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><i class="post-tags-item__i fa fa-tags"></i><a class="post-tags-item__a" href="https://crabsaberv.github.io/tags/Java/">Java</a></span><span class="post-tags-item"><i class="post-tags-item__i fa fa-tags"></i><a class="post-tags-item__a" href="https://crabsaberv.github.io/tags/%E7%BB%86%E8%8A%82/">细节</a></span></div><nav class="paginator"><div class="paginator-post"><div class="paginator-post-prev"><a class="paginator-post-prev__a" href="/2019/11/11/DataSource%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8/"><i class="fa fa-chevron-left"></i><span>DataSource简单了解以及使用</span></a></div><div class="paginator-post-next"><a class="paginator-post-next__a" href="/2019/11/01/java-%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/"><span>Java-线程笔记</span><i class="fa fa-chevron-right"></i></a></div></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><aside class="sidebar" id="sidebar"><div class="sidebar-inner"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分析"><span class="toc-number">2.</span> <span class="toc-text">分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-比较"><span class="toc-number">2.1.</span> <span class="toc-text">1. &#x3D;&#x3D; 比较</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对于-Java-基本类型而言"><span class="toc-number">2.1.1.</span> <span class="toc-text">对于 Java 基本类型而言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对于-Java-非基本类型"><span class="toc-number">2.1.2.</span> <span class="toc-text">对于 Java 非基本类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-equals-方法"><span class="toc-number">2.2.</span> <span class="toc-text">2. equals() 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-isEmpty-方法"><span class="toc-number">2.3.</span> <span class="toc-text">3. isEmpty() 方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">3.</span> <span class="toc-text">总结</span></a></li></ol></div></section><!-- ov = overview --><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/assets/icons/crab_192x192.png" alt="avatar"></div><p class="sidebar-ov-author__p">CrabSaberV</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social__item" href="https://github.com/CrabSaberV" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><i class="sidebar-ov-social__item--icon fa fa-github"></i></a><a class="sidebar-ov-social__item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><i class="sidebar-ov-social__item--icon fa fa-google"></i></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state__a posts" href="/archives/"><div class="sidebar-ov-state__a--count">33</div><div class="sidebar-ov-state__a--name">归档</div></a><a class="sidebar-ov-state__a categories" href="/categories/"><div class="sidebar-ov-state__a--count">8</div><div class="sidebar-ov-state__a--name">分类</div></a><a class="sidebar-ov-state__a tags" href="/tags/"><div class="sidebar-ov-state__a--count">34</div><div class="sidebar-ov-state__a--name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg" alt="知识共享"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span>你已阅读了 </span><span class="sidebar-reading-info-num">0</span></div><div class="sidebar-reading-line"></div></div></div></aside><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>&copy; 2020</span><span class="fa fa-heart footer-icon"></span><span>CrabSaberV.</span></div><div><span>由 <a href="http://hexo.io/" title="hexo" target="_blank" rel="noopener">hexo</a> 强力驱动</span><span> v4.2.0.</span><span class="separator">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="stun" target="_blank" rel="noopener">stun</a></span><span> v1.5.4.</span></div><div class="busuanzi"><span class="busuanzi-site_uv"><i class="fa fa-user"></i><span>访问人数 </span><span id="busuanzi_value_site_uv"></span></span><span class="separator">|</span><span class="busuanzi-site_pv"><i class="fa fa-eye"></i><span>浏览总量 </span><span id="busuanzi_value_site_pv"></span></span><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script></div></div></footer><div class="loading-bar" id="loading-bar"><div class="progress"></div></div><div class="back2top" id="back2top"><i class="back2top-icon fa fa-rocket"></i></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="60" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
-  var GUEST_INFO = ['nick', 'mail', 'link'];
-  var guest_info = 'nick,mail,link';
 
-  guest_info = guest_info.split(',').filter(function(item) {
-    return GUEST_INFO.indexOf(item) > -1;
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E7%BB%86%E8%8A%82/" rel="tag"># 细节</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/01/java-%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="prev" title="Java-线程笔记">
+      <i class="fa fa-chevron-left"></i> Java-线程笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/11/DataSource%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8/" rel="next" title="DataSource简单了解以及使用">
+      DataSource简单了解以及使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
   });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
-  new Valine({
-    el: '#valine-container',
-    appId: 'NP0g42WlTUjy1etGrM34ROCU-gzGzoHsz',
-    appKey: 'g5YhiW7wlofb6Gcvbh9Nh7uG',
-    notify: true,
-    verify: true,
-    placeholder: 'I need Your Comment',
-    avatar: 'mp',
-    meta: guest_info,
-    pageSize: '10' || 10,
-    visitor: true,
-    recordIP: true,
-    lang: 'zh-cn' || 'zh-cn'
-  });
-}
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-if (false) {
-  loadValine();
-} else {
-  window.addEventListener('DOMContentLoaded', loadValine, false);
-}</script><script src="/js/utils.js?v=1.5.4"></script><script src="/js/stun-boot.js?v=1.5.4"></script><script src="/js/scroll.js?v=1.5.4"></script><script src="/js/header.js?v=1.5.4"></script><script src="/js/sidebar.js?v=1.5.4"></script></body></html>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析"><span class="nav-number">2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-比较"><span class="nav-number">2.1.</span> <span class="nav-text">1. &#x3D;&#x3D; 比较</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对于-Java-基本类型而言"><span class="nav-number">2.1.1.</span> <span class="nav-text">对于 Java 基本类型而言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于-Java-非基本类型"><span class="nav-number">2.1.2.</span> <span class="nav-text">对于 Java 非基本类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-equals-方法"><span class="nav-number">2.2.</span> <span class="nav-text">2. equals() 方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-isEmpty-方法"><span class="nav-number">2.3.</span> <span class="nav-text">3. isEmpty() 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

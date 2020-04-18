@@ -1,35 +1,223 @@
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><meta name="keywords" content="CrabSaberV, CrabSaberV is here"><meta name="description" content="This is my presonal blog. Here will be conplete.Let's look forward!"><title>Tomcat 9.0 配置数据源笔记 | CrabSaberV is here</title><link rel="icon" href="/assets/icons/crab_16x16.png?v=1.5.4" type="image/png" sizes="16x16"><link rel="icon" href="/assets/icons/crab_32x32.png?v=1.5.4" type="image/png" sizes="32x32"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=1.5.4"><script>var Stun = window.Stun || {};
-var CONFIG = {
-  root: '/',
-  algolia: undefined,
-  fontawesome: {"prefix":"fa"},
-  sidebar: {"offsetTop":"30px","renderTocDepth":4},
-  header: {"scrollDownIcon":false},
-  back2top: {"enable":true},
-  reward: false,
-  fancybox: false,
-  zoom_image: {"enable":true,"mask_color":"rgba(0,0,0,0.6)"},
-  gallery_waterfall: undefined,
-  lazyload: undefined,
-  pjax: undefined,
-  external_link: {"icon":{"enable":true,"name":"external-link"}},
-  shortcuts: {"switch_post":false},
-  prompt: {"copy_success":"复制成功","copy_error":"复制失败","creative_commons":"知识共享","copy_button":"点击复制"}
-};
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav"><div class="header-nav-inner"><div class="header-nav-btn fa fa-bars"></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/"><i class="fa fa-home"></i>首页</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/archives/"><i class="fa fa-folder-open"></i>归档</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/categories/"><i class="fa fa-th"></i>分类</a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__a" href="/tags/"><i class="fa fa-tags"></i>标签</a></div></div></div></nav><div class="header-info"><div class="header-info-inner"><div class="header-info-title">CrabSaberV is here</div><div class="header-info-subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content"><div class="post"><header class="post-header"><h1 class="post-header-title">Tomcat 9.0 配置数据源笔记</h1><div class="post-header-meta"><span class="post-header-meta-create"><i class="fa fa-calendar-o"></i><span>发表于 </span><span>2019-11-14</span></span><span class="post-header-meta-update"><i class="fa fa-calendar-check-o"></i><span>更新于 </span><span>2019-11-28</span></span><span class="leancloud_visitors" id="/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/" data-flag-title="Tomcat 9.0 配置数据源笔记"><i class="fa fa-eye"></i><span>阅读次数 </span><span class="leancloud-visitors-count"></span></span><span class="post-header-meta-reading-count"><i class="fa fa-eye"></i><span>阅读次数 </span><span id="busuanzi_value_page_pv"></span></span></div></header><div class="post-body"><html><head></head><body><blockquote>
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="这是一个初级的笔记，我们利用 Tomcat 来配置数据源  前言本篇将会简单讲解 Tomcat 数据源的配置，以及连接池配合数据源的实现连接数据库的方法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tomcat 9.0 配置数据源笔记">
+<meta property="og:url" content="https://crabsaberv.github.io/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="这是一个初级的笔记，我们利用 Tomcat 来配置数据源  前言本篇将会简单讲解 Tomcat 数据源的配置，以及连接池配合数据源的实现连接数据库的方法。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-11-14T04:35:23.000Z">
+<meta property="article:modified_time" content="2019-11-28T14:47:28.541Z">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="Tomcat">
+<meta property="article:tag" content="数据源">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://crabsaberv.github.io/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Tomcat 9.0 配置数据源笔记 | CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Tomcat 9.0 配置数据源笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-11-14 12:35:23" itemprop="dateCreated datePublished" datetime="2019-11-14T12:35:23+08:00">2019-11-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-28 22:47:28" itemprop="dateModified" datetime="2019-11-28T22:47:28+08:00">2019-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Web/" itemprop="url" rel="index"><span itemprop="name">Java Web</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
 <p>这是一个初级的笔记，我们利用 Tomcat 来配置数据源</p>
 </blockquote>
-<h2 id="前言"><span class="heading-link">前言</span></h2><p>本篇将会简单讲解 Tomcat 数据源的配置，以及连接池配合数据源的实现连接数据库的方法。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇将会简单讲解 Tomcat 数据源的配置，以及连接池配合数据源的实现连接数据库的方法。</p>
 <a id="more"></a>
 
-<h2 id="准备前再了解些"><span class="heading-link">准备前再了解些</span></h2><p>自从有了 JNDI容器 频繁连接数据库也将不再变得麻烦，而我们可以通过 配置文件 的方式来快速连接数据库，甚至可以连接多个数据库。<br>那么如果开发中，数据库发生了改变，那么使用 JNBI容器 就能动态的进行变更，数据源的使用，就是JNDI 的思想。</p>
+<h2 id="准备前再了解些"><a href="#准备前再了解些" class="headerlink" title="准备前再了解些"></a>准备前再了解些</h2><p>自从有了 JNDI容器 频繁连接数据库也将不再变得麻烦，而我们可以通过 配置文件 的方式来快速连接数据库，甚至可以连接多个数据库。<br>那么如果开发中，数据库发生了改变，那么使用 JNBI容器 就能动态的进行变更，数据源的使用，就是JNDI 的思想。</p>
 <p>我们可以在 tomcat 中创建 数据源，那么我们必须先安装配置好 Tomcat </p>
 <blockquote>
 <p>（这里就不详细说了，但需要注意，将数据库的连接包jar，放到 tomcat 的 <code>/lib/</code>之中，就不需要每次在项目中要导入这些包了）。</p>
 </blockquote>
 <p>本篇我所使用的是 Tomcat 9.0 ，可能我不会去配置 web.xml ，在8.0以下的可能需要配置 web.xml ，我会简单提一下。</p>
-<h2 id="创建-配置-Context-xml"><span class="heading-link">创建/配置 Context.xml</span></h2><p>先说说 Context ——上下文，这个“上下文”解释不太好理解，那么可以简单的认为 Context 就是读取配置文件的一个载体，将配置文件读取后以某种格式存储起来， JDNI 的配置信息，就是利用Context 来获取的，可以在这里认为 是可以用来配置 JNDI容器的存在。</p>
+<h2 id="创建-配置-Context-xml"><a href="#创建-配置-Context-xml" class="headerlink" title="创建/配置 Context.xml"></a>创建/配置 Context.xml</h2><p>先说说 Context ——上下文，这个“上下文”解释不太好理解，那么可以简单的认为 Context 就是读取配置文件的一个载体，将配置文件读取后以某种格式存储起来， JDNI 的配置信息，就是利用Context 来获取的，可以在这里认为 是可以用来配置 JNDI容器的存在。</p>
 <p>一般在 Tomcat 的安装目录中 <code>/conf/</code> 下会有 <code>Context.xml</code> 文件，此文件也是我们需要配置 的 数据源 的文件，也是 JNDI 的配置。</p>
 <p>但Context的作用范围有三种：</p>
 <ul>
@@ -38,56 +226,225 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 4.2.0"></he
 <li>webapp 范围 ———— 在项目中 <code>webapp/META-INF/contxt.xml</code> </li>
 </ul>
 <p>根据自己的情况，创建不同的位置，这里我使用第三种方式配置。</p>
-<h3 id="Context-配置"><span class="heading-link">Context 配置</span></h3><p>在对应的配置文件中 按如下格式写入：</p>
-<figure class="highlight xml"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><!--?xml version="1.0" encoding="UTF-8"?--></span> </span><br><span class="line"><span class="tag"><<span class="name">Context</span> <span class="attr">reloadable</span>=<span class="string">"true"</span>></span></span><br><span class="line"></span><br><span class="line"> <span class="comment"><!-- 其中name指定数据源在容器中的JNDI名</span></span><br><span class="line"><span class="comment">    driverClassName指定连接数据库的驱动</span></span><br><span class="line"><span class="comment">    url指定数据库服务的URL</span></span><br><span class="line"><span class="comment">    username指定连接数据库的用户名</span></span><br><span class="line"><span class="comment">    password指定连接数据库的密码</span></span><br><span class="line"><span class="comment">    maxActive指定数据源最大活动连接数</span></span><br><span class="line"><span class="comment">    maxIdle指定数据池中最大的空闲连接数</span></span><br><span class="line"><span class="comment">    maxWait指定数据池中最大等待获取连接的客户端</span></span><br><span class="line"><span class="comment">    --></span></span><br><span class="line">    </span><br><span class="line">    <span class="tag"><<span class="name">Resource</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"jdbc/TestDS1"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"javax.sql.DataSource"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">maxActive</span>=<span class="string">"100"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">maxIdle</span>=<span class="string">"10"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">maxWait</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">username</span>=<span class="string">"mysqluser"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">password</span>=<span class="string">"123456"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">driverClassName</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">url</span>=<span class="string">"jdbc:mysql://localhost:3306/contexttest1?serverTimezone=UTC"</span></span></span><br><span class="line"><span class="tag">    /></span></span><br><span class="line">    </span><br><span class="line"><span class="tag"><!--<span class="name"-->Context</span>></span><br></pre></td></tr></tbody></table></div></figure>
+<h3 id="Context-配置"><a href="#Context-配置" class="headerlink" title="Context 配置"></a>Context 配置</h3><p>在对应的配置文件中 按如下格式写入：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">Context</span> <span class="attr">reloadable</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">&lt;!-- 其中name指定数据源在容器中的JNDI名</span></span><br><span class="line"><span class="comment">    driverClassName指定连接数据库的驱动</span></span><br><span class="line"><span class="comment">    url指定数据库服务的URL</span></span><br><span class="line"><span class="comment">    username指定连接数据库的用户名</span></span><br><span class="line"><span class="comment">    password指定连接数据库的密码</span></span><br><span class="line"><span class="comment">    maxActive指定数据源最大活动连接数</span></span><br><span class="line"><span class="comment">    maxIdle指定数据池中最大的空闲连接数</span></span><br><span class="line"><span class="comment">    maxWait指定数据池中最大等待获取连接的客户端</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">Resource</span> </span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">"jdbc/TestDS1"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">"javax.sql.DataSource"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">maxActive</span>=<span class="string">"100"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">maxIdle</span>=<span class="string">"10"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">maxWait</span>=<span class="string">"1000"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">username</span>=<span class="string">"mysqluser"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">password</span>=<span class="string">"123456"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">driverClassName</span>=<span class="string">"com.mysql.cj.jdbc.Driver"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">url</span>=<span class="string">"jdbc:mysql://localhost:3306/contexttest1?serverTimezone=UTC"</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <ul>
-<li>第一行的 <code><!--?xml version="1.0" encoding="UTF-8"?--></code> 在第三种配置目录（<code>webapp/META-INF/contxt.xml</code>）下是必填的。</li>
-<li>注意由于是局部数据源，因此给 <code><context></context></code> 加入 <code>path</code> 属性，如：<code><context path="/项目名"></context></code> </li>
+<li>第一行的 <code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</code> 在第三种配置目录（<code>webapp/META-INF/contxt.xml</code>）下是必填的。</li>
+<li>注意由于是局部数据源，因此给 <code>&lt;Context&gt;</code> 加入 <code>path</code> 属性，如：<code>&lt;Context path=&quot;/项目名&quot;&gt;</code> </li>
 <li>其中 属性<code>name</code> 填的内容，会是将来我们创建容器是，查找此配置的依据</li>
 <li>与 数据库 连接相关的配置属性，一定要保证是正确的。</li>
-<li>大体格式是 :<figure class="highlight xml"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag"><<span class="name">Context</span>></span></span><br><span class="line"> <span class="tag"><<span class="name">Resource</span> <span class="attr">...</span> /></span>  <span class="comment"><!--属性就写在 ... 中--></span> </span><br><span class="line"><span class="tag"><!--<span class="name"-->Context</span>></span><br></pre></td></tr></tbody></table></div></figure>
-<h3 id="创建容器"><span class="heading-link">创建容器</span></h3>配置文件创建完后，接下来就是创建 JNDI容器，并连接数据库了。</li>
+<li>大体格式是 :<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">Resource</span> <span class="attr">...</span> /&gt;</span>  <span class="comment">&lt;!--属性就写在 ... 中--&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="创建容器"><a href="#创建容器" class="headerlink" title="创建容器"></a>创建容器</h3>配置文件创建完后，接下来就是创建 JNDI容器，并连接数据库了。</li>
 </ul>
 <p>连接的代码是 (代码可以写在 jsp 或 java类 中都行)</p>
-<figure class="highlight java"><div class="table-container"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Context ctx = <span class="keyword">new</span> InitialContext(); <span class="comment">// 创建初始化 context</span></span><br><span class="line">Context envCtx = (Context)ctx.lookup(<span class="string">"java:comp/env"</span>); <span class="comment">// 创建JNDI容器</span></span><br><span class="line">DataSource ds = (DataSource)envCtx.lookup(<span class="string">"jdbc/TestDS1"</span>);<span class="comment">// 获取数据源，查找已绑定的对象</span></span><br><span class="line">Connection conn = ds.getConnection();</span><br></pre></td></tr></tbody></table></div></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Context ctx = <span class="keyword">new</span> InitialContext(); <span class="comment">// 创建初始化 context</span></span><br><span class="line">Context envCtx = (Context)ctx.lookup(<span class="string">"java:comp/env"</span>); <span class="comment">// 创建JNDI容器</span></span><br><span class="line">DataSource ds = (DataSource)envCtx.lookup(<span class="string">"jdbc/TestDS1"</span>);<span class="comment">// 获取数据源，查找已绑定的对象</span></span><br><span class="line">Connection conn = ds.getConnection();</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p>需要导入的包有 ：<br><code>java.sql.*</code><br><code>javax.sql.*</code><br><code>javax.naming.*</code></p>
 </li>
 <li><p>可以发现，其实前3行 就是 JNDI 的API ,而第四行是 JDBC 的连接。 </p>
 </li>
-<li><p>其中 第二行 和 第三行 可以合并 写为<br><code>DataSource ds = (DataSource)ctx.lookup("java:comp/env/jdbc/TestDS1");</code></p>
+<li><p>其中 第二行 和 第三行 可以合并 写为<br><code>DataSource ds = (DataSource)ctx.lookup(&quot;java:comp/env/jdbc/TestDS1&quot;);</code></p>
 </li>
 <li><p>应用可以通过这个初始化的Context经由这个目录树来定位它所需要的资源或对象。InitialContext在网页应用程序初始化时被设置，用来支持网页应用程序组件。所有的入口和资源都放在JNDI命名空间里的<code>java:comp/env</code>段里。<br>这样，就是实现了利用 数据源 连接数据库，剩下的操作就是 我们常用的数据库的操作。</p>
 </li>
 </ul>
-<h2 id="总结"><span class="heading-link">总结</span></h2><p>由于 数据源 更加简单，更加高效，在日常我们应该更多使用数据源的方式去连接数据库。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>由于 数据源 更加简单，更加高效，在日常我们应该更多使用数据源的方式去连接数据库。</p>
 <p>数据库用完后，记得将连接断开<code>conn.close()</code>。</p>
-</body></html></div><footer class="post-footer"><div class="post-end"><span>------ </span><span>本文结束，感谢您的阅读</span><span> ------</span></div><div class="post-copyright"><div class="post-copyright-author"><span class="post-copyright-author-name">本文作者: </span><span class="post-copyright-author-value"><a href="https://crabsaberv.github.io">CrabSaberV</a></span></div><div class="post-copyright-link"><span class="post-copyright-link-name">本文链接: </span><span class="post-copyright-link-value"><a href="https://crabsaberv.github.io/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/">https://crabsaberv.github.io/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/</a></span></div><div class="post-copyright-notice"><span class="post-copyright-notice-name">版权声明: </span><span class="post-copyright-notice-value">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> 许可协议。转载请注明出处！</span></div></div><div class="post-tags"><span class="post-tags-item"><i class="post-tags-item__i fa fa-tags"></i><a class="post-tags-item__a" href="https://crabsaberv.github.io/tags/Tomcat/">Tomcat</a></span><span class="post-tags-item"><i class="post-tags-item__i fa fa-tags"></i><a class="post-tags-item__a" href="https://crabsaberv.github.io/tags/%E6%95%B0%E6%8D%AE%E6%BA%90/">数据源</a></span></div><nav class="paginator"><div class="paginator-post"><div class="paginator-post-prev"><a class="paginator-post-prev__a" href="/2019/11/25/session%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"><i class="fa fa-chevron-left"></i><span>session生命周期</span></a></div><div class="paginator-post-next"><a class="paginator-post-next__a" href="/2019/11/11/DataSource%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8/"><span>DataSource简单了解以及使用</span><i class="fa fa-chevron-right"></i></a></div></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><aside class="sidebar" id="sidebar"><div class="sidebar-inner"><div class="sidebar-nav"><span class="sidebar-nav-toc current">文章目录</span><span class="sidebar-nav-ov">站点概览</span></div><section class="sidebar-toc"><div><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备前再了解些"><span class="toc-number">2.</span> <span class="toc-text">准备前再了解些</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-配置-Context-xml"><span class="toc-number">3.</span> <span class="toc-text">创建&#x2F;配置 Context.xml</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Context-配置"><span class="toc-number">3.1.</span> <span class="toc-text">Context 配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建容器"><span class="toc-number">3.2.</span> <span class="toc-text">创建容器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></section><!-- ov = overview --><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="/assets/icons/crab_192x192.png" alt="avatar"></div><p class="sidebar-ov-author__p">CrabSaberV</p></div><div class="sidebar-ov-social"><a class="sidebar-ov-social__item" href="https://github.com/CrabSaberV" target="_blank" rel="noopener" data-popover="Github" data-popover-pos="up"><i class="sidebar-ov-social__item--icon fa fa-github"></i></a><a class="sidebar-ov-social__item" href="https://plus.google.com/" target="_blank" rel="noopener" data-popover="Google" data-popover-pos="up"><i class="sidebar-ov-social__item--icon fa fa-google"></i></a></div><div class="sidebar-ov-state"><a class="sidebar-ov-state__a posts" href="/archives/"><div class="sidebar-ov-state__a--count">33</div><div class="sidebar-ov-state__a--name">归档</div></a><a class="sidebar-ov-state__a categories" href="/categories/"><div class="sidebar-ov-state__a--count">8</div><div class="sidebar-ov-state__a--name">分类</div></a><a class="sidebar-ov-state__a tags" href="/tags/"><div class="sidebar-ov-state__a--count">34</div><div class="sidebar-ov-state__a--name">标签</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="知识共享" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg" alt="知识共享"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span>你已阅读了 </span><span class="sidebar-reading-info-num">0</span></div><div class="sidebar-reading-line"></div></div></div></aside><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>&copy; 2020</span><span class="fa fa-heart footer-icon"></span><span>CrabSaberV.</span></div><div><span>由 <a href="http://hexo.io/" title="hexo" target="_blank" rel="noopener">hexo</a> 强力驱动</span><span> v4.2.0.</span><span class="separator">|</span><span>主题 - <a href="https://github.com/liuyib/hexo-theme-stun/" title="stun" target="_blank" rel="noopener">stun</a></span><span> v1.5.4.</span></div><div class="busuanzi"><span class="busuanzi-site_uv"><i class="fa fa-user"></i><span>访问人数 </span><span id="busuanzi_value_site_uv"></span></span><span class="separator">|</span><span class="busuanzi-site_pv"><i class="fa fa-eye"></i><span>浏览总量 </span><span id="busuanzi_value_site_pv"></span></span><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script></div></div></footer><div class="loading-bar" id="loading-bar"><div class="progress"></div></div><div class="back2top" id="back2top"><i class="back2top-icon fa fa-rocket"></i></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="60" alpha="0.6" zIndex="-1"></script><script src="https://cdn.jsdelivr.net/gh/sukkaw/busuanzi@latest/bsz.pure.mini.js" async></script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
-  var GUEST_INFO = ['nick', 'mail', 'link'];
-  var guest_info = 'nick,mail,link';
 
-  guest_info = guest_info.split(',').filter(function(item) {
-    return GUEST_INFO.indexOf(item) > -1;
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Tomcat/" rel="tag"># Tomcat</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E6%BA%90/" rel="tag"># 数据源</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/11/DataSource%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3%E4%BB%A5%E5%8F%8A%E4%BD%BF%E7%94%A8/" rel="prev" title="DataSource简单了解以及使用">
+      <i class="fa fa-chevron-left"></i> DataSource简单了解以及使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/25/session%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" rel="next" title="session生命周期">
+      session生命周期 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
   });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
 
-  new Valine({
-    el: '#valine-container',
-    appId: 'NP0g42WlTUjy1etGrM34ROCU-gzGzoHsz',
-    appKey: 'g5YhiW7wlofb6Gcvbh9Nh7uG',
-    notify: true,
-    verify: true,
-    placeholder: 'I need Your Comment',
-    avatar: 'mp',
-    meta: guest_info,
-    pageSize: '10' || 10,
-    visitor: true,
-    recordIP: true,
-    lang: 'zh-cn' || 'zh-cn'
-  });
-}
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
 
-if (false) {
-  loadValine();
-} else {
-  window.addEventListener('DOMContentLoaded', loadValine, false);
-}</script><script src="/js/utils.js?v=1.5.4"></script><script src="/js/stun-boot.js?v=1.5.4"></script><script src="/js/scroll.js?v=1.5.4"></script><script src="/js/header.js?v=1.5.4"></script><script src="/js/sidebar.js?v=1.5.4"></script></body></html>
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备前再了解些"><span class="nav-number">2.</span> <span class="nav-text">准备前再了解些</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-配置-Context-xml"><span class="nav-number">3.</span> <span class="nav-text">创建&#x2F;配置 Context.xml</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Context-配置"><span class="nav-number">3.1.</span> <span class="nav-text">Context 配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建容器"><span class="nav-number">3.2.</span> <span class="nav-text">创建容器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
