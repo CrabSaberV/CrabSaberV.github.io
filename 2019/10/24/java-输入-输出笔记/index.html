@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言输入&#x2F;输出（I&#x2F;O）是我们学习编程的必经之路。往往程序的本质就是对数据进行处理，而一些数据以便持久化而存储于文件中，有些数据用于临时使用存于内存中。换句话说，都知道一般游戏会有存档存储游戏数据，那么了解了这里的I&#x2F;O，就能实现游戏的存档问题了。 必须说的是，由于Java的输入输出并不是很难，这里简单提一下流的使用，更多是作为笔记，记录各种Java流而已。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-输入&#x2F;输出笔记">
+<meta property="og:url" content="https://crabsaberv.github.io/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="前言输入&#x2F;输出（I&#x2F;O）是我们学习编程的必经之路。往往程序的本质就是对数据进行处理，而一些数据以便持久化而存储于文件中，有些数据用于临时使用存于内存中。换句话说，都知道一般游戏会有存档存储游戏数据，那么了解了这里的I&#x2F;O，就能实现游戏的存档问题了。 必须说的是，由于Java的输入输出并不是很难，这里简单提一下流的使用，更多是作为笔记，记录各种Java流而已。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://crabsaberv.github.io/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/iostream2xx.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/%E8%BE%93%E5%85%A5%E6%B5%81%E5%B5%8C%E5%A5%97.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/%E8%BE%93%E5%87%BA%E6%B5%81%E5%B5%8C%E5%A5%97.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/%E7%AE%A1%E9%81%93%E6%B5%81.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%8F%96.png">
+<meta property="article:published_time" content="2019-10-24T11:06:22.000Z">
+<meta property="article:modified_time" content="2019-11-28T14:53:21.601Z">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="I&#x2F;O">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://crabsaberv.github.io/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/iostream2xx.png">
+
+<link rel="canonical" href="https://crabsaberv.github.io/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java-输入/输出笔记 | CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java-输入/输出笔记
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-24 19:06:22" itemprop="dateCreated datePublished" datetime="2019-10-24T19:06:22+08:00">2019-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-28 22:53:21" itemprop="dateModified" datetime="2019-11-28T22:53:21+08:00">2019-11-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>输入/输出（I/O）是我们学习编程的必经之路。往往程序的本质就是对数据进行处理，而一些数据以便持久化而存储于文件中，有些数据用于临时使用存于内存中。换句话说，都知道一般游戏会有存档存储游戏数据，那么了解了这里的I/O，就能实现游戏的存档问题了。</p>
+<p>必须说的是，由于Java的输入输出并不是很难，这里简单提一下流的使用，更多是作为笔记，记录各种Java流而已。</p>
+<a id="more"></a>
+
+<h2 id="流式的输入-输出"><a href="#流式的输入-输出" class="headerlink" title="流式的输入/输出"></a>流式的输入/输出</h2><h3 id="流的概念"><a href="#流的概念" class="headerlink" title="流的概念"></a>流的概念</h3><p>Java中，数据以流的方式传输。流是从源到目的地的字节的有序序列。流中字节依据先进先出存取数据。<br>流可以理解为一条单向的河流，一端是源，一头是目的地，数据是通过河流从源流到了目的地。</p>
+<h4 id="流的读写过程"><a href="#流的读写过程" class="headerlink" title="流的读写过程"></a>流的读写过程</h4><p>读操作：打开流→流中存在数据将其读取出来→关闭流</p>
+<p>读操作：打开流→流中存在数据对其写入数据→关闭流</p>
+<h4 id="流的分类"><a href="#流的分类" class="headerlink" title="流的分类"></a>流的分类</h4><p>Java中的流的各种类操作都在<code>java.io</code>包中。</p>
+<p>一般Java中流常指的是字节流。</p>
+<h5 id="依据端点分类"><a href="#依据端点分类" class="headerlink" title="依据端点分类"></a>依据端点分类</h5><ul>
+<li>节点流：以特定源如磁盘文件，内存某个区域或线程之间的<strong>管道</strong>（可以同时进行读写操作，进程间通讯）为端点构造的输入/输出流，它是一种最基本的流。</li>
+<li>过滤流：以其他已经存在的流为端点构造的输入/输出流（可以在其他流中插入使用），称为过滤流或处理流，它要对其相连的另一个流进行某种转换。</li>
+</ul>
+<h5 id="依据传输数据的单位分类"><a href="#依据传输数据的单位分类" class="headerlink" title="依据传输数据的单位分类"></a>依据传输数据的单位分类</h5><ul>
+<li>字节流：流数据以8位字节为单位进行读写，以<code>InputStream</code>和<code>OutputStream</code>为基础流。</li>
+<li>字符流：流数据以16位字符为单位进行读写，以<code>Reader</code>和<code>Writer</code>为基础类。</li>
+</ul>
+<h2 id="流的类层次图"><a href="#流的类层次图" class="headerlink" title="流的类层次图"></a>流的类层次图</h2><p>（基本方法就不说了）</p>
+<p><img src="/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/iostream2xx.png" alt="1" title="java流类图--来自菜鸟教程"></p>
+<h2 id="流的嵌套"><a href="#流的嵌套" class="headerlink" title="流的嵌套"></a>流的嵌套</h2><p>往往为了提高流的利用，以及减少流的调用次数，可以嵌套流进行使用。</p>
+<p>例如：</p>
+<ul>
+<li>输入流嵌套：文件流(<code>FileInputStream</code>)为了提高效率将文件的内容写入缓冲流（<code>BufferedInputStream</code>）然后缓冲流中的数据以数据类型流（<code>DataInputStram</code>）将数据根据基本数据类型写到程序中。<br><img src="/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/%E8%BE%93%E5%85%A5%E6%B5%81%E5%B5%8C%E5%A5%97.png" alt="2"></li>
+<li>输出流嵌套：从程序中以数据类型流(<code>DataOutputStream</code>)写入缓冲流(<code>BufferedOutputStream</code>)再以文件流（<code>FileOutputStream</code>）将数据写入文件中/节点。<br><img src="/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/%E8%BE%93%E5%87%BA%E6%B5%81%E5%B5%8C%E5%A5%97.png" alt="3"></li>
+</ul>
+<h2 id="常用输入-输出流类"><a href="#常用输入-输出流类" class="headerlink" title="常用输入/输出流类"></a>常用输入/输出流类</h2><p>(这里就写几个比较特别的类)</p>
+<h3 id="管道流"><a href="#管道流" class="headerlink" title="管道流"></a>管道流</h3><p>管道流可以实现线程间数据的直接连接。管道由管道输出端和管道输入端连接而成，例如以下：<br><img src="/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/%E7%AE%A1%E9%81%93%E6%B5%81.png" alt="4"><br>其实质是将一个进程的管道输出端连接到另一个进程的管道输入端。 </p>
+<h4 id="管道流的创建"><a href="#管道流的创建" class="headerlink" title="管道流的创建"></a>管道流的创建</h4><p>两种方式：</p>
+<ul>
+<li>第一种<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建管道输入流</span></span><br><span class="line">PipedInputStream pin = <span class="keyword">new</span> PipedInputStream(); 			</span><br><span class="line"><span class="comment">// 创建管道输出流，并连接输入流</span></span><br><span class="line">PipedOutputStream pout = <span class="keyword">new</span> PipedOutputStream(pin);</span><br></pre></td></tr></table></figure></li>
+<li>第二种<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PipedInputStream pin = <span class="keyword">new</span> PipedInputStream(); 			</span><br><span class="line">PipedOutputStream pout = <span class="keyword">new</span> PipedOutputStream();</span><br><span class="line">pin.connect(pout); <span class="comment">// 或者 pout.connect(pin);</span></span><br></pre></td></tr></table></figure>
+<h2 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h2>（仅展示比较重要的部分）</li>
+</ul>
+<h3 id="创建File对象"><a href="#创建File对象" class="headerlink" title="创建File对象"></a>创建File对象</h3><ul>
+<li><code>public File(String pathname)</code>：其中的参数可以是绝对路径（例如：<code>&quot;F:\work\sourse\text.txt&quot;</code>）也可以是相对路径(一般是相对于当前目录，例如当前目录下的sourse中的text.txt文件：<code>&#39;&#39;sourse\text.txt&#39;&#39;</code>)</li>
+<li>后面的其他参数重构就不提了，主要是要注意，路径的间隔符是<code>\</code>，有时候是<code>\\</code> 这里需要注意一下。</li>
+</ul>
+<h2 id="随机存取文件"><a href="#随机存取文件" class="headerlink" title="随机存取文件"></a>随机存取文件</h2><h3 id="RandomAccessFile类概述"><a href="#RandomAccessFile类概述" class="headerlink" title="RandomAccessFile类概述"></a>RandomAccessFile类概述</h3><p><img src="/2019/10/24/java-%E8%BE%93%E5%85%A5-%E8%BE%93%E5%87%BA%E7%AC%94%E8%AE%B0/%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%8F%96.png" alt="5"><br><code>RandomAccessFile</code>类与同包中的输入/输出不相关。因此一些作用于流的过滤流无法作于<code>RandomAccessFile</code>类，这是它的不便之处。</p>
+<h3 id="随机存取类的创建"><a href="#随机存取类的创建" class="headerlink" title="随机存取类的创建"></a>随机存取类的创建</h3><p>构造方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">RandomAccessFile</span><span class="params">(String name,String mode)</span></span></span><br><span class="line"><span class="function">							<span class="keyword">throws</span> FileNotFoundException</span></span><br><span class="line"><span class="function"><span class="comment">//以及</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">RandomAccessFile</span><span class="params">(File file,String mode)</span></span></span><br><span class="line"><span class="function">							<span class="keyword">throws</span> FileNotFoundException</span></span><br></pre></td></tr></table></figure>
+<p>这里说一下mode的取值：</p>
+<ul>
+<li>r ：以只读方式打开</li>
+<li>rw：以读写方式打开</li>
+<li>rwd：以读写方式打开，并要求对文件内容的更新要同步地写到底层存储器</li>
+<li>rws：与rwd类似，还可以更新文件的元数据(MetaData)</li>
+</ul>
+<h3 id="随机存取类的一些操作"><a href="#随机存取类的一些操作" class="headerlink" title="随机存取类的一些操作"></a>随机存取类的一些操作</h3><p>随机存取以文件指针来读取文件内容</p>
+<ul>
+<li><code>long getFilePointer()</code><br>返回当前文件指针，从文件开头算起 的绝对位置。</li>
+<li><code>void seek(long pos)</code><br>将文件指针指到只等位置，pos是相对于文件头的绝对偏移量</li>
+<li><code>long length()</code></li>
+<li>返回文件长度。由此可与文件指针长度比较，来判断是否到文件尾</li>
+<li><code>int skipBytes(int n)</code><br>从当前位置跳过n个字节，返回实际跳过的字节数</li>
+</ul>
+<h2 id="对象的串行化"><a href="#对象的串行化" class="headerlink" title="对象的串行化"></a>对象的串行化</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>将java程序中的对象保存在外存中，成为对象永久化。</p>
+<p>通过<code>ObjectInputStream</code>和<code>ObjectOutputStream</code>对对象读和写。</p>
+<p>对象永久化关键在于将其以一种串行格式表示出来，以便后面读取对象能将其重构。所以对java对象的读写过程称为对象序列化（object serialization）。</p>
+<h3 id="读写操作"><a href="#读写操作" class="headerlink" title="读写操作"></a>读写操作</h3><p>比较简单自行查找<a href="http://www.matools.com/api/java8" target="_blank" rel="noopener">API</a>即可。</p>
+<p>值得注意的是读操作可以只读取对象的数据，读操作读取对象前，要先构造对象（创建对应的对象）然后用<code>readObject()</code>获取对象，最好进行强制类型转换。</p>
+<h3 id="构造可串行化对象的类"><a href="#构造可串行化对象的类" class="headerlink" title="构造可串行化对象的类"></a>构造可串行化对象的类</h3><p>也就是需要串行化的类最好实现串行化接口（<code>Serializable</code>），这样其对象就可串行化。</p>
+<p>java中的<code>Serializable</code>接口的定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.io;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Serializable</span></span>&#123;</span><br><span class="line">&#125;;	<span class="comment">//内部没有东西</span></span><br></pre></td></tr></table></figure>
+<p>实际<code>Serializable</code>是个空接口，目的是标识类为可串行化。</p>
+<p>当然可以自行定制扩充，操作就是接口的扩充。</p>
+<h3 id="串行化对敏感信息的保护"><a href="#串行化对敏感信息的保护" class="headerlink" title="串行化对敏感信息的保护"></a>串行化对敏感信息的保护</h3><p>有时候一些程序会存在一些比较敏感的数据，在串行化的时候可能也会对这些敏感数据进行串行化，这样可能使得数据在流中被截取的风险，或者一些特殊数据如果恢复会造成程序混乱。<br>为此，可以对这些数据变量定义为<code>private transient</code>。<code>transient</code>和<code>static</code>是不会进行串行化与反串行化，这样就保证了敏感信息不会写入流中。</p>
+<h3 id="串行化的注意事项"><a href="#串行化的注意事项" class="headerlink" title="串行化的注意事项"></a>串行化的注意事项</h3><ul>
+<li><code>transient</code>关键字的使用<br>对于一些类，存在瞬时状态的变量，则无法保存状态并且这些数据往往没有保存价值。例如一个<code>Tread</code>对象或一个<code>FileInputStream</code>对象，对于这些字段，必须用<code>transient</code>标明，否则编译器报错</li>
+<li>串行化对象存储或传输中的安全<br>串行化可能涉及存在将对象存在磁盘或网络上发送数据，这样就有安全问题。使用<code>transient</code>关键字来防止串行化。</li>
+</ul>
+<h2 id="Java-NIO"><a href="#Java-NIO" class="headerlink" title="Java NIO"></a>Java NIO</h2><p>这是一个针对需要高性能应用而提供的高速I/O操作API。</p>
+<p>这个详细，以后有机会等我弄明白了再添加。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>非常感谢这些文献：<br><em>[1]：《Java语言程序设计（第3版）》—郎波—清华大学出版社</em></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/I-O/" rel="tag"># I/O</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/10/22/java-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E7%AC%94%E8%AE%B0/" rel="prev" title="Java-异常处理笔记">
+      <i class="fa fa-chevron-left"></i> Java-异常处理笔记
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/11/01/java-%E7%BA%BF%E7%A8%8B%E7%AC%94%E8%AE%B0/" rel="next" title="Java-线程笔记">
+      Java-线程笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流式的输入-输出"><span class="nav-number">2.</span> <span class="nav-text">流式的输入&#x2F;输出</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#流的概念"><span class="nav-number">2.1.</span> <span class="nav-text">流的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流的读写过程"><span class="nav-number">2.1.1.</span> <span class="nav-text">流的读写过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流的分类"><span class="nav-number">2.1.2.</span> <span class="nav-text">流的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#依据端点分类"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">依据端点分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#依据传输数据的单位分类"><span class="nav-number">2.1.2.2.</span> <span class="nav-text">依据传输数据的单位分类</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流的类层次图"><span class="nav-number">3.</span> <span class="nav-text">流的类层次图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流的嵌套"><span class="nav-number">4.</span> <span class="nav-text">流的嵌套</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用输入-输出流类"><span class="nav-number">5.</span> <span class="nav-text">常用输入&#x2F;输出流类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#管道流"><span class="nav-number">5.1.</span> <span class="nav-text">管道流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#管道流的创建"><span class="nav-number">5.1.1.</span> <span class="nav-text">管道流的创建</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件"><span class="nav-number">6.</span> <span class="nav-text">文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建File对象"><span class="nav-number">6.1.</span> <span class="nav-text">创建File对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机存取文件"><span class="nav-number">7.</span> <span class="nav-text">随机存取文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RandomAccessFile类概述"><span class="nav-number">7.1.</span> <span class="nav-text">RandomAccessFile类概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机存取类的创建"><span class="nav-number">7.2.</span> <span class="nav-text">随机存取类的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#随机存取类的一些操作"><span class="nav-number">7.3.</span> <span class="nav-text">随机存取类的一些操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的串行化"><span class="nav-number">8.</span> <span class="nav-text">对象的串行化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">8.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读写操作"><span class="nav-number">8.2.</span> <span class="nav-text">读写操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造可串行化对象的类"><span class="nav-number">8.3.</span> <span class="nav-text">构造可串行化对象的类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#串行化对敏感信息的保护"><span class="nav-number">8.4.</span> <span class="nav-text">串行化对敏感信息的保护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#串行化的注意事项"><span class="nav-number">8.5.</span> <span class="nav-text">串行化的注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-NIO"><span class="nav-number">9.</span> <span class="nav-text">Java NIO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">10.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CrabSaberV"
+      src="/asset/icons/crab_520x520.png">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrabSaberV" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrabSaberV" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:s46244934@gmail.com" title="E-Mail → mailto:s46244934@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
