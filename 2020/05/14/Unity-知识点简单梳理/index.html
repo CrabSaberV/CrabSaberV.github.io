@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言 终于决定了要好好学习一番Unity，或许，这就是我的第一部选择吧。  本文章将简单梳理unity相关的必知知识点，边写边学。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-14T04:11:16.000Z">
-<meta property="article:modified_time" content="2020-05-14T13:14:21.755Z">
+<meta property="article:modified_time" content="2020-05-16T00:58:02.183Z">
 <meta property="article:author" content="CrabSaberV">
 <meta property="article:tag" content="Unity3d">
 <meta name="twitter:card" content="summary">
@@ -179,10 +179,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-05-14 12:11:16 / 修改时间：21:14:21" itemprop="dateCreated datePublished" datetime="2020-05-14T12:11:16+08:00">2020-05-14</time>
+              <time title="创建时间：2020-05-14 12:11:16" itemprop="dateCreated datePublished" datetime="2020-05-14T12:11:16+08:00">2020-05-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-16 08:58:02" itemprop="dateModified" datetime="2020-05-16T08:58:02+08:00">2020-05-16</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -288,7 +294,35 @@
 <p>缺点是增加了内存。<br>详见：<a href="/2020/05/14/Unity-%E6%8E%A2%E7%B4%A2LOD/" title="Unity-探索LOD">Unity-探索LOD</a></p>
 <h2 id="二十五、何为MipMap，作用"><a href="#二十五、何为MipMap，作用" class="headerlink" title="二十五、何为MipMap，作用"></a>二十五、何为MipMap，作用</h2><p>MipMaping 是在三维计算机图形渲染中比较常见的技术，为了加快渲染和减少图像锯齿，贴图被处理成由一系列被预先计算和优化过的图片组成的文件。</p>
 <p>参见:<a href="/2020/05/14/Unity-%E4%BD%95%E4%B8%BAMipMap/" title="Unity-何为MipMap">Unity-何为MipMap</a></p>
+<h2 id="二十六、请描述Interface与抽象类之间的不同"><a href="#二十六、请描述Interface与抽象类之间的不同" class="headerlink" title="二十六、请描述Interface与抽象类之间的不同"></a>二十六、请描述Interface与抽象类之间的不同</h2><p>这是几个基础C# 的概念。<br>参考 Java :</p>
+<a href="/2019/10/20/java-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%AC%94%E8%AE%B0/" title="Java-抽象类笔记">Java-抽象类笔记</a>
+<a href="/2019/10/20/java-%E6%8E%A5%E5%8F%A3%E7%AC%94%E8%AE%B0/" title="Java-接口笔记">Java-接口笔记</a>
 
+<h2 id="二十七、-Net与Mono的关系"><a href="#二十七、-Net与Mono的关系" class="headerlink" title="二十七、.Net与Mono的关系"></a>二十七、.Net与Mono的关系</h2><p>mono 是 .net的一个开源跨平台工具，类似 java 的虚拟机，java本身不是跨平台语言，但虚拟机能实现跨平台。.net只能在 window 下运行，mono 可以实现跨平台，可运行在 linux，Unix，Mac OS 等。</p>
+<h2 id="二十八、Unity3d-中用于记录节点空间的几何信息的组件名称，以及父类名称"><a href="#二十八、Unity3d-中用于记录节点空间的几何信息的组件名称，以及父类名称" class="headerlink" title="二十八、Unity3d 中用于记录节点空间的几何信息的组件名称，以及父类名称"></a>二十八、Unity3d 中用于记录节点空间的几何信息的组件名称，以及父类名称</h2><p>Transform 父类是 Component</p>
+<h2 id="二十九、向量的点乘、叉乘以及归一化的意义"><a href="#二十九、向量的点乘、叉乘以及归一化的意义" class="headerlink" title="二十九、向量的点乘、叉乘以及归一化的意义"></a>二十九、向量的点乘、叉乘以及归一化的意义</h2><p>高数知识：</p>
+<ol>
+<li>点乘描述两个向量的相似程度，结果越大两向量越相似，还可以表示投影。</li>
+<li>叉乘得到的向量垂直于原来的两个向量</li>
+<li>标准化向量：用在只关心方向，不关心大小的时候</li>
+</ol>
+<p>见：<a href="/2020/05/15/%E5%90%91%E9%87%8F-%E5%BF%AB%E9%80%9F%E5%9B%9E%E9%A1%BE/" title="向量--快速回顾">向量--快速回顾</a></p>
+<h2 id="三十、为何大家都在移动设备上寻求U3D原生GUI的替代方案"><a href="#三十、为何大家都在移动设备上寻求U3D原生GUI的替代方案" class="headerlink" title="三十、为何大家都在移动设备上寻求U3D原生GUI的替代方案"></a>三十、为何大家都在移动设备上寻求U3D原生GUI的替代方案</h2><p>不美观，OnGUI耗时长，效率不高，使用不方便<br>推荐使用 UGUI（官方联系 NGUI 的开发者共同开发的 UGUI，更简易）</p>
+<h2 id="三十一、请简述如何在不同分辨率下保持ui的一致性"><a href="#三十一、请简述如何在不同分辨率下保持ui的一致性" class="headerlink" title="三十一、请简述如何在不同分辨率下保持ui的一致性"></a>三十一、请简述如何在不同分辨率下保持ui的一致性</h2><p>NGUI 很好的解决了此问题。<br>屏幕分辨率的自适应原理：计算出屏幕宽高比与原来的预设屏幕分辨率求出一个比值，随后修改摄像机的 size 。<br>UGUI通过锚点和中心点和分辨率也解决了此问题。</p>
+<h2 id="三十一、什么是LightMap"><a href="#三十一、什么是LightMap" class="headerlink" title="三十一、什么是LightMap"></a>三十一、什么是LightMap</h2><p>LightMap:就是指在三维软件里实现打好光，然后渲染把场景各表面的光照输出到贴图上，最后又通过引擎贴到场景上，这样就使物体有了光照的感觉。</p>
+<h2 id="三十二、C-与-C-的区别"><a href="#三十二、C-与-C-的区别" class="headerlink" title="三十二、C# 与 C++ 的区别"></a>三十二、C# 与 C++ 的区别</h2><p>两者其实都是面向对象语言，不过其不同简单而言：</p>
+<ol>
+<li>C# 与 java 类似，是个完全的面向对象语言； C++ 是对 C语言的扩展，不是完全的面向对象语言。</li>
+<li>C# 基于 IL 中间语言和 .NET Framework CLR ,在可移植性，可维护性和强壮性都比 C++ 有很大改进。</li>
+<li>C# 的设计目的是用来快速开发稳定可扩展的应用程序。</li>
+</ol>
+<h2 id="三十三、结构体和类的区别"><a href="#三十三、结构体和类的区别" class="headerlink" title="三十三、结构体和类的区别"></a>三十三、结构体和类的区别</h2><p>结构体是一种值类型（栈中），类是一种引用类型（堆中）。<br>在数据存储角度来讲，结构体类型用于存储数据的值，引用类型用于存储对实际数据的引用。<br>结构体当成值来使用，类则是引用来对实际数据操作。<br>C# 结构体和 C 语言相同，其性能较好，但是当结构体比较庞大时，则损失巨大。</p>
+<h2 id="三十四、ref-参数和-out-参数是什么，有什么区别"><a href="#三十四、ref-参数和-out-参数是什么，有什么区别" class="headerlink" title="三十四、ref 参数和 out 参数是什么，有什么区别"></a>三十四、ref 参数和 out 参数是什么，有什么区别</h2><p>ref 和 out 效果一样，都是通过关键字找到定义在主函数里面的变量的内存地址，并通过方法体内的语法改变他的大小。简单看作是传递地址（引用传递，或地址传递，类似指针）。<br>不同：</p>
+<ul>
+<li>ref 需要先初始化，ref 的参数是引用</li>
+<li>out 不需要初始化，参数为输出参数</li>
+</ul>
+<h2 id="三十五、C-委托"><a href="#三十五、C-委托" class="headerlink" title="三十五、C# 委托"></a>三十五、C# 委托</h2>
     </div>
 
     
@@ -371,7 +405,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是协同程序"><span class="nav-number">2.</span> <span class="nav-text">一、什么是协同程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Unity3d-中的碰撞器和触发器的区别"><span class="nav-number">3.</span> <span class="nav-text">二、Unity3d 中的碰撞器和触发器的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-物体发生碰撞的必要条件"><span class="nav-number">4.</span> <span class="nav-text">三、 物体发生碰撞的必要条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、ArrayList-与-List-的区别"><span class="nav-number">5.</span> <span class="nav-text">四、ArrayList 与 List 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、如何安全在不同工程间迁移-asset数据"><span class="nav-number">6.</span> <span class="nav-text">五、如何安全在不同工程间迁移 asset数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、OnEnable、Awake、Start-发生顺序"><span class="nav-number">7.</span> <span class="nav-text">六、OnEnable、Awake、Start 发生顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、MeshRender-中-material-和-sharedMaterial-的区别"><span class="nav-number">8.</span> <span class="nav-text">七、MeshRender 中 material 和 sharedMaterial 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、Unity提供了几种光源，分别是什么"><span class="nav-number">9.</span> <span class="nav-text">八、Unity提供了几种光源，分别是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、简述一下对象池，你觉得FPS中那些东西适合适用对象池"><span class="nav-number">10.</span> <span class="nav-text">九、简述一下对象池，你觉得FPS中那些东西适合适用对象池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、CharacterController-与-Rigidbody-的区别"><span class="nav-number">11.</span> <span class="nav-text">十、CharacterController 与 Rigidbody 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、简述prefab的用处"><span class="nav-number">12.</span> <span class="nav-text">十一、简述prefab的用处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、请简述sealed关键字用在类声明时与函数声明时的作用"><span class="nav-number">13.</span> <span class="nav-text">十二、请简述sealed关键字用在类声明时与函数声明时的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十三、请简述private，public，protected，internal的区别"><span class="nav-number">14.</span> <span class="nav-text">十三、请简述private，public，protected，internal的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十四、Unity3d-实现2d游戏"><span class="nav-number">15.</span> <span class="nav-text">十四、Unity3d 实现2d游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十五、几种施加力的方式"><span class="nav-number">16.</span> <span class="nav-text">十五、几种施加力的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十六、链条关节"><span class="nav-number">17.</span> <span class="nav-text">十六、链条关节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十七、物体自身旋转"><span class="nav-number">18.</span> <span class="nav-text">十七、物体自身旋转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十八、Unity3d提供了一个用于保存和读取数据的类-PlayerPrefs-，请列出保存和读取整形数据的函数"><span class="nav-number">19.</span> <span class="nav-text">十八、Unity3d提供了一个用于保存和读取数据的类(PlayerPrefs)，请列出保存和读取整形数据的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十九、Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。"><span class="nav-number">20.</span> <span class="nav-text">十九、Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十、物理更新一般放在哪个系统函数里？"><span class="nav-number">21.</span> <span class="nav-text">二十、物理更新一般放在哪个系统函数里？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十一、在场景中放置多个Camera并同时处于活动状态会发生什么？"><span class="nav-number">22.</span> <span class="nav-text">二十一、在场景中放置多个Camera并同时处于活动状态会发生什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十二、如何销毁一个UnityEngine-Object及其子类？"><span class="nav-number">23.</span> <span class="nav-text">二十二、如何销毁一个UnityEngine.Object及其子类？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十三、请描述为什么Unity3d中会发生在组件上出现数据丢失的情况"><span class="nav-number">24.</span> <span class="nav-text">二十三、请描述为什么Unity3d中会发生在组件上出现数据丢失的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十四、LOD是什么，优缺点"><span class="nav-number">25.</span> <span class="nav-text">二十四、LOD是什么，优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十五、何为MipMap，作用"><span class="nav-number">26.</span> <span class="nav-text">二十五、何为MipMap，作用</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一、什么是协同程序"><span class="nav-number">2.</span> <span class="nav-text">一、什么是协同程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Unity3d-中的碰撞器和触发器的区别"><span class="nav-number">3.</span> <span class="nav-text">二、Unity3d 中的碰撞器和触发器的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、-物体发生碰撞的必要条件"><span class="nav-number">4.</span> <span class="nav-text">三、 物体发生碰撞的必要条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、ArrayList-与-List-的区别"><span class="nav-number">5.</span> <span class="nav-text">四、ArrayList 与 List 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、如何安全在不同工程间迁移-asset数据"><span class="nav-number">6.</span> <span class="nav-text">五、如何安全在不同工程间迁移 asset数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、OnEnable、Awake、Start-发生顺序"><span class="nav-number">7.</span> <span class="nav-text">六、OnEnable、Awake、Start 发生顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、MeshRender-中-material-和-sharedMaterial-的区别"><span class="nav-number">8.</span> <span class="nav-text">七、MeshRender 中 material 和 sharedMaterial 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、Unity提供了几种光源，分别是什么"><span class="nav-number">9.</span> <span class="nav-text">八、Unity提供了几种光源，分别是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、简述一下对象池，你觉得FPS中那些东西适合适用对象池"><span class="nav-number">10.</span> <span class="nav-text">九、简述一下对象池，你觉得FPS中那些东西适合适用对象池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、CharacterController-与-Rigidbody-的区别"><span class="nav-number">11.</span> <span class="nav-text">十、CharacterController 与 Rigidbody 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、简述prefab的用处"><span class="nav-number">12.</span> <span class="nav-text">十一、简述prefab的用处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、请简述sealed关键字用在类声明时与函数声明时的作用"><span class="nav-number">13.</span> <span class="nav-text">十二、请简述sealed关键字用在类声明时与函数声明时的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十三、请简述private，public，protected，internal的区别"><span class="nav-number">14.</span> <span class="nav-text">十三、请简述private，public，protected，internal的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十四、Unity3d-实现2d游戏"><span class="nav-number">15.</span> <span class="nav-text">十四、Unity3d 实现2d游戏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十五、几种施加力的方式"><span class="nav-number">16.</span> <span class="nav-text">十五、几种施加力的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十六、链条关节"><span class="nav-number">17.</span> <span class="nav-text">十六、链条关节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十七、物体自身旋转"><span class="nav-number">18.</span> <span class="nav-text">十七、物体自身旋转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十八、Unity3d提供了一个用于保存和读取数据的类-PlayerPrefs-，请列出保存和读取整形数据的函数"><span class="nav-number">19.</span> <span class="nav-text">十八、Unity3d提供了一个用于保存和读取数据的类(PlayerPrefs)，请列出保存和读取整形数据的函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十九、Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。"><span class="nav-number">20.</span> <span class="nav-text">十九、Unity3d脚本从唤醒到销毁有着一套比较完整的生命周期，请列出系统自带的几个重要的方法。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十、物理更新一般放在哪个系统函数里？"><span class="nav-number">21.</span> <span class="nav-text">二十、物理更新一般放在哪个系统函数里？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十一、在场景中放置多个Camera并同时处于活动状态会发生什么？"><span class="nav-number">22.</span> <span class="nav-text">二十一、在场景中放置多个Camera并同时处于活动状态会发生什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十二、如何销毁一个UnityEngine-Object及其子类？"><span class="nav-number">23.</span> <span class="nav-text">二十二、如何销毁一个UnityEngine.Object及其子类？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十三、请描述为什么Unity3d中会发生在组件上出现数据丢失的情况"><span class="nav-number">24.</span> <span class="nav-text">二十三、请描述为什么Unity3d中会发生在组件上出现数据丢失的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十四、LOD是什么，优缺点"><span class="nav-number">25.</span> <span class="nav-text">二十四、LOD是什么，优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十五、何为MipMap，作用"><span class="nav-number">26.</span> <span class="nav-text">二十五、何为MipMap，作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十六、请描述Interface与抽象类之间的不同"><span class="nav-number">27.</span> <span class="nav-text">二十六、请描述Interface与抽象类之间的不同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十七、-Net与Mono的关系"><span class="nav-number">28.</span> <span class="nav-text">二十七、.Net与Mono的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十八、Unity3d-中用于记录节点空间的几何信息的组件名称，以及父类名称"><span class="nav-number">29.</span> <span class="nav-text">二十八、Unity3d 中用于记录节点空间的几何信息的组件名称，以及父类名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二十九、向量的点乘、叉乘以及归一化的意义"><span class="nav-number">30.</span> <span class="nav-text">二十九、向量的点乘、叉乘以及归一化的意义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三十、为何大家都在移动设备上寻求U3D原生GUI的替代方案"><span class="nav-number">31.</span> <span class="nav-text">三十、为何大家都在移动设备上寻求U3D原生GUI的替代方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三十一、请简述如何在不同分辨率下保持ui的一致性"><span class="nav-number">32.</span> <span class="nav-text">三十一、请简述如何在不同分辨率下保持ui的一致性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三十一、什么是LightMap"><span class="nav-number">33.</span> <span class="nav-text">三十一、什么是LightMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三十二、C-与-C-的区别"><span class="nav-number">34.</span> <span class="nav-text">三十二、C# 与 C++ 的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三十三、结构体和类的区别"><span class="nav-number">35.</span> <span class="nav-text">三十三、结构体和类的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三十四、ref-参数和-out-参数是什么，有什么区别"><span class="nav-number">36.</span> <span class="nav-text">三十四、ref 参数和 out 参数是什么，有什么区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三十五、C-委托"><span class="nav-number">37.</span> <span class="nav-text">三十五、C# 委托</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -387,19 +421,19 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">40</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">39</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
