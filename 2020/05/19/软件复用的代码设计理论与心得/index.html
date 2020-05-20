@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言 自从学习了软件构造相关知识后，让我受益匪浅。虽说在我开发个人项目时，无形中会有一些代码设计的基准，但自从我了解到软件开发的30多种设计模式令我茅塞顿开。过去开发个人项目中常常在开发到最后，就有些后悔前期没能形成一个好的标准框架。现在里我将结合我的软件构造课程的学习与软件复用的理解，来记录下我的心得。  下面将会根据类，API，框架三个方面来展开。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-19T06:41:16.000Z">
-<meta property="article:modified_time" content="2020-05-19T07:41:53.642Z">
+<meta property="article:modified_time" content="2020-05-19T12:25:45.809Z">
 <meta property="article:author" content="CrabSaberV">
 <meta property="article:tag" content="软件复用">
 <meta property="article:tag" content="心得">
@@ -182,7 +182,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-05-19 14:41:16 / 修改时间：15:41:53" itemprop="dateCreated datePublished" datetime="2020-05-19T14:41:16+08:00">2020-05-19</time>
+              <time title="创建时间：2020-05-19 14:41:16 / 修改时间：20:25:45" itemprop="dateCreated datePublished" datetime="2020-05-19T14:41:16+08:00">2020-05-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,8 +247,31 @@
 <li>抽象耦合关系</li>
 </ul>
 <p>依赖倒转原则则是要求依赖于抽象耦合，以抽象方式耦合是依赖倒转的关键。<br>里氏替换原则是实现依赖倒转的基础。</p>
-<p>关于依赖注入可以参考：<br>&lt;%post_link Spring-Setter函数依赖注入 %&gt;</p>
+<p>关于依赖注入可以参考：</p>
+<a href="/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" title="Spring-构造函数依赖注入">Spring-构造函数依赖注入</a><br>
+<a href="/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" title="Spring-Setter函数依赖注入">Spring-Setter函数依赖注入</a><br>
+<a href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E5%86%85%E9%83%A8bean/" title="Spring-注入内部bean">Spring-注入内部bean</a>
 
+<h3 id="接口隔离原则（ISP）"><a href="#接口隔离原则（ISP）" class="headerlink" title="接口隔离原则（ISP）"></a>接口隔离原则（ISP）</h3><p>接口隔离原则（Interface Segregation Principle）</p>
+<h4 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h4><p>使用多个专门接口来取代一个统一的接口。也就是将比较大的接口分割成许多小接口，这样就防止一个接口扮演多种角色了。</p>
+<h3 id="合成复用原则（CRP）"><a href="#合成复用原则（CRP）" class="headerlink" title="合成复用原则（CRP）"></a>合成复用原则（CRP）</h3><p>合成复用原则（Composite Reuse Principle），也叫组合/聚合复用原则</p>
+<h4 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h4><p>尽量多的使用对象组合，而不是继承来达到复用的目的。</p>
+<h4 id="与继承复用对比"><a href="#与继承复用对比" class="headerlink" title="与继承复用对比"></a>与继承复用对比</h4><ul>
+<li>继承复用：实现简单，易于扩展。破坏系统的封装性；从基类继承而来的实现是静态的，不可能在运行时发生改变，没有足够的灵活性；只能在有限的环境中使用。（“白箱”复用 ）</li>
+<li>组合/聚合复用：耦合度相对较低，选择性地调用成员对象的操作；可以在运行时动态进行。（“黑箱”复用 ）</li>
+</ul>
+<h3 id="迪米特法则（LoD）"><a href="#迪米特法则（LoD）" class="headerlink" title="迪米特法则（LoD）"></a>迪米特法则（LoD）</h3><p>迪米特法则（Law of Demeter），也叫最少知识原则。</p>
+<h4 id="定义-6"><a href="#定义-6" class="headerlink" title="定义"></a>定义</h4><p>一个软件实体对其他实体的引用越少越好，或者说如果两个类不必彼此直接通信，那么这两个类就不应当发生直接的相互作用，而是通过引入一个第三者发生间接交互。</p>
+<h4 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h4><p>就是指一个软件实体应当尽可能少的与其他实体发生相互作用。这样，当一个模块修改时，就会尽量少的影响其他的模块，扩展会相对容易，这是对软件实体之间通信的限制，它要求限制软件实体之间通信的宽度和深度。</p>
+<p>在迪米特法则中，对于一个对象，其朋友包括以下几类：</p>
+<ol>
+<li>当前对象本身(this)；</li>
+<li>以参数形式传入到当前对象方法中的对象；</li>
+<li>当前对象的成员对象；</li>
+<li>如果当前对象的成员对象是一个集合，那么集合中的元素也都是朋友；</li>
+<li>当前对象所创建的对象。</li>
+</ol>
+<h2 id="类的复用设计"><a href="#类的复用设计" class="headerlink" title="类的复用设计"></a>类的复用设计</h2>
     </div>
 
     
@@ -270,7 +293,10 @@
     <a href="/2020/05/15/%E5%90%91%E9%87%8F-%E5%BF%AB%E9%80%9F%E5%9B%9E%E9%A1%BE/" rel="prev" title="向量--快速回顾">
       <i class="fa fa-chevron-left"></i> 向量--快速回顾
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" rel="next" title="设计模式-策略模式">
+      设计模式-策略模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -329,7 +355,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计原则"><span class="nav-number">2.</span> <span class="nav-text">设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责原则（SRP）"><span class="nav-number">2.1.</span> <span class="nav-text">单一职责原则（SRP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则（OCP）"><span class="nav-number">2.2.</span> <span class="nav-text">开闭原则（OCP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">2.2.2.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换原则（LSP）"><span class="nav-number">2.3.</span> <span class="nav-text">里氏替换原则（LSP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">2.3.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒转原则（DIP）"><span class="nav-number">2.4.</span> <span class="nav-text">依赖倒转原则（DIP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-2"><span class="nav-number">2.4.2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类之间的耦合关系"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">类之间的耦合关系</span></a></li></ol></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计原则"><span class="nav-number">2.</span> <span class="nav-text">设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责原则（SRP）"><span class="nav-number">2.1.</span> <span class="nav-text">单一职责原则（SRP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则（OCP）"><span class="nav-number">2.2.</span> <span class="nav-text">开闭原则（OCP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">2.2.2.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换原则（LSP）"><span class="nav-number">2.3.</span> <span class="nav-text">里氏替换原则（LSP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">2.3.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒转原则（DIP）"><span class="nav-number">2.4.</span> <span class="nav-text">依赖倒转原则（DIP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-2"><span class="nav-number">2.4.2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类之间的耦合关系"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">类之间的耦合关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离原则（ISP）"><span class="nav-number">2.5.</span> <span class="nav-text">接口隔离原则（ISP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合成复用原则（CRP）"><span class="nav-number">2.6.</span> <span class="nav-text">合成复用原则（CRP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-5"><span class="nav-number">2.6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与继承复用对比"><span class="nav-number">2.6.2.</span> <span class="nav-text">与继承复用对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迪米特法则（LoD）"><span class="nav-number">2.7.</span> <span class="nav-text">迪米特法则（LoD）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-6"><span class="nav-number">2.7.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-3"><span class="nav-number">2.7.2.</span> <span class="nav-text">分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的复用设计"><span class="nav-number">3.</span> <span class="nav-text">类的复用设计</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -345,7 +371,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -357,7 +383,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">42</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
