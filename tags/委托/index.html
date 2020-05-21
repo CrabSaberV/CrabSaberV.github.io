@@ -20,21 +20,22 @@
     var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="继续记录 Spring 的设值（setter）函数 bean.xml 的配置。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Spring-Setter函数依赖注入">
-<meta property="og:url" content="https://crabsaberv.github.io/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/index.html">
+  <meta name="description" content="This is my presonal blog. Here will be conplete.Let&#39;s look forward!">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CrabSaberV is here">
+<meta property="og:url" content="https://crabsaberv.github.io/tags/%E5%A7%94%E6%89%98/index.html">
 <meta property="og:site_name" content="CrabSaberV is here">
-<meta property="og:description" content="继续记录 Spring 的设值（setter）函数 bean.xml 的配置。">
+<meta property="og:description" content="This is my presonal blog. Here will be conplete.Let&#39;s look forward!">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-01-08T10:12:18.000Z">
-<meta property="article:modified_time" content="2020-01-08T12:10:35.853Z">
 <meta property="article:author" content="CrabSaberV">
-<meta property="article:tag" content="Spring">
-<meta property="article:tag" content="注入依赖">
+<meta property="article:tag" content="blog">
+<meta property="article:tag" content="computer">
+<meta property="article:tag" content="unity">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="c">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://crabsaberv.github.io/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">
+<link rel="canonical" href="https://crabsaberv.github.io/tags/%E5%A7%94%E6%89%98/">
 
 
 <script id="page-configurations">
@@ -42,12 +43,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : true,
+    isPost : false,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Spring-Setter函数依赖注入 | CrabSaberV is here</title>
+  <title>标签: 委托 | CrabSaberV is here</title>
   
 
 
@@ -151,118 +152,51 @@
         <div class="content-wrap">
           
 
-          <div class="content post posts-expand">
+          <div class="content tag">
             
 
-    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
-      <meta itemprop="name" content="CrabSaberV">
-      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CrabSaberV is here">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Spring-Setter函数依赖注入
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-01-08 18:12:18 / 修改时间：20:10:35" itemprop="dateCreated datePublished" datetime="2020-01-08T18:12:18+08:00">2020-01-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
+  
+  <div class="post-block">
+    <div class="posts-collapse">
+      <div class="collection-title">
+        <h2 class="collection-header">委托
+          <small>标签</small>
+        </h2>
+      </div>
 
       
-        <p>继续记录 Spring 的设值（setter）函数 bean.xml 的配置。</p>
-<a id="more"></a>
-<h2 id="Setter函数依赖注入"><a href="#Setter函数依赖注入" class="headerlink" title="Setter函数依赖注入"></a>Setter函数依赖注入</h2><p>对于一些仅使用无参构造的情况下，可以对 setter函数 进行依赖注入来初始化对象。</p>
-<p>例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">B</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> A a;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> A <span class="title">getA</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.a</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setA</span><span class="params">(A a)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.a = a;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>对于 bean.xml 的配置：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"a"</span> <span class="attr">class</span>=<span class="string">"..."</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"b"</span> <span class="attr">class</span>=<span class="string">"..."</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"a"</span> <span class="attr">ref</span>=<span class="string">"a"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="使用-p-namespace-配置"><a href="#使用-p-namespace-配置" class="headerlink" title="使用 p-namespace 配置"></a>使用 p-namespace 配置</h2><p>首先需要确保 bean.xml 中引入 <code>xmlns:p=&quot;http://www.springframework.org/schema/p&quot;</code> （<code>&lt;beans&gt;</code> 的属性中）</p>
-<p>可以使用 <code>p:propertyName = value</code> 的形式代替 <code>&lt;property /&gt;</code> 的值注入法。</p>
-<p>将上面的配置可以写为 ：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"a"</span> <span class="attr">class</span>=<span class="string">"..."</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"b"</span> <span class="attr">class</span>=<span class="string">"..."</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">p:a-ref</span>=<span class="string">"a"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>-ref</code> 是表示属性值为 bean 的引用，引用的 XML 中配置的 bean 类</li>
-<li>一般类型属性可写为 <code>p:age=&quot;30&quot;</code></li>
-<li><code>&lt;bean /&gt;</code> 是可以自封闭的</li>
-</ul>
-
+    <div class="collection-year">
+      <span class="collection-header">2020</span>
     </div>
 
-    
-    
-    
+  <article itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/Spring/" rel="tag"># Spring</a>
-              <a href="/tags/%E6%B3%A8%E5%85%A5%E4%BE%9D%E8%B5%96/" rel="tag"># 注入依赖</a>
-          </div>
+      <div class="post-meta">
+        <time itemprop="dateCreated"
+              datetime="2020-05-20T10:04:18+08:00"
+              content="2020-05-20">
+          05-20
+        </time>
+      </div>
 
-        
+      <div class="post-title">
+          <a class="post-title-link" href="/2020/05/20/java%E5%A7%94%E6%89%98/" itemprop="url">
+            <span itemprop="name">java委托</span>
+          </a>
+      </div>
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" rel="prev" title="Spring-构造函数依赖注入">
-      <i class="fa fa-chevron-left"></i> Spring-构造函数依赖注入
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E5%86%85%E9%83%A8bean/" rel="next" title="Spring-注入内部bean">
-      Spring-注入内部bean <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+    </header>
   </article>
+
+    </div>
+  </div>
   
   
+  
+
   
 
 
@@ -315,7 +249,6 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Setter函数依赖注入"><span class="nav-number">1.</span> <span class="nav-text">Setter函数依赖注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-p-namespace-配置"><span class="nav-number">2.</span> <span class="nav-text">使用 p-namespace 配置</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
