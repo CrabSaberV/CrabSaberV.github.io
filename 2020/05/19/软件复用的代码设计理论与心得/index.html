@@ -28,7 +28,7 @@
 <meta property="og:description" content="前言 自从学习了软件构造相关知识后，让我受益匪浅。虽说在我开发个人项目时，无形中会有一些代码设计的基准，但自从我了解到软件开发的30多种设计模式令我茅塞顿开。过去开发个人项目中常常在开发到最后，就有些后悔前期没能形成一个好的标准框架。现在里我将结合我的软件构造课程的学习与软件复用的理解，来记录下我的心得。  下面将会根据类，API，框架三个方面来展开。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-19T06:41:16.000Z">
-<meta property="article:modified_time" content="2020-05-19T12:25:45.809Z">
+<meta property="article:modified_time" content="2020-05-25T05:42:38.399Z">
 <meta property="article:author" content="CrabSaberV">
 <meta property="article:tag" content="软件复用">
 <meta property="article:tag" content="心得">
@@ -119,6 +119,11 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
@@ -180,10 +185,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-05-19 14:41:16 / 修改时间：20:25:45" itemprop="dateCreated datePublished" datetime="2020-05-19T14:41:16+08:00">2020-05-19</time>
+              <time title="创建时间：2020-05-19 14:41:16" itemprop="dateCreated datePublished" datetime="2020-05-19T14:41:16+08:00">2020-05-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-05-25 13:42:38" itemprop="dateModified" datetime="2020-05-25T13:42:38+08:00">2020-05-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -219,12 +230,12 @@
 <a id="more"></a>
 
 <h2 id="设计原则"><a href="#设计原则" class="headerlink" title="设计原则"></a>设计原则</h2><p>在谈论软件复用之前，首先我们简单回顾一下软件设计原则。</p>
-<h3 id="单一职责原则（SRP）"><a href="#单一职责原则（SRP）" class="headerlink" title="单一职责原则（SRP）"></a>单一职责原则（SRP）</h3><p>单一职责原则（Single Responsibility Principle），是最为简单的设计原则，用于控制类的粒度大小。</p>
+<h3 id="1-单一职责原则（SRP）"><a href="#1-单一职责原则（SRP）" class="headerlink" title="1. 单一职责原则（SRP）"></a>1. 单一职责原则（SRP）</h3><p>单一职责原则（Single Responsibility Principle），是最为简单的设计原则，用于控制类的粒度大小。</p>
 <h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>一个对象应该只包含单一的职责，并且该职责被完整的封装在一个类中。<br>也即是类的职责设计要单一，一个类仅仅只做某一件事，尽可能不要不让一个类担任太多职责。</p>
-<h3 id="开闭原则（OCP）"><a href="#开闭原则（OCP）" class="headerlink" title="开闭原则（OCP）"></a>开闭原则（OCP）</h3><p>开闭原则（Open-Closed Principle），最为重要的原则。</p>
+<h3 id="2-开闭原则（OCP）"><a href="#2-开闭原则（OCP）" class="headerlink" title="2. 开闭原则（OCP）"></a>2. 开闭原则（OCP）</h3><p>开闭原则（Open-Closed Principle），最为重要的原则。</p>
 <h4 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h4><p>软件实体对扩展开放，但对修改关闭。也就是设计一个模块时，此模块要以将来可在不修改的前提下进行扩展而被设计，也即是不改变源码来改变其行为。</p>
 <h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>开闭原则的关键是抽象化，其功能行为将由子类来完成实现或扩展。</p>
-<h3 id="里氏替换原则（LSP）"><a href="#里氏替换原则（LSP）" class="headerlink" title="里氏替换原则（LSP）"></a>里氏替换原则（LSP）</h3><p>里氏替换原则（Liskov Substitution Principle），是软件复用的一个较为关键的原则，是实现开闭原则的重要方式之一。</p>
+<h3 id="3-里氏替换原则（LSP）"><a href="#3-里氏替换原则（LSP）" class="headerlink" title="3. 里氏替换原则（LSP）"></a>3. 里氏替换原则（LSP）</h3><p>里氏替换原则（Liskov Substitution Principle），是软件复用的一个较为关键的原则，是实现开闭原则的重要方式之一。</p>
 <h4 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h4><p>所有引用基类的地方必须能透明地使用其子类对象。</p>
 <h4 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h4><p>通俗理解：软件中如果能使用父类对象，那么一定能使用其子类对象，把父类对象替换为子类对象，也不会影响代码逻辑，但是反过来能使用子类对象，却不一定能使用父类对象。</p>
 <p>一个小例子：</p>
@@ -237,8 +248,10 @@
 <ol>
 <li>子类公共方法在父类中声明，或者子类来实现父类中声明的所有方法。</li>
 <li>尽量把父类设计为抽象类或接口，这样能确保子类会实现所有父类公开声明的功能。</li>
+<li>里氏替换原则最为重要一点就是使用父类的代码，就算使用子类，也不会产生错误异常。</li>
+<li>关键在于子类的行为是否可以完全（不是仅仅的重写，而是行为的影响，作用做到完全）替代父类的行为。</li>
 </ol>
-<h3 id="依赖倒转原则（DIP）"><a href="#依赖倒转原则（DIP）" class="headerlink" title="依赖倒转原则（DIP）"></a>依赖倒转原则（DIP）</h3><p>依赖倒转原则（Dependency Inversion Principle），十分重要的原则，也是我常常会忽视的一个原则。</p>
+<h3 id="4-依赖倒转原则（DIP）"><a href="#4-依赖倒转原则（DIP）" class="headerlink" title="4. 依赖倒转原则（DIP）"></a>4. 依赖倒转原则（DIP）</h3><p>依赖倒转原则（Dependency Inversion Principle），十分重要的原则，也是我常常会忽视的一个原则。</p>
 <h4 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h4><p>高层模块不应该依赖低层模块，它们都应该抽象。抽象不应该以来细节，细节应该依赖于抽象。<br>换句话说就是要针对抽象或接口编程，不应该针对具体类编程。</p>
 <h4 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h4><p>实现开闭原则的关键是抽象化，并且从抽象化导出具体化实现，如果说开闭原则是面向对象设计的目标的话，那么依赖倒转原则就是面向对象设计的主要手段。</p>
 <h5 id="类之间的耦合关系"><a href="#类之间的耦合关系" class="headerlink" title="类之间的耦合关系"></a>类之间的耦合关系</h5><ul>
@@ -252,15 +265,15 @@
 <a href="/2020/01/08/Spring-Setter%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" title="Spring-Setter函数依赖注入">Spring-Setter函数依赖注入</a><br>
 <a href="/2020/01/08/Spring-%E6%B3%A8%E5%85%A5%E5%86%85%E9%83%A8bean/" title="Spring-注入内部bean">Spring-注入内部bean</a>
 
-<h3 id="接口隔离原则（ISP）"><a href="#接口隔离原则（ISP）" class="headerlink" title="接口隔离原则（ISP）"></a>接口隔离原则（ISP）</h3><p>接口隔离原则（Interface Segregation Principle）</p>
+<h3 id="5-接口隔离原则（ISP）"><a href="#5-接口隔离原则（ISP）" class="headerlink" title="5. 接口隔离原则（ISP）"></a>5. 接口隔离原则（ISP）</h3><p>接口隔离原则（Interface Segregation Principle）</p>
 <h4 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h4><p>使用多个专门接口来取代一个统一的接口。也就是将比较大的接口分割成许多小接口，这样就防止一个接口扮演多种角色了。</p>
-<h3 id="合成复用原则（CRP）"><a href="#合成复用原则（CRP）" class="headerlink" title="合成复用原则（CRP）"></a>合成复用原则（CRP）</h3><p>合成复用原则（Composite Reuse Principle），也叫组合/聚合复用原则</p>
+<h3 id="6-合成复用原则（CRP）"><a href="#6-合成复用原则（CRP）" class="headerlink" title="6. 合成复用原则（CRP）"></a>6. 合成复用原则（CRP）</h3><p>合成复用原则（Composite Reuse Principle），也叫组合/聚合复用原则</p>
 <h4 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h4><p>尽量多的使用对象组合，而不是继承来达到复用的目的。</p>
 <h4 id="与继承复用对比"><a href="#与继承复用对比" class="headerlink" title="与继承复用对比"></a>与继承复用对比</h4><ul>
 <li>继承复用：实现简单，易于扩展。破坏系统的封装性；从基类继承而来的实现是静态的，不可能在运行时发生改变，没有足够的灵活性；只能在有限的环境中使用。（“白箱”复用 ）</li>
 <li>组合/聚合复用：耦合度相对较低，选择性地调用成员对象的操作；可以在运行时动态进行。（“黑箱”复用 ）</li>
 </ul>
-<h3 id="迪米特法则（LoD）"><a href="#迪米特法则（LoD）" class="headerlink" title="迪米特法则（LoD）"></a>迪米特法则（LoD）</h3><p>迪米特法则（Law of Demeter），也叫最少知识原则。</p>
+<h3 id="7-迪米特法则（LoD）"><a href="#7-迪米特法则（LoD）" class="headerlink" title="7. 迪米特法则（LoD）"></a>7. 迪米特法则（LoD）</h3><p>迪米特法则（Law of Demeter），也叫最少知识原则。</p>
 <h4 id="定义-6"><a href="#定义-6" class="headerlink" title="定义"></a>定义</h4><p>一个软件实体对其他实体的引用越少越好，或者说如果两个类不必彼此直接通信，那么这两个类就不应当发生直接的相互作用，而是通过引入一个第三者发生间接交互。</p>
 <h4 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h4><p>就是指一个软件实体应当尽可能少的与其他实体发生相互作用。这样，当一个模块修改时，就会尽量少的影响其他的模块，扩展会相对容易，这是对软件实体之间通信的限制，它要求限制软件实体之间通信的宽度和深度。</p>
 <p>在迪米特法则中，对于一个对象，其朋友包括以下几类：</p>
@@ -271,7 +284,72 @@
 <li>如果当前对象的成员对象是一个集合，那么集合中的元素也都是朋友；</li>
 <li>当前对象所创建的对象。</li>
 </ol>
-<h2 id="类的复用设计"><a href="#类的复用设计" class="headerlink" title="类的复用设计"></a>类的复用设计</h2>
+<h2 id="类的复用设计"><a href="#类的复用设计" class="headerlink" title="类的复用设计"></a>类的复用设计</h2><p>在面向对象设计中设计可复用类的设计方式</p>
+<ul>
+<li>封装与信息隐蔽</li>
+<li>继承和重写</li>
+<li>多态，子类和重载</li>
+<li>泛型编程</li>
+<li>LSP原则</li>
+<li>委托和组合</li>
+</ul>
+<h3 id="尽量多用组合，而非继承关系"><a href="#尽量多用组合，而非继承关系" class="headerlink" title="尽量多用组合，而非继承关系"></a>尽量多用组合，而非继承关系</h3><p>关于这一个设计原则，更进一步来讲，我们首先需要了解清楚组合与继承的异同。</p>
+<h4 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h4><p>继承我们都用的比较熟练，子类继承父类的所有公开方法与属性。</p>
+<p><strong>但是</strong>我们在创建类的同时要考虑到信息的<strong>隐蔽封装</strong>。某个类只想向外界提供想要展示的方法，或者通过类提供的公共方法来访问私有属性。</p>
+<p>在类的继承中，往往父类的变量与方法由 <strong>protected</strong> 关键字修饰，其主要为了专门使子类继承，仅在包内可被访问。<br>而子类继承父类保护的属性后，使得<strong>子类或者包内可以任意修改父类的属性</strong>，这就破坏了信息的隐蔽与封装。</p>
+<p>除此以外通过继承来扩展功能，往往会增加内部的复杂度，增加了耦合度。</p>
+<p>另外也<strong>不支持动态继承</strong>，使得子类无法选择不同的父类。</p>
+<h4 id="组合"><a href="#组合" class="headerlink" title="组合"></a>组合</h4><p>恰好的是，组合关系很好的解决了继承所存在的问题。<br>组合是一种较为弱的关系，主要通过将要扩展类作为成员变量，在方法中调用基类的方法，同时也能进一步扩展。在策略模式中就使用到了组合的关系，详见: <a href="/2020/05/20/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" title="设计模式-策略模式">设计模式-策略模式</a></p>
+<p>组合不会破坏封装，同时低耦合。也具有良好的扩展性，支持动态组合。</p>
+<p>只不过不如继承没法做到向上转型，也就是没有多态的特性（多态必要条件：继承，重写，基类引用指向派生类）</p>
+<h4 id="组合与继承比较"><a href="#组合与继承比较" class="headerlink" title="组合与继承比较"></a>组合与继承比较</h4><p>虽说多用组合少用继承，但具体也要视情况而定。</p>
+<ul>
+<li>需要用到向上转型则（回溯到基类）只能使用继承</li>
+<li>继承结构，子类可以获取父类的内部细节，破坏封装。组合看不到基类的部分细节，确保了封装性。</li>
+<li>继承只能单继承，且不可动态继承。组合可以动态组合。</li>
+<li>开发过程中，如果要对类进行扩展或重写考虑继承。如果考虑到安全性与封装则应该使用组合。</li>
+</ul>
+<h3 id="重写与重载"><a href="#重写与重载" class="headerlink" title="重写与重载"></a>重写与重载</h3><p>其实这里要关注到注解 <code>@Override</code>。<br>在子类继承父类中，往往子类重写父类方法，我们需要加上注解 <code>@Override</code>。但是在我初学 Java 中却从来没有遇到过要使用 <code>@Override</code>。<br><code>@Override</code> 注解，标明了此子类方法重写的父类的方法，而不写此注解也是重写。但是一个最大的问题就在于子类重载父类的方法。</p>
+<p>如果不加 <code>@Override</code> 的注解，那么子类在重载父类的方法时（子类中并没有重写父类方法），并不会有任何提示，这就容易导致，在调用此方法过程中，可能重载的功能与原功能相差甚远，这就会造成一系列开发混乱。</p>
+<p>而 <code>@Override</code> 相当于一个关键字，它会标注出子类重写的所有父类方法，这这样如果不小心重载了父类的方法，就会有所提示，确保了我们在开发时，不会造成我们在不希望重载时，进行了重载。</p>
+<h3 id="泛型编程"><a href="#泛型编程" class="headerlink" title="泛型编程"></a>泛型编程</h3><p>说到泛型，其一个特点是可以保证类型的安全。在C++ 中被称为模板。<br>在 java 中泛型是比较常见的 如 List，ArrayList 等集合框架类型，泛型非常高效，安全的做到类的复用，是一种抽象的方式实现。</p>
+<p>在java1.5之前，像 ArrayList 都是基于 object 来实现，这是使得存取数据时要进行类型转换，不仅麻烦，也容易产生一些问题。<br>泛型的编程实现，使用可替换类型 T 。</p>
+<p>实现案例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Printer</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">	<span class="keyword">private</span> T msg;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMsg</span><span class="params">(T msg)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.msg = msg;</span><br><span class="line">	&#125;  </span><br><span class="line">	<span class="function"><span class="keyword">public</span> T <span class="title">getMsg</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">this</span>.msg</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>泛型的一大好处是编译时严格类型检查，另外也消除大多数的类型转换。</p>
+<h3 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h3><p>委托能很好的实现方法的动态调用，具体详见：<a href="/2020/05/20/java%E5%A7%94%E6%89%98/" title="java委托">java委托</a> 与 <a href="/2020/05/21/%E6%B5%85%E8%B0%88C-%E5%A7%94%E6%89%98%E6%9C%BA%E5%88%B6/" title="浅谈C#委托机制">浅谈C#委托机制</a></p>
+<h3 id="LSP"><a href="#LSP" class="headerlink" title="LSP"></a>LSP</h3><p>前面虽然简单讲解了里氏替换原则，这里将会更进一步详细讲解。</p>
+<h3 id="LSP-的产生"><a href="#LSP-的产生" class="headerlink" title="LSP 的产生"></a>LSP 的产生</h3><p>里氏替换原则时由 MIT 计算机科学实验室 <em>Liskov</em>女士提出，主要阐述有关继承的一些原则，有关什么时候应该使用继承，而什么时候不该使用继承。<br>而简单解释为：一个软件系统中，子类可以替换任何基类出现的地方，且替换后代码依旧正常工作。</p>
+<h4 id="一个案例：-正方形不是长方形"><a href="#一个案例：-正方形不是长方形" class="headerlink" title="一个案例： 正方形不是长方形"></a>一个案例： 正方形不是长方形</h4><p>这是个比较经典的例子，在我们数学中 <strong>“正方形是长方形，只不过是个特殊的长方形”</strong>。而根据这个定理，我们通过计算机代码实现（ java语言 ）。</p>
+<ul>
+<li>长方形类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span></span>&#123;</span><br><span class="line">	<span class="keyword">double</span> length;    <span class="comment">// 长</span></span><br><span class="line">	<span class="keyword">double</span> width;	  <span class="comment">// 宽</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">// setter / getter</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLength</span><span class="params">(<span class="keyword">double</span> length)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.length = length;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWidth</span><span class="params">(<span class="keyword">double</span> Width)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.width = width;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getLength</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> <span class="keyword">this</span>.length&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getWidth</span><span class="params">()</span></span>&#123;<span class="keyword">return</span> <span class="keyword">this</span>.width&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>正方形类,一般而言我们会继承长方形类 Rectangle</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Rectangle</span></span>&#123;</span><br><span class="line">	<span class="comment">// 属性继承父类</span></span><br><span class="line">	<span class="comment">// 仅该重写setter方法</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setLength</span><span class="params">(<span class="keyword">double</span> length)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.length = length;</span><br><span class="line">		<span class="keyword">this</span>.width = length</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWidth</span><span class="params">(<span class="keyword">double</span> Width)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.width = width;</span><br><span class="line">		<span class="keyword">this</span>.length = width;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>测试类，用于动态增加长方形的宽度。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestRectagle</span></span>&#123;</span><br><span class="line">	<span class="comment">// 不断增加矩形宽度</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">resize</span><span class="params">(Rectangle rect)</span></span>&#123;</span><br><span class="line">		<span class="comment">// 增长的限制是，宽度不能超过长度</span></span><br><span class="line">		<span class="keyword">while</span>(rect.getWidth() &lt;= rect.getLength())&#123;</span><br><span class="line">			rect.setWidth(rect.getWidth() + <span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在主函数运行此代码，会发现：</p>
+<ul>
+<li>如果我们<strong>传入的是长方形 Rectangle 类对象</strong>，那么宽度会不断增加，直到宽度大于长度时，将会停止。</li>
+<li>而如果*<em>传入的是正方形 Square类对象 *</em>那么随着宽度增加，长度也会随之增加，始终保证宽度与长度相等，这样代码就会永远的循环下去，直到内存溢出等错误出现。</li>
+</ul>
+<p>从这里可以看出，<strong>子类正方形并不能替换父类长方形</strong>，子类替换父类后代码会出现问题，那么很明显这并不符合里氏替换原则，因而正方形与长方形之间的继承关系就不成立。</p>
+<h4 id="分析理解"><a href="#分析理解" class="headerlink" title="分析理解"></a>分析理解</h4><p>就上面的案例，现实理论中的关系，却并不能构成正真的继承关系。造成这个问题的原则有以下:</p>
+<h5 id="类的继承关系没有明确"><a href="#类的继承关系没有明确" class="headerlink" title="类的继承关系没有明确"></a>类的继承关系没有明确</h5><p>其实上面的案例会发现，我们继承的依据是：两者有共同的属性。而这却忽略了两者共有的行为产生的行为结果不同。</p>
+<p>面向对象设计应该关注的是对象的<strong>行为</strong>，以对象的<strong>行为</strong>来对实体对象进行分类。面向对象继承中的 <strong>“Is-A”</strong> 的关系，其实是行为的 <strong>“ Is-A ”</strong>关系，里氏替换原则形象来说<strong>“B as A ”</strong> 的关系。</p>
+<p>上面的正方形是长方形的案例中，我们将它们的属性 长和宽 作为依赖关系的依据，而忽略了正方形行为方面无法完全替代长方形的行为。这既是我们强行将正方形继承自长方形，导致预期结果不同。</p>
+<h5 id="继承关系也依赖具体使用环境"><a href="#继承关系也依赖具体使用环境" class="headerlink" title="继承关系也依赖具体使用环境"></a>继承关系也依赖具体使用环境</h5><p>继承并不能滥用，必须根据我们的具体情况来使用。不同的情况我们的继承关系间的实体对象也不通过。</p>
+<p>如果我们设计的测试类，或者实际中的操作方法，是计算获取它们的面积，或者根据面积来求长和宽，那么案例中的继承关系是成立的。从这个角度来看，长方形与正方形的属性是相同，求解方法（行为）也是相同的。这样，当我们用正方形来替换长方形，并不会造成错误异常，这就符合了里氏替换原则。</p>
+<p>如果依旧是案例中的操作，长方形与正方形的属性虽然相同，但是长方形的长和宽的行为关系，与正方形的长和宽行为关系是不同的。而案例中的操作，是依赖于长和宽的关系来设计的操作行为，这就导致 正方形替换长方形 会造成系统错误。</p>
+<h4 id="正确使用里氏替换原则"><a href="#正确使用里氏替换原则" class="headerlink" title="正确使用里氏替换原则"></a>正确使用里氏替换原则</h4><p>综上所述，我们在设计继承关系时，就必须依据对象间的行为以及我们实际开发的需求。这样做才能更符合里氏替换原则，也避免后期类的复用时，造成可能的非必要修改。</p>
+<p>里氏替换原则是符合了开闭原则，是对开闭原则的一种实现。违背了里氏替换原则，必然就违背了开闭原则。反之未必如此。</p>
+<p>符合里氏替换原则，保证了类的扩展性安全，也启发我们如何更加正确的设计继承关系。</p>
+
     </div>
 
     
@@ -355,7 +433,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计原则"><span class="nav-number">2.</span> <span class="nav-text">设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单一职责原则（SRP）"><span class="nav-number">2.1.</span> <span class="nav-text">单一职责原则（SRP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开闭原则（OCP）"><span class="nav-number">2.2.</span> <span class="nav-text">开闭原则（OCP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">2.2.2.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#里氏替换原则（LSP）"><span class="nav-number">2.3.</span> <span class="nav-text">里氏替换原则（LSP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">2.3.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖倒转原则（DIP）"><span class="nav-number">2.4.</span> <span class="nav-text">依赖倒转原则（DIP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-2"><span class="nav-number">2.4.2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类之间的耦合关系"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">类之间的耦合关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口隔离原则（ISP）"><span class="nav-number">2.5.</span> <span class="nav-text">接口隔离原则（ISP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#合成复用原则（CRP）"><span class="nav-number">2.6.</span> <span class="nav-text">合成复用原则（CRP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-5"><span class="nav-number">2.6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与继承复用对比"><span class="nav-number">2.6.2.</span> <span class="nav-text">与继承复用对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迪米特法则（LoD）"><span class="nav-number">2.7.</span> <span class="nav-text">迪米特法则（LoD）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-6"><span class="nav-number">2.7.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-3"><span class="nav-number">2.7.2.</span> <span class="nav-text">分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的复用设计"><span class="nav-number">3.</span> <span class="nav-text">类的复用设计</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计原则"><span class="nav-number">2.</span> <span class="nav-text">设计原则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-单一职责原则（SRP）"><span class="nav-number">2.1.</span> <span class="nav-text">1. 单一职责原则（SRP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-开闭原则（OCP）"><span class="nav-number">2.2.</span> <span class="nav-text">2. 开闭原则（OCP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">2.2.2.</span> <span class="nav-text">分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-里氏替换原则（LSP）"><span class="nav-number">2.3.</span> <span class="nav-text">3. 里氏替换原则（LSP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-1"><span class="nav-number">2.3.2.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">2.3.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-依赖倒转原则（DIP）"><span class="nav-number">2.4.</span> <span class="nav-text">4. 依赖倒转原则（DIP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-2"><span class="nav-number">2.4.2.</span> <span class="nav-text">分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类之间的耦合关系"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">类之间的耦合关系</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-接口隔离原则（ISP）"><span class="nav-number">2.5.</span> <span class="nav-text">5. 接口隔离原则（ISP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-合成复用原则（CRP）"><span class="nav-number">2.6.</span> <span class="nav-text">6. 合成复用原则（CRP）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-5"><span class="nav-number">2.6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#与继承复用对比"><span class="nav-number">2.6.2.</span> <span class="nav-text">与继承复用对比</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-迪米特法则（LoD）"><span class="nav-number">2.7.</span> <span class="nav-text">7. 迪米特法则（LoD）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义-6"><span class="nav-number">2.7.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析-3"><span class="nav-number">2.7.2.</span> <span class="nav-text">分析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的复用设计"><span class="nav-number">3.</span> <span class="nav-text">类的复用设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#尽量多用组合，而非继承关系"><span class="nav-number">3.1.</span> <span class="nav-text">尽量多用组合，而非继承关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#继承"><span class="nav-number">3.1.1.</span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合"><span class="nav-number">3.1.2.</span> <span class="nav-text">组合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#组合与继承比较"><span class="nav-number">3.1.3.</span> <span class="nav-text">组合与继承比较</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写与重载"><span class="nav-number">3.2.</span> <span class="nav-text">重写与重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛型编程"><span class="nav-number">3.3.</span> <span class="nav-text">泛型编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#委托"><span class="nav-number">3.4.</span> <span class="nav-text">委托</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSP"><span class="nav-number">3.5.</span> <span class="nav-text">LSP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LSP-的产生"><span class="nav-number">3.6.</span> <span class="nav-text">LSP 的产生</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个案例：-正方形不是长方形"><span class="nav-number">3.6.1.</span> <span class="nav-text">一个案例： 正方形不是长方形</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分析理解"><span class="nav-number">3.6.2.</span> <span class="nav-text">分析理解</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#类的继承关系没有明确"><span class="nav-number">3.6.2.1.</span> <span class="nav-text">类的继承关系没有明确</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#继承关系也依赖具体使用环境"><span class="nav-number">3.6.2.2.</span> <span class="nav-text">继承关系也依赖具体使用环境</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正确使用里氏替换原则"><span class="nav-number">3.6.3.</span> <span class="nav-text">正确使用里氏替换原则</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -383,6 +461,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
+          
         <span class="site-state-item-count">45</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
