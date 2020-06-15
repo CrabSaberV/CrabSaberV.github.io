@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言 Shader 也称着色器其实属于应用程序层，用于调用和使用图形API，以编程的形式来控制图形渲染。本文将初探 Shader">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shader框架结构">
+<meta property="og:url" content="https://crabsaberv.github.io/2020/06/14/Shader%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="前言 Shader 也称着色器其实属于应用程序层，用于调用和使用图形API，以编程的形式来控制图形渲染。本文将初探 Shader">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-14T03:18:51.000Z">
+<meta property="article:modified_time" content="2020-06-15T04:55:09.653Z">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="Shader">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://crabsaberv.github.io/2020/06/14/Shader%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Shader框架结构 | CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/06/14/Shader%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Shader框架结构
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-14 11:18:51" itemprop="dateCreated datePublished" datetime="2020-06-14T11:18:51+08:00">2020-06-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-15 12:55:09" itemprop="dateModified" datetime="2020-06-15T12:55:09+08:00">2020-06-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index"><span itemprop="name">Unity3d</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>Shader 也称着色器其实属于应用程序层，用于调用和使用图形API，以编程的形式来控制图形渲染。<br>本文将初探 Shader</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="Shader-分类"><a href="#Shader-分类" class="headerlink" title="Shader 分类"></a>Shader 分类</h2><p>这里的分类是主流的大体分类。</p>
+<ol>
+<li>Vertex Shader （顶点着色器），模型的顶点决定了模型的形状以及位置。更像是模型框架结构。</li>
+<li>Fragment Shader (片元着色器) ，也叫像素着色，相比顶点片元着色器负责颜色的渲染，将模型的贴图转换为一个个像素点渲染，大量的像素显示不同的颜色，最终展示出贴图的样式。</li>
+</ol>
+<h2 id="Shader-编程语言"><a href="#Shader-编程语言" class="headerlink" title="Shader 编程语言"></a>Shader 编程语言</h2><ol>
+<li>基于 OpenGL 的 OpenGL Shader Language，简称 GLSL 。</li>
+<li>基于 DirectX 的 High Level Shader Language，简称 HLSL 。</li>
+<li>NVIDIA 公司提供给的 C for Graphic，简称 CG 。 </li>
+</ol>
+<p>GLSL 与 HLSL 相互间是互斥的，因为其分别基于 OpenGL 接口 和 DirectX 接口。图形接口只能使用一个。<br>OpenGL 更多应用在移动端，其轻便，高性能的特点，能在低端性能设备上保证良好的性能与效果。<br>DirectX 是微软公司提供的图形接口，也是 PC端 最常见最主要的图形接口。</p>
+<p>CG语言如同其全称 C for Graphic ,使用 C语言 对图形编程，其初衷是让基于图形硬件的编程变得和C语言编程一样强大，方便，自由。对于程序开发人员来讲非常容易上手。<br>CG语言是 Microsoft 和 NVIDIA 相互合作在标准硬件光照语言和语法语义上达成一致，所以 HLSL 与 CG 是同一种语言。</p>
+<h2 id="ShaderLab-语法结构"><a href="#ShaderLab-语法结构" class="headerlink" title="ShaderLab 语法结构"></a>ShaderLab 语法结构</h2><p>ShaderLab 是 Unity 封装了一层 CG/HLSL/GLSL 接口，但为了跨平台 Unity 重点支持 CG 语言。</p>
+<h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Shader &quot;Custom&#x2F;myShader&quot;&#123;</span><br><span class="line">	Properties&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	SubShader&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	Fallback &quot;VertexLit&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>外部结构 <code>Shader &quot;name&quot;{}</code> ，其中的 <code>name</code> 不需要保证与文件名相同，其表示 Unity 的 Meteria 面板中的 shader目录名。’/‘ 用于表示目录父子关系。</li>
+<li><code>Properties{}</code> 其中负责声明定义 Shader 属性，将会显示在 Material 的面板中，以便自定义属性。可以为空，可以没有，但最多只有一个此结构。</li>
+<li><code>SubShader{}</code> 至少要有一个，显卡通过 SubShader 来决定渲染方式，是程序入口，因此至少要有一个，可以有多个。当有多个时，会先从第一个 SubShader 编译，当编译不通过，会选择第二个，以此类推。而当有一个可以编译通过，就不再运行后面的 SubShader 。有些时候，一些设备版本不支持的渲染编码，会使得SubShader 无法编译通过,这可以称作是替代方案。</li>
+<li><code>Fallback &quot;ShaderName&quot;</code> 当所有的 <code>SubShader</code> 都无法通过时，会执行此方案中的 Shader 。<code>ShaderName</code> 必须是系统提供或者自建存在的 shader,当有重名时考虑其目录名。被称为后备方案。</li>
+</ol>
+<h3 id="Properties-结构"><a href="#Properties-结构" class="headerlink" title="Properties 结构"></a>Properties 结构</h3><p>定义在<code>Properties{}</code>  的属性会显示在 Inspector面板中。可以理解为全局属性。</p>
+<h4 id="属性定义方式"><a href="#属性定义方式" class="headerlink" title="属性定义方式"></a>属性定义方式</h4><p><code>属性名(&quot;外部显示名&quot;,属性类型)</code>，属性名为内部编程调用的属性名称；外部属性名可以任意命名是 Inspector 面板中显示的属性名称；属性类型，则是变量的数据类型。</p>
+<p>在 <code>Properties{}</code> 中定义的属性必须初始化，并且不需要分号结尾。</p>
+<h4 id="基础数据类型"><a href="#基础数据类型" class="headerlink" title="基础数据类型"></a>基础数据类型</h4><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="left">描述</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Color</td>
+<td align="left">颜色类型，一个四维向量，主要前三维表示RGB<br>取值范围是在 0-1 之间。</td>
+<td align="left"><code>_Color(&quot;Color&quot;,Color) = (1,1,1,1)</code></td>
+</tr>
+<tr>
+<td align="center">Vector</td>
+<td align="left">Vector 向量类型，一般为四维向量，其取值是浮点类型。可以说 Color 是 Vector 的一个特例。</td>
+<td align="left"><code>_Vector(&quot;Vector&quot;,Vector) = (1,2,3,4)</code></td>
+</tr>
+<tr>
+<td align="center">Int</td>
+<td align="left">Int 类型（整型），整数类型属性。</td>
+<td align="left"><code>_Int(&quot;Int&quot;,Int) = 40</code></td>
+</tr>
+<tr>
+<td align="center">Float</td>
+<td align="left">Floar 类型，浮点数类型属性。</td>
+<td align="left"><code>_Float(&quot;Float&quot;,Float) = 4.5</code></td>
+</tr>
+<tr>
+<td align="center">Rangle</td>
+<td align="left">Rangle 类型，范围类型，用于指定属性的取值范围，其类型是浮点型。</td>
+<td align="left"><code>_Rangle(&quot;Rangle&quot;,Rangle(10,22)) = 11.5</code></td>
+</tr>
+</tbody></table>
+<h4 id="特殊数据类型"><a href="#特殊数据类型" class="headerlink" title="特殊数据类型"></a>特殊数据类型</h4><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="left">描述</th>
+<th align="left">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2D</td>
+<td align="left">2D 类型，往往用于指定图片，纹理。<br>而不指定图片源，可以是设置的默认颜色。<br>注意颜色名是字符串。</td>
+<td align="left"><code>_2D(&quot;Texture&quot;,2D) = &quot;red&quot;{}</code></td>
+</tr>
+<tr>
+<td align="center">Cube</td>
+<td align="left">Cube 类型，是多个纹理图片组成的立方体6面，可以看作是 2D 类型的数组类型，往往多用于天空盒。</td>
+<td align="left"><code>_Cube(&quot;Cube&quot;,Cube) = &quot;White&quot;{}</code></td>
+</tr>
+<tr>
+<td align="center">3D</td>
+<td align="left">3D类型，目前我还没找到一些资料解释，这里称作 3D 纹理。</td>
+<td align="left"><code>_3D(&quot;3D&quot;,3D)=&quot;blue&quot;{}</code></td>
+</tr>
+</tbody></table>
+<h3 id="SubShader-结构"><a href="#SubShader-结构" class="headerlink" title="SubShader 结构"></a>SubShader 结构</h3><p>SubShader 表示一种渲染方案，也是我们编程的主要入口。<br>结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">SubShader&#123;</span><br><span class="line">	Pass&#123;</span><br><span class="line">		CGPROGRAM</span><br><span class="line">		</span><br><span class="line">		ENDCG</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 SubShader 中至少要有一个 Pass 。Pass 可以看作是一个编译入口，或者一个工作空间。</p>
+<p>而 shader 代码在 <code>CGPROGRAM-ENDCG</code>中编写，表示使用 CG语言编程。也可以是 <code>HLSLPROGRAM-ENDHLSL</code>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Shader/" rel="tag"># Shader</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/05/Unity-%E4%BB%80%E4%B9%88%E6%98%AFAssetBundle/" rel="prev" title="Unity-什么是AssetBundle">
+      <i class="fa fa-chevron-left"></i> Unity-什么是AssetBundle
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/15/Shader-CG%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="next" title="Shader CG编程基础数据类型">
+      Shader CG编程基础数据类型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shader-分类"><span class="nav-number">2.</span> <span class="nav-text">Shader 分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shader-编程语言"><span class="nav-number">3.</span> <span class="nav-text">Shader 编程语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ShaderLab-语法结构"><span class="nav-number">4.</span> <span class="nav-text">ShaderLab 语法结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本结构"><span class="nav-number">4.1.</span> <span class="nav-text">基本结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Properties-结构"><span class="nav-number">4.2.</span> <span class="nav-text">Properties 结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#属性定义方式"><span class="nav-number">4.2.1.</span> <span class="nav-text">属性定义方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基础数据类型"><span class="nav-number">4.2.2.</span> <span class="nav-text">基础数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊数据类型"><span class="nav-number">4.2.3.</span> <span class="nav-text">特殊数据类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SubShader-结构"><span class="nav-number">4.3.</span> <span class="nav-text">SubShader 结构</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CrabSaberV"
+      src="/asset/icons/crab_520x520.png">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">46</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrabSaberV" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrabSaberV" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:s46244934@gmail.com" title="E-Mail → mailto:s46244934@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
