@@ -20,20 +20,37 @@
     var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="前言基于软件体系结构复习，补充相关回答。 第一章1. 如何理解软件体系结构的概念？它与建筑体系结构、计算机  硬件系统的“体系结构”有哪些共性？ 软件体系结构是对软件系统的抽象，主要关注一组软件元素的相关结构、它们之间的交互机制以及它们与外部环境的交互机制。 重视软件体系结构的设计将会极大的提高软件的质量、设计的效率和可靠性。 其他体系成功的基本模式是   标准零部件&#x2F;构件的生产 标准构件的复用（">
+  <meta name="description" content="前言基于软件体系结构复习，补充相关回答。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="软件体系结构复习">
 <meta property="og:url" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/index.html">
 <meta property="og:site_name" content="CrabSaberV is here">
-<meta property="og:description" content="前言基于软件体系结构复习，补充相关回答。 第一章1. 如何理解软件体系结构的概念？它与建筑体系结构、计算机  硬件系统的“体系结构”有哪些共性？ 软件体系结构是对软件系统的抽象，主要关注一组软件元素的相关结构、它们之间的交互机制以及它们与外部环境的交互机制。 重视软件体系结构的设计将会极大的提高软件的质量、设计的效率和可靠性。 其他体系成功的基本模式是   标准零部件&#x2F;构件的生产 标准构件的复用（">
+<meta property="og:description" content="前言基于软件体系结构复习，补充相关回答。">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%871.png">
 <meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%872.png">
 <meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%873.png">
 <meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%877.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%878.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%879.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8710.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8711.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8712.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8713.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8714.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8715.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8716.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8717.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8720.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8718.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8719.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8721.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8722.png">
 <meta property="og:image" content="https://crabsaberv.github.io/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%875.png">
 <meta property="article:published_time" content="2020-08-25T09:56:38.000Z">
-<meta property="article:modified_time" content="2020-08-25T10:00:21.396Z">
+<meta property="article:modified_time" content="2020-08-25T15:47:25.292Z">
 <meta property="article:author" content="CrabSaberV">
 <meta property="article:tag" content="软件体系结构">
 <meta property="article:tag" content="复习">
@@ -193,7 +210,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-25 17:56:38 / 修改时间：18:00:21" itemprop="dateCreated datePublished" datetime="2020-08-25T17:56:38+08:00">2020-08-25</time>
+              <time title="创建时间：2020-08-25 17:56:38 / 修改时间：23:47:25" itemprop="dateCreated datePublished" datetime="2020-08-25T17:56:38+08:00">2020-08-25</time>
             </span>
 
           
@@ -215,8 +232,9 @@
 
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>基于软件体系结构复习，补充相关回答。</p>
+<a id="more"></a>
 <h1 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h1><h2 id="1-如何理解软件体系结构的概念？它与建筑体系结构、计算机-硬件系统的“体系结构”有哪些共性？"><a href="#1-如何理解软件体系结构的概念？它与建筑体系结构、计算机-硬件系统的“体系结构”有哪些共性？" class="headerlink" title="1. 如何理解软件体系结构的概念？它与建筑体系结构、计算机  硬件系统的“体系结构”有哪些共性？"></a>1. 如何理解软件体系结构的概念？它与建筑体系结构、计算机  硬件系统的“体系结构”有哪些共性？</h2><ol>
-<li>软件体系结构是对<strong>软件系统的抽象</strong>，<strong>主要关注</strong>一组软件元素的<strong>相关结构</strong>、它们之间的<strong>交互机制</strong>以及它们<strong>与外部环境的交互机制</strong>。 重视软件体系结构的设计将会极大的提高软件的质量、设计的效率和可靠性。</li>
+<li>软件体系结构为软件系统提供了一个<strong>结构、行为和属性</strong>的高级<strong>抽象</strong>，由构成系统的<strong>元素的描述</strong>、这些元素的<strong>相互作用、指导元素集成的模式</strong>以及这些<strong>模式的约束组成</strong>。软件体系结构不仅<strong>指定了</strong>系统的<strong>组织结构</strong>和<strong>拓扑结构</strong>，并且显示了<strong>系统需求</strong>和构成系统的<strong>元素之间的对应关系</strong>，提供了一些设计决策的基本原理。</li>
 <li>其他体系成功的基本模式是</li>
 </ol>
 <ul>
@@ -226,12 +244,12 @@
 <h2 id="2-什么是软件体系结构？"><a href="#2-什么是软件体系结构？" class="headerlink" title="2. 什么是软件体系结构？"></a>2. 什么是软件体系结构？</h2><p>软件体系结构包括<strong>构成系统的设计元素的描述</strong>、<strong>设计元素之间的交互</strong>、<strong>设计元素的组合模式</strong>以及在这些<strong>模式中的约束。</strong><br>软件体系结构 = 构件 + 连接件 + 约束</p>
 <h2 id="3-如何理解“软件工程的研究和应用可缓解软件危机造成的被动局面”？"><a href="#3-如何理解“软件工程的研究和应用可缓解软件危机造成的被动局面”？" class="headerlink" title="3. 如何理解“软件工程的研究和应用可缓解软件危机造成的被动局面”？"></a>3. 如何理解“软件工程的研究和应用可缓解软件危机造成的被动局面”？</h2><p>软件工程是用工程、科学和数学的原理和方法研制，维护软件的有关技术和管理方法。将复杂的软件设计问题，用工程化的思想来解决。工程化使得软件有更良好的可移植性，可扩展性，可维护性。同时也使得团队协作更易于进行复杂软件的开发。</p>
 <h2 id="4-软件产业发展的必经之路就是走工业的发展模式，这种发展模式典型特点是什么？"><a href="#4-软件产业发展的必经之路就是走工业的发展模式，这种发展模式典型特点是什么？" class="headerlink" title="4. 软件产业发展的必经之路就是走工业的发展模式，这种发展模式典型特点是什么？"></a>4. 软件产业发展的必经之路就是走工业的发展模式，这种发展模式典型特点是什么？</h2><ul>
-<li>进行符合标准构件的构件生产；</li>
-<li>基于标准构件的产品生产（组装);</li>
-<li>其中构件是核心和基础，复用是必需的手段；</li>
+<li>进行符合标准构件的<strong>构件生产</strong>；</li>
+<li>基于标准构件的<strong>产品生产</strong>（组装);</li>
+<li>其中<strong>构件是核心和基础</strong>，<strong>复用是必需的手段</strong>；</li>
 </ul>
 <h2 id="5-什么是构件、软件重用、哪些软件元素可重用、软件重用的优点？"><a href="#5-什么是构件、软件重用、哪些软件元素可重用、软件重用的优点？" class="headerlink" title="5. 什么是构件、软件重用、哪些软件元素可重用、软件重用的优点？"></a>5. 什么是构件、软件重用、哪些软件元素可重用、软件重用的优点？</h2><ol>
-<li>构件是指语义完整、语法正确和有可重用价值的单位软件，是软件重用过程中可以明确辨识的系统；结构上，它是语义描述、通讯接口和实现代码的复合体。</li>
+<li>构件是指<strong>语义完整、语法正确和有可重用价值</strong>的<strong>单位软件</strong>，是软件重用过程中可以明确辨识的系统；结构上，它是语义描述、通讯接口和实现代码的复合体。</li>
 <li>软件重用是指在两次或多次不同的软件开发过程中重复使用相同或相近软件元素的过程。</li>
 <li>软件元素：程序代码、设计文档、设计过程、需求分析文档、领域知识。</li>
 <li>软件重用优点：</li>
@@ -243,20 +261,12 @@
 </ul>
 <h2 id="6-什么是构件模型，有哪些常见的构件模型，它们的目标和作用是什么，国内在构件模型的研究上有什么进展？"><a href="#6-什么是构件模型，有哪些常见的构件模型，它们的目标和作用是什么，国内在构件模型的研究上有什么进展？" class="headerlink" title="6. 什么是构件模型，有哪些常见的构件模型，它们的目标和作用是什么，国内在构件模型的研究上有什么进展？"></a>6. 什么是构件模型，有哪些常见的构件模型，它们的目标和作用是什么，国内在构件模型的研究上有什么进展？</h2><ol>
 <li>构件是指语义完整、语法正确和有可重用价值的单位软件，是软件重用过程中可以明确辨识的系统；结构上，它是语义描述、通讯接口和实现代码的复合体。</li>
-<li>常见的构件模型有：OMG的CORBA、SUN的EJB和Mircrosoft的DCOM。</li>
-<li>基于构件软件开发方法的优点:</li>
-</ol>
-<ul>
-<li>易于软件的可重用,易于维护。基于构件的开发方法使得软件开发不再一切从头开发，开发的过程就是构件组装的过程，维护的过程就是构件升级、替换和扩充的过程。其优点是构件组装模型导致了软件的复用，提高了软件开发的效率。</li>
-<li>构件可由一方定义其规格说明，被另一方实现。然后供给第三方使用，构件组装模型允许多个项目同时开发，降低了费用，提高了可维护性，可实现分步提交软件产品。</li>
-</ul>
-<ol start="4">
-<li>软件开发可复用的层次：代码级别的复用、设计模式的复用以及最高层次分析模式的复用。如图所示</li>
+<li>常见的构件模型有：OMG的CORBA、SUN的EJB和Mircrosoft的DCOM。<br>。。。。<em>（具体也不太清楚该怎么回答）</em></li>
 </ol>
 <h2 id="7-构件库中对构件的分类方法有哪些？"><a href="#7-构件库中对构件的分类方法有哪些？" class="headerlink" title="7. 构件库中对构件的分类方法有哪些？"></a>7. 构件库中对构件的分类方法有哪些？</h2><ol>
-<li>关键字分类法：<br>根据领域分析的结果将应用领域的概念按照从抽象到具体的顺序逐次分解为树状或有向无回路图结构，每个概念用一个描述性的关键字表示<br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%871.png" alt="1"></li>
-<li>刻面分类法：<br>一个刻面描述构件某一个方面的特征。刻面分类则是从不同的侧面对构件进行分类，每一种分类方式称为一个刻面。不同的刻面根据其重要性可以设置不同的优先级。<br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%872.png" alt="2"></li>
-<li>超文本组织法：<br>所有构件必须辅以详尽的功能或行为说明文档，说明中出现的重要概念以网状链接方式相互连接。<br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%873.png" alt="3"></li>
+<li>关键字分类法：<br>根据领域分析的结果将<strong>应用领域的概念按照从抽象到具体的顺序</strong>逐次分解为<strong>树状</strong>或<strong>有向无回路图</strong>结构，每个概念用一个<strong>描述性的关键字</strong>表示<br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%871.png" alt="1"></li>
+<li>刻面分类法：<br>一个刻面描述构件<strong>某一个方面的特征</strong>。刻面分类则是从<strong>不同的侧面对构件进行分类</strong>，每一种分类方式称为一个刻面。不同的刻面根据其重要性可以设置不同的优先级。<br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%872.png" alt="2"></li>
+<li>超文本组织法：<br>所有构件必须辅以详尽的功能或行为<strong>说明文档</strong>，说明中出现的重要概念以网状链接方式相互连接。<br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%873.png" alt="3"></li>
 </ol>
 <h2 id="8-构件的组装技术可分为哪三种，请简要解释一下。"><a href="#8-构件的组装技术可分为哪三种，请简要解释一下。" class="headerlink" title="8. 构件的组装技术可分为哪三种，请简要解释一下。"></a>8. 构件的组装技术可分为哪三种，请简要解释一下。</h2><ol>
 <li>基于功能的组装技术:<br>用这种组装技术时，开发人员首先应<strong>对目标软件系统进行功能分解</strong>，将系统分解为<strong>强内聚、松耦合</strong>的功能模块。<br>然后根据各模块的<strong>功能需求</strong>提取构件，对它进行<strong>适应性修改</strong>后再挂接在上述功能分解框架中。（库中的构件以<strong>子程序/过程/函数</strong>的形式出现，并且接口说明必须清晰。采用<strong>子程序调用和参数传递</strong>的方式将构件<strong>组装</strong>起来）</li>
@@ -271,7 +281,131 @@
 <li>2000年后，面向服务的计算，面向服务的体系结构</li>
 </ol>
 <h2 id="11-为什么基于构件的软件开发方法能有效地提高开发效率？"><a href="#11-为什么基于构件的软件开发方法能有效地提高开发效率？" class="headerlink" title="11. 为什么基于构件的软件开发方法能有效地提高开发效率？"></a>11. 为什么基于构件的软件开发方法能有效地提高开发效率？</h2><p>它通过对软件系统整体结构和特性的描述,为面向构件的软件开发提供了一个<strong>自顶向下的途径</strong>.介绍了一种以软件体系结构为指导,面向构件的软件开发方法,试图为基于构件的软件复用提供一种有效的解决方案.这种方法主要是<br><strong>将软件体系结构引入到软件开发的各个阶段,作为系统开发的蓝图,利用工具支持的自动转换机制缩小从高层设计到实现的距离,而后在构件平台的运行支持下实现自动的系统组装生成.</strong></p>
-<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><h2 id="1-类比建筑行业的建模，如何理解软件体系结构建模，建模的优点有哪些？"><a href="#1-类比建筑行业的建模，如何理解软件体系结构建模，建模的优点有哪些？" class="headerlink" title="1. 类比建筑行业的建模，如何理解软件体系结构建模，建模的优点有哪些？"></a>1. 类比建筑行业的建模，如何理解软件体系结构建模，建模的优点有哪些？</h2><h2 id="2-软件体系结构的建模方法有哪些？"><a href="#2-软件体系结构的建模方法有哪些？" class="headerlink" title="2. 软件体系结构的建模方法有哪些？"></a>2. 软件体系结构的建模方法有哪些？</h2><h2 id="3-软件系统的需求种类繁多，一般可以分为哪几部分？"><a href="#3-软件系统的需求种类繁多，一般可以分为哪几部分？" class="headerlink" title="3. 软件系统的需求种类繁多，一般可以分为哪几部分？"></a>3. 软件系统的需求种类繁多，一般可以分为哪几部分？</h2><h2 id="4-经典的“4-1”视图模型是分别从软件需求的哪些角度进行建模的？"><a href="#4-经典的“4-1”视图模型是分别从软件需求的哪些角度进行建模的？" class="headerlink" title="4. 经典的“4+1”视图模型是分别从软件需求的哪些角度进行建模的？"></a>4. 经典的“4+1”视图模型是分别从软件需求的哪些角度进行建模的？</h2><h2 id="5-如何理解每一个视图？每一种视图用UML中的哪类图表示？"><a href="#5-如何理解每一个视图？每一种视图用UML中的哪类图表示？" class="headerlink" title="5. 如何理解每一个视图？每一种视图用UML中的哪类图表示？"></a>5. 如何理解每一个视图？每一种视图用UML中的哪类图表示？</h2><h2 id="6-软件体系结构的核心模型中包括哪些重要的要素，它们的关系如何理解？"><a href="#6-软件体系结构的核心模型中包括哪些重要的要素，它们的关系如何理解？" class="headerlink" title="6. 软件体系结构的核心模型中包括哪些重要的要素，它们的关系如何理解？"></a>6. 软件体系结构的核心模型中包括哪些重要的要素，它们的关系如何理解？</h2><h2 id="7-软件设计完整的生命周期模型包括哪几个阶段，其中软件体系结构设计阶段的主要任务是什么？"><a href="#7-软件设计完整的生命周期模型包括哪几个阶段，其中软件体系结构设计阶段的主要任务是什么？" class="headerlink" title="7. 软件设计完整的生命周期模型包括哪几个阶段，其中软件体系结构设计阶段的主要任务是什么？"></a>7. 软件设计完整的生命周期模型包括哪几个阶段，其中软件体系结构设计阶段的主要任务是什么？</h2><h2 id="8-请区分软件体系结构的生命周期与软件设计的生命周期。"><a href="#8-请区分软件体系结构的生命周期与软件设计的生命周期。" class="headerlink" title="8. 请区分软件体系结构的生命周期与软件设计的生命周期。"></a>8. 请区分软件体系结构的生命周期与软件设计的生命周期。</h2><h2 id="9-用图描述基于软件体系结构的开发过程。"><a href="#9-用图描述基于软件体系结构的开发过程。" class="headerlink" title="9. 用图描述基于软件体系结构的开发过程。"></a>9. 用图描述基于软件体系结构的开发过程。</h2><p><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%875.png" alt="4"></p>
+<p><em>(以下也是推测)</em><br>基于构件软件开发方法的优点:</p>
+<ul>
+<li>易于软件的可重用,易于维护。基于构件的开发方法使得软件开发不再一切从头开发，开发的过程就是构件组装的过程，维护的过程就是构件升级、替换和扩充的过程。其优点是构件组装模型导致了软件的复用，提高了软件开发的效率。</li>
+<li>构件可由一方定义其规格说明，被另一方实现。然后供给第三方使用，构件组装模型允许多个项目同时开发，降低了费用，提高了可维护性，可实现分步提交软件产品。</li>
+</ul>
+<h1 id="第二章"><a href="#第二章" class="headerlink" title="第二章"></a>第二章</h1><h2 id="1-类比建筑行业的建模，如何理解软件体系结构建模，建模的优点有哪些？"><a href="#1-类比建筑行业的建模，如何理解软件体系结构建模，建模的优点有哪些？" class="headerlink" title="1. 类比建筑行业的建模，如何理解软件体系结构建模，建模的优点有哪些？"></a>1. 类比建筑行业的建模，如何理解软件体系结构建模，建模的优点有哪些？</h2><ol>
+<li>软件体系结构建模是利用<strong>图形、文字、数学表达式</strong>等描述软件的主要特征。</li>
+<li>软件体系结构建模优点：</li>
+</ol>
+<ul>
+<li>有助于从<strong>整体上</strong>掌握软件架构</li>
+<li>有助于在软件的<strong>不同阶段</strong>形成清晰的目标</li>
+<li>有助于从<strong>不同角度</strong>掌握软件模型</li>
+<li>方便了需求<strong>沟通、设计修改、开发、测试</strong>等软件开发过程。 </li>
+</ul>
+<h2 id="2-软件体系结构的建模方法有哪些？"><a href="#2-软件体系结构的建模方法有哪些？" class="headerlink" title="2. 软件体系结构的建模方法有哪些？"></a>2. 软件体系结构的建模方法有哪些？</h2><ul>
+<li>图形可视化的方法,如 UML</li>
+<li>体系结构描述语言(ADL,Architecture Description  Language) ： 注重用数理逻辑等形式化的方法</li>
+</ul>
+<h2 id="3-软件系统的需求种类繁多，一般可以分为哪几部分？"><a href="#3-软件系统的需求种类繁多，一般可以分为哪几部分？" class="headerlink" title="3. 软件系统的需求种类繁多，一般可以分为哪几部分？"></a>3. 软件系统的需求种类繁多，一般可以分为哪几部分？</h2><p><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%876.png" alt="6"></p>
+<ol>
+<li><strong>结构模型</strong>：以体系结构的构件、连接件及之间的关联关系刻画软件结构。</li>
+</ol>
+<ul>
+<li>研究结构模型的核心是体系结构描述语言。</li>
+</ul>
+<ol start="2">
+<li><strong>框架模型</strong>：更侧重描述整体结构。</li>
+</ol>
+<ul>
+<li>主要以特殊问题为目标建立只针对和适应该问题的结构。(MVC)</li>
+</ul>
+<ol start="3">
+<li><strong>动态模型</strong>：描述系统的重新配置或演化过程，研究系统“大颗粒”的行为性质。</li>
+</ol>
+<ul>
+<li>动态可以指系统总体结构的配置、建立或拆除通信通道或计算的过程。这类系统常是激励型的。</li>
+</ul>
+<ol start="4">
+<li><strong>过程模型</strong>：描述构造软件系统的步骤和过程。</li>
+</ol>
+<ul>
+<li>过程模型以某种过程脚本的形式来体现。 </li>
+</ul>
+<ol start="5">
+<li><strong>功能模型</strong>：认为体系结构是由一组功能构件按层次组成，下层向上层提供服务。</li>
+</ol>
+<ul>
+<li>它可以看作一种特殊的框架模型。 </li>
+</ul>
+<h2 id="4-经典的“4-1”视图模型是分别从软件需求的哪些角度进行建模的？"><a href="#4-经典的“4-1”视图模型是分别从软件需求的哪些角度进行建模的？" class="headerlink" title="4. 经典的“4+1”视图模型是分别从软件需求的哪些角度进行建模的？"></a>4. 经典的“4+1”视图模型是分别从软件需求的哪些角度进行建模的？</h2><p><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%877.png" alt="7"></p>
+<p>(下面参考)<br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%878.png" alt="8"><br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%879.png" alt="9"></p>
+<h2 id="5-如何理解每一个视图？每一种视图用UML中的哪类图表示？"><a href="#5-如何理解每一个视图？每一种视图用UML中的哪类图表示？" class="headerlink" title="5. 如何理解每一个视图？每一种视图用UML中的哪类图表示？"></a>5. 如何理解每一个视图？每一种视图用UML中的哪类图表示？</h2><ol>
+<li><strong>逻辑视图</strong>: <strong>面向最终用户</strong>，描述<strong>用例图</strong>中提出的系统功能实现。</li>
+</ol>
+<ul>
+<li>对象<strong>内部行为的定义</strong>，用<strong>状态图</strong></li>
+<li>公共机制或服务在<strong>类功能</strong>中定义。<strong>数据驱动程度高</strong>的应用程序</li>
+<li><strong>E-R 图</strong>表示逻辑视图</li>
+<li><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8710.png" alt="10"></li>
+</ul>
+<ol start="2">
+<li><strong>开发视图</strong>:也称模块视图，主要侧重软件开发环境下<strong>实际模块的组织</strong>。</li>
+</ol>
+<ul>
+<li>用<strong>组件图</strong>来表示</li>
+<li><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8711.png" alt="11"></li>
+<li><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8712.png" alt="12"></li>
+</ul>
+<ol start="3">
+<li><strong>进程视图</strong>:关注<strong>进程、线程、对象</strong>等<strong>运行时</strong>概念之间的<strong>交互关系</strong>；运行期的非功能性需求：资源的有效利用、代码的并行执行以及系统中异步事件的处理；逻辑视图的各个类的具体操作是在哪一个线程（Thread）中被执行。</li>
+</ol>
+<ul>
+<li>面向系统集成人员，<strong>活动图</strong>或<strong>协作图</strong>表示。</li>
+<li><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8713.png" alt="13"></li>
+<li><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8714.png" alt="14"></li>
+</ul>
+<ol start="4">
+<li><strong>物理视图</strong>：不同于进程视图关注目标程序的动态执行情况，物理视图<strong>关注</strong>的是目标程序的<strong>静态位置问题</strong>，即如何把软件映射到硬件，以及如何部署机器和网络来配合软件系统的可靠性、可伸缩性等要求。</li>
+</ol>
+<ul>
+<li>面向系统工程人员。</li>
+<li>一般用UML<strong>配置图</strong>描述</li>
+<li><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8715.png" alt="15"></li>
+<li><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8716.png" alt="16"></li>
+</ul>
+<ol start="5">
+<li><strong>场景视图</strong>：</li>
+</ol>
+<ul>
+<li><p>可看作是重要<strong>系统活动的抽象</strong>，有机<strong>联系起四个视图</strong>。可将场景看做是最重要的需求抽象。<strong>从系统外部描述系统具备的功能</strong>。</p>
+</li>
+<li><p>描述一个特定视图内的构件关系，也描述不同视图间的构件关系。。</p>
+</li>
+<li><p>可用场景分析特定视图，或描述不同视图构件间是如何相互作用的。</p>
+</li>
+<li><p><strong>用例图</strong>来表示</p>
+</li>
+<li><p><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8717.png" alt="17"></p>
+<p><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8720.png" alt="20"></p>
+</li>
+</ul>
+<h2 id="6-软件体系结构的核心模型中包括哪些重要的要素，它们的关系如何理解？"><a href="#6-软件体系结构的核心模型中包括哪些重要的要素，它们的关系如何理解？" class="headerlink" title="6. 软件体系结构的核心模型中包括哪些重要的要素，它们的关系如何理解？"></a>6. 软件体系结构的核心模型中包括哪些重要的要素，它们的关系如何理解？</h2><ul>
+<li>软件体系结构的核心模型由<strong>五种元素</strong>组成：<strong>构件、连接件、配置、端口和角色。</strong>其中构件、连接件和配置是最基本的元素。</li>
+<li>构件：是具有某种功能的<strong>可重用</strong>的软件模块单元，表示系统中主要的计算元素和数据存储。构件有两种：复合构件和原子构件。</li>
+<li>连接件：表示<strong>构件之间的交互，简单的连接件</strong>如：管道、过程调用等，更为复杂的交互如：客户/服务器通信协议，数据库和应用之间的SQL连接等。</li>
+<li>配置：表示构件和连接件的<strong>拓扑逻辑</strong>和<strong>约束</strong>。</li>
+<li>另外，构件作为一个封装的实体，只能通过其接口与外部环境交互，构件的接口由一组端口组成，每个<strong>端口</strong>表示构件和外部环境的<strong>交互点</strong>。</li>
+<li>连接件作为建模软件体系结构的主要实体，同样也有接口，连接件的接口由一组<strong>角色</strong>组成。</li>
+<li><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8718.png" alt="18"></li>
+<li><h2 id="7-软件设计完整的生命周期模型包括哪几个阶段，其中软件体系结构设计阶段的主要任务是什么？"><a href="#7-软件设计完整的生命周期模型包括哪几个阶段，其中软件体系结构设计阶段的主要任务是什么？" class="headerlink" title="7. 软件设计完整的生命周期模型包括哪几个阶段，其中软件体系结构设计阶段的主要任务是什么？"></a>7. 软件设计完整的生命周期模型包括哪几个阶段，其中软件体系结构设计阶段的主要任务是什么？</h2></li>
+<li><strong>需求分析</strong>获取用户的需求，确定系统中所要用到的构件，得到软件规格说明；</li>
+<li><strong>建立体系结构</strong>：从结构角度出发对整个系统进行分析，选择恰当的构件、构件间的相互作用关系以及对它们的约束，形成一个系统框架。</li>
+<li><strong>设计阶段</strong>：对系统模块化，并设计构件间的详细接口、选定算法和数据类型。</li>
+<li><strong>实现阶段</strong>：对设计阶段的算法及数据类型进行程序语言表示，从构件库中查找构件或开发新的构件，最后组装构件的实现体。</li>
+<li><strong>测试阶段</strong>：完成整个软件的合成；测试单个构件的功能，并测试组装后整体软件的功能及性能等</li>
+<li><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8719.png" alt="19"></li>
+</ul>
+<h2 id="8-请区分软件体系结构的生命周期与软件设计的生命周期。"><a href="#8-请区分软件体系结构的生命周期与软件设计的生命周期。" class="headerlink" title="8. 请区分软件体系结构的生命周期与软件设计的生命周期。"></a>8. 请区分软件体系结构的生命周期与软件设计的生命周期。</h2><ol>
+<li><p>软件体系结构生命周期<br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8721.png" alt="21"></p>
+</li>
+<li><p>软件设计生命周期<br><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%8722.png" alt="22"></p>
+</li>
+</ol>
+<h2 id="9-用图描述基于软件体系结构的开发过程。"><a href="#9-用图描述基于软件体系结构的开发过程。" class="headerlink" title="9. 用图描述基于软件体系结构的开发过程。"></a>9. 用图描述基于软件体系结构的开发过程。</h2><p><img src="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/%E5%9B%BE%E7%89%875.png" alt="4"></p>
 <h1 id="第三章"><a href="#第三章" class="headerlink" title="第三章"></a>第三章</h1><h2 id="1-类比建筑风格，理解什么是软件体系结构风格，以及研究的目的"><a href="#1-类比建筑风格，理解什么是软件体系结构风格，以及研究的目的" class="headerlink" title="1. 类比建筑风格，理解什么是软件体系结构风格，以及研究的目的"></a>1. 类比建筑风格，理解什么是软件体系结构风格，以及研究的目的</h2><h2 id="2-软件体系结构与软件体系结构风格的关系。"><a href="#2-软件体系结构与软件体系结构风格的关系。" class="headerlink" title="2. 软件体系结构与软件体系结构风格的关系。"></a>2. 软件体系结构与软件体系结构风格的关系。</h2><h2 id="3-掌握常见的体系结构风格：主程序-子程序、面向对象风格、层次结构风格、数据流风格-管道-过滤器与批处理的相同与不同-、以数据为中心的风格-仓库与黑板-、事件风格、客户机／服务器结构风格-C-S与B-S、集群、端到端、MVC-、C2风格、CORBA、正交软件体系结构。"><a href="#3-掌握常见的体系结构风格：主程序-子程序、面向对象风格、层次结构风格、数据流风格-管道-过滤器与批处理的相同与不同-、以数据为中心的风格-仓库与黑板-、事件风格、客户机／服务器结构风格-C-S与B-S、集群、端到端、MVC-、C2风格、CORBA、正交软件体系结构。" class="headerlink" title="3. 掌握常见的体系结构风格：主程序-子程序、面向对象风格、层次结构风格、数据流风格(管道/过滤器与批处理的相同与不同)、以数据为中心的风格(仓库与黑板)、事件风格、客户机／服务器结构风格(C/S与B/S、集群、端到端、MVC)、C2风格、CORBA、正交软件体系结构。"></a>3. 掌握常见的体系结构风格：主程序-子程序、面向对象风格、层次结构风格、数据流风格(管道/过滤器与批处理的相同与不同)、以数据为中心的风格(仓库与黑板)、事件风格、客户机／服务器结构风格(C/S与B/S、集群、端到端、MVC)、C2风格、CORBA、正交软件体系结构。</h2><h2 id="4-掌握常见的体系结构风格："><a href="#4-掌握常见的体系结构风格：" class="headerlink" title="4. 掌握常见的体系结构风格："></a>4. 掌握常见的体系结构风格：</h2><h3 id="1-特点以及主要的构件"><a href="#1-特点以及主要的构件" class="headerlink" title="(1)特点以及主要的构件"></a>(1)特点以及主要的构件</h3><h3 id="2-优缺点"><a href="#2-优缺点" class="headerlink" title="(2)优缺点"></a>(2)优缺点</h3><h3 id="3-代表例子"><a href="#3-代表例子" class="headerlink" title="(3)代表例子"></a>(3)代表例子</h3><h2 id="5-异构风格：内外有别和查改有别"><a href="#5-异构风格：内外有别和查改有别" class="headerlink" title="5. 异构风格：内外有别和查改有别"></a>5. 异构风格：内外有别和查改有别</h2><h2 id="6-具有根据不同软件需求选择不同软件体系结构风格的能力"><a href="#6-具有根据不同软件需求选择不同软件体系结构风格的能力" class="headerlink" title="6. 具有根据不同软件需求选择不同软件体系结构风格的能力"></a>6. 具有根据不同软件需求选择不同软件体系结构风格的能力</h2><h1 id="第四章"><a href="#第四章" class="headerlink" title="第四章"></a>第四章</h1><h2 id="1-掌握软件体系结构描述的概念、作用"><a href="#1-掌握软件体系结构描述的概念、作用" class="headerlink" title="1. 掌握软件体系结构描述的概念、作用"></a>1. 掌握软件体系结构描述的概念、作用</h2><h2 id="2-软件体系结构有哪几类描述方法、各有什么特点、典型代表例子。"><a href="#2-软件体系结构有哪几类描述方法、各有什么特点、典型代表例子。" class="headerlink" title="2. 软件体系结构有哪几类描述方法、各有什么特点、典型代表例子。"></a>2. 软件体系结构有哪几类描述方法、各有什么特点、典型代表例子。</h2><h1 id="第五章"><a href="#第五章" class="headerlink" title="第五章"></a>第五章</h1><h2 id="1-掌握UML的用例图、类图、对象图、交互图-顺序图、通信图、定时图-、状态图、活动图、构件图、部署图的主要用途和画法。"><a href="#1-掌握UML的用例图、类图、对象图、交互图-顺序图、通信图、定时图-、状态图、活动图、构件图、部署图的主要用途和画法。" class="headerlink" title="1. 掌握UML的用例图、类图、对象图、交互图(顺序图、通信图、定时图)、状态图、活动图、构件图、部署图的主要用途和画法。"></a>1. 掌握UML的用例图、类图、对象图、交互图(顺序图、通信图、定时图)、状态图、活动图、构件图、部署图的主要用途和画法。</h2><h2 id="2-基于UML建模的基本步骤："><a href="#2-基于UML建模的基本步骤：" class="headerlink" title="2. 基于UML建模的基本步骤："></a>2. 基于UML建模的基本步骤：</h2><h3 id="1-构建用例模型"><a href="#1-构建用例模型" class="headerlink" title="(1)构建用例模型"></a>(1)构建用例模型</h3><h3 id="2-构建静态模型"><a href="#2-构建静态模型" class="headerlink" title="(2)构建静态模型"></a>(2)构建静态模型</h3><h3 id="3-构建交互模型"><a href="#3-构建交互模型" class="headerlink" title="(3)构建交互模型"></a>(3)构建交互模型</h3><h3 id="4-构建系统的物理模型"><a href="#4-构建系统的物理模型" class="headerlink" title="(4)构建系统的物理模型"></a>(4)构建系统的物理模型</h3><h1 id="第六章"><a href="#第六章" class="headerlink" title="第六章"></a>第六章</h1><h2 id="1-XML标记语言的主要特点"><a href="#1-XML标记语言的主要特点" class="headerlink" title="1. XML标记语言的主要特点"></a>1. XML标记语言的主要特点</h2><h2 id="2-XML与DTD、XSD、CSS、XSL的主要关系"><a href="#2-XML与DTD、XSD、CSS、XSL的主要关系" class="headerlink" title="2. XML与DTD、XSD、CSS、XSL的主要关系"></a>2. XML与DTD、XSD、CSS、XSL的主要关系</h2><h2 id="3-XML与软件体系结构模型的关系"><a href="#3-XML与软件体系结构模型的关系" class="headerlink" title="3. XML与软件体系结构模型的关系"></a>3. XML与软件体系结构模型的关系</h2><h1 id="第七章"><a href="#第七章" class="headerlink" title="第七章"></a>第七章</h1><h2 id="1-如何理解面向服务的软件体系结构-SOA-这一思想"><a href="#1-如何理解面向服务的软件体系结构-SOA-这一思想" class="headerlink" title="1. 如何理解面向服务的软件体系结构(SOA)这一思想"></a>1. 如何理解面向服务的软件体系结构(SOA)这一思想</h2><h2 id="2-SOA的主要意义"><a href="#2-SOA的主要意义" class="headerlink" title="2. SOA的主要意义"></a>2. SOA的主要意义</h2><h2 id="3-实现SOA的关键技术"><a href="#3-实现SOA的关键技术" class="headerlink" title="3. 实现SOA的关键技术"></a>3. 实现SOA的关键技术</h2><h2 id="4-实现SOA的方法有哪些"><a href="#4-实现SOA的方法有哪些" class="headerlink" title="4. 实现SOA的方法有哪些"></a>4. 实现SOA的方法有哪些</h2><h2 id="5-WebService模型的工作角色以及它们之间的关系"><a href="#5-WebService模型的工作角色以及它们之间的关系" class="headerlink" title="5. WebService模型的工作角色以及它们之间的关系"></a>5. WebService模型的工作角色以及它们之间的关系</h2><h2 id="6-WSDL、SOAP、UDDI三个技术规范的作用。"><a href="#6-WSDL、SOAP、UDDI三个技术规范的作用。" class="headerlink" title="6. WSDL、SOAP、UDDI三个技术规范的作用。"></a>6. WSDL、SOAP、UDDI三个技术规范的作用。</h2><h2 id="7-如何阅读WDSL文档，掌握SOAP请求的结构"><a href="#7-如何阅读WDSL文档，掌握SOAP请求的结构" class="headerlink" title="7. 如何阅读WDSL文档，掌握SOAP请求的结构"></a>7. 如何阅读WDSL文档，掌握SOAP请求的结构</h2><h2 id="8-WebService的开发包括哪些过程，简述每个过程的关键步骤。"><a href="#8-WebService的开发包括哪些过程，简述每个过程的关键步骤。" class="headerlink" title="8. WebService的开发包括哪些过程，简述每个过程的关键步骤。"></a>8. WebService的开发包括哪些过程，简述每个过程的关键步骤。</h2>
     </div>
 
