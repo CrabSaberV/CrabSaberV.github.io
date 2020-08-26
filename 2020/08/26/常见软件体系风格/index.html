@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言本文章仅仅对软件体系风格知识点进行整理，内容非原创。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见软件体系风格">
+<meta property="og:url" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="前言本文章仅仅对软件体系风格知识点进行整理，内容非原创。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%871.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%872.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%873.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%874.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%875.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%876.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%877.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%878.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%879.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8710.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8711.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8712.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8713.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8714.png">
+<meta property="article:published_time" content="2020-08-26T08:08:05.000Z">
+<meta property="article:modified_time" content="2020-08-26T10:26:04.653Z">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="常见软件体系风格">
+<meta property="article:tag" content="复习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%871.png">
+
+<link rel="canonical" href="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>常见软件体系风格 | CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          常见软件体系风格
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-26 16:08:05 / 修改时间：18:26:04" itemprop="dateCreated datePublished" datetime="2020-08-26T16:08:05+08:00">2020-08-26</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文章仅仅对软件体系风格知识点进行整理，内容非原创。</p>
+<a id="more"></a>
+<h1 id="各体系风格"><a href="#各体系风格" class="headerlink" title="各体系风格"></a>各体系风格</h1><h2 id="1-管道和过滤器"><a href="#1-管道和过滤器" class="headerlink" title="1. 管道和过滤器"></a>1. 管道和过滤器</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>每个构件都有<strong>一组输入和输出</strong>，构件读输入的数据流，经过内部处理，然后产生输出数据流。这个过程通常通过对输入流的变换及增量计算来完成，所以在输入被完全消费之前，输出便产生了。</p>
+<p>这里的构件被称为过滤器，这种风格的连接件就象是数据流传输的管道，将一个过滤器的输出传到另一过滤器的输入。</p>
+<h3 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%871.png" alt="1"></p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>使得软构件具有良好的<strong>隐蔽性和高内聚、低耦合</strong>的特点；</li>
+<li>允许设计者将整个系统的输入/输出行为看成是<strong>多个过滤器</strong>的行为的简单<strong>合成</strong>；</li>
+<li>支持软件重用。只要提供适合在两个过滤器之间传送的数据，任何两个过滤器都可被连接起来；</li>
+<li>系统维护和增强系统性能简单。新的过滤器可以添加到现有系统中来；旧的可以被改进的过滤器替换掉；</li>
+<li>允许对一些如吞吐量、死锁等属性的<strong>分析</strong>；</li>
+<li>支持<strong>并行执行</strong>。每个过滤器是作为一个单独的任务完成，因此可与其它任务并行执行。</li>
+</ul>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>通常导致进程成为<strong>批处理</strong>的结构。这是因为虽然过滤器可增量式地处理数据，但它们是独立的，所以设计者必须将<strong>每个过滤器</strong>看成一个<strong>完整</strong>的从<strong>输入到输出</strong>的转换；</li>
+<li><strong>不适合处理交互的应用</strong>。当需要增量地显示改变时，这个问题尤为严重；</li>
+<li>因为在数据传输上<strong>没有通用的标准</strong>，每个过滤器都增加了解析和合成数据的工作，这样就导致了系统<strong>性能下降</strong>，并增加了<strong>编写</strong>过滤器的<strong>复杂性</strong>。</li>
+</ul>
+<h2 id="2-数据抽象和面向对象组织"><a href="#2-数据抽象和面向对象组织" class="headerlink" title="2. 数据抽象和面向对象组织"></a>2. 数据抽象和面向对象组织</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>这种风格建立在<strong>数据抽象和面向对象的基础上</strong>，数据的表示方法和它们的相应操作封装在一个<strong>抽象数据类型或对象</strong>中。</p>
+<p>这种风格的构件是对象，或者说是抽象数据类型的实例。对象是一种被称作管理者的构件，因为它负责保持资源的完整性。对象是通过函数和过程的调用来交互的。</p>
+<h3 id="图示-1"><a href="#图示-1" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%872.png" alt="2"></p>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>因为对象对其它对象隐藏它的表示，所以可以<strong>改变一个对象的表示，而不影响其它的对象</strong>；</li>
+<li>设计者可将一些<strong>数据存取操作</strong>的问题<strong>分解成</strong>一些<strong>交互的代理程序的集合</strong>。</li>
+</ul>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>为了使一个对象和另一个对象通过过程调用等进行交互，<strong>必须知道对象的标识</strong>。只要一个对象的<strong>标识改变</strong>了，就<strong>必须修改所有</strong>其他明确调用它的对象；</li>
+<li>必须修改所有显式调用它的其它对象，并消除由此带来的一些副作用。例如，如果A使用了对象B，C也使用了对象B，那么，C对B的使用所造成的对A的影响可能是料想不到的。</li>
+</ul>
+<h2 id="3-基于事件的隐式调用"><a href="#3-基于事件的隐式调用" class="headerlink" title="3. 基于事件的隐式调用"></a>3. 基于事件的隐式调用</h2><h3 id="定义-2"><a href="#定义-2" class="headerlink" title="定义"></a>定义</h3><p>构件不直接调用一个过程，而是<strong>触发或广播一个或多个事件</strong>。系统中的其它构件中的过程在一个或多个事件中注册，当一个事件被触发，系统自动调用在这个事件中注册的所有过程，这样，一个事件的触发就导致了另一模块中的过程的调用。</p>
+<p>这种风格的构件是一些模块，模块既可以是一些过程，又可以是一些事件的集合。过程可以用通用的方式调用，也可以在系统事件中注册一些过程，当发生这些事件时，过程被调用。</p>
+<p>这种风格的主要特点是事件的触发者并不知道哪些构件会被这些事件影响。这样不能假定构件的处理顺序，甚至不知道哪些过程会被调用，因此，许多隐式调用的系统也包含显式调用作为构件交互的补充形式。</p>
+<h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>为软件重用提供了强大的支持。当需要将一个构件加入现存系统中时，只需将它注册到系统的事件中。</li>
+<li>为改进系统带来了方便。<strong>当用一个构件代替另一个构件时，不会影响到其它构件的接口</strong>。</li>
+</ul>
+<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li><strong>构件放弃了对系统计算的控制。</strong>一个构件触发一个事件时，<strong>不能确定其它构件是否会响应</strong>它。而且即使它知道事件注册了哪些构件的构成，它也<strong>不能保证</strong>这些过程被<strong>调用的顺序</strong>。</li>
+<li>数据交换的问题。有时数据可被一个事件传递，但另一些情况下，基于事件的系统<strong>必须依靠一个共享的仓库进行交互</strong>。在这些情况下，全局性能和资源管理便成了问题。</li>
+<li>既然过程的语义必须依赖于被触发事件的上下文约束，<strong>关于正确性的推理存在问题</strong>。</li>
+</ul>
+<h2 id="4-分层系统"><a href="#4-分层系统" class="headerlink" title="4. 分层系统"></a>4. 分层系统</h2><h3 id="定义-3"><a href="#定义-3" class="headerlink" title="定义"></a>定义</h3><p>层次系统组织成一个层次结构，每一层<strong>为上层服务</strong>，并作为下层客户。在一些层次系统中，除了一些精心挑选的输出函数外，内部的层只对相邻的层可见。这样的系统中构件在一些层实现了虚拟机（在另一些层次系统中层是部分不透明的）。连接件通过决定<strong>层间如何交互的协议</strong>来定义，拓扑约束包括对相邻层间交互的约束。</p>
+<p>这种风格支持基于可增加抽象层的设计。允许将一个复杂问题分解成一个增量步骤序列的实现。由于每一层最多只影响两层，同时只要给<strong>相邻层提供相同的接口</strong>，<strong>允许每层用不同的方法实现</strong>，同样为软件重用提供了强大的支持。 </p>
+<h3 id="图示-2"><a href="#图示-2" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%873.png" alt="3"></p>
+<h3 id="优点-3"><a href="#优点-3" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>支持基于抽象程度递增的系统设计，使设计者可以<strong>把一个复杂系统按递增的步骤进行分解</strong>；</li>
+<li>支持功能增强，因为每一层至多和相邻的上下层交互，因此<strong>功能的改变最多影响相邻的上下层</strong>；</li>
+<li>支持重用。<strong>只要提供的服务接口定义不变，同一层的不同实现可以交换使用。</strong>这样，就可以定义一组标准的接口，而允许各种不同的实现方法。</li>
+</ul>
+<h3 id="缺点-3"><a href="#缺点-3" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>并不是每个系统都可以很容易地划分为分层的模式，甚至即使一个系统的逻辑结构是层次化的，出于对系统性能的考虑，系统设计师<strong>不得不把一些低级或高级的功能综合起来</strong>；</li>
+<li><strong>很难找到一个合适的、正确的层次抽象方法</strong>。</li>
+</ul>
+<h2 id="5-仓库系统及知识库"><a href="#5-仓库系统及知识库" class="headerlink" title="5. 仓库系统及知识库"></a>5. 仓库系统及知识库</h2><h3 id="定义-4"><a href="#定义-4" class="headerlink" title="定义"></a>定义</h3><p>在仓库风格中，有两种不同的构件：<strong>中央数据结构</strong>说明当前状态，<strong>独立构件</strong>在中央数据存贮上执行，仓库与外构件间的相互作用在系统中会有大的变化。</p>
+<p>控制原则的选取产生两个主要的子类。若输入流中<strong>某类时间触发</strong>进程执行的选择，则仓库是一传统型数据库；另一方面，若中央数据结构的<strong>当前状态触发</strong>进程执行的选择，则仓库是一黑板系统。</p>
+<h3 id="图示-3"><a href="#图示-3" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%874.png" alt="4"></p>
+<h2 id="6-C2-风格"><a href="#6-C2-风格" class="headerlink" title="6. C2 风格"></a>6. C2 风格</h2><h3 id="定义-5"><a href="#定义-5" class="headerlink" title="定义"></a>定义</h3><p>通过<strong>连接件绑定在一起</strong>的<strong>按照一组规则运作</strong>的<strong>并行构件网络</strong>。</p>
+<p>C2风格中的系统组织规则如下：</p>
+<ul>
+<li>系统中的构件和连接件都有一个<strong>顶部</strong>和一个<strong>底部</strong>；</li>
+<li>构件的<strong>顶部应连接到某连接件的底部</strong>，构件的<strong>底部则应连接到某连接件的顶部</strong>，而构件与<strong>构件之间的直接连接是不允许的</strong>；</li>
+<li>一个连接件可以和任意数目的其它构件和连接件连接；</li>
+<li>当两个连接件<strong>进行直接连接时，必须由其中一个的底部到另一个的顶部</strong>。</li>
+</ul>
+<h3 id="图示-4"><a href="#图示-4" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%875.png" alt="5"></p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>系统中的构件可实现应用需求，并<strong>能将任意复杂度的功能封装在一起</strong>；</li>
+<li>所有构件之间的通讯是通过以<strong>连接件为中介</strong>的<strong>异步消息交换机制</strong>来实现的；</li>
+<li><strong>构件相对独立，构件之间依赖性较少</strong>。系统中不存在某些构件将在同一地址空间内执行，或某些构件共享特定控制线程之类的相关性假设。</li>
+</ul>
+<h2 id="7-C-S-客户端-服务器-风格"><a href="#7-C-S-客户端-服务器-风格" class="headerlink" title="7. C/S(客户端/服务器)风格"></a>7. C/S(客户端/服务器)风格</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>C/S软件体系结构是基于资源不对等，且为实现共享而提出来的，是20世纪90年代成熟起来的技术，C/S体系结构定义了工作站如何与服务器相连，以实现数据和应用分布到多个处理机上。 </p>
+<p>C/S体系结构有三个主要组成部分：<strong>数据库服务器、客户应用程序和网络</strong>。</p>
+<h4 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h4><ol>
+<li><strong>数据库安全性</strong>的要求；</li>
+<li><strong>数据库访问并发性的控制</strong>；</li>
+<li><strong>数据库前端的客户应用程序的全局数据完整性规则</strong>；</li>
+<li><strong>数据库的备份与恢复。</strong></li>
+</ol>
+<h4 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h4><ol>
+<li>提供用户与数据库交互的界面；</li>
+<li>向数据库服务器提交用户请求并接收来自数据库服务器的信息；</li>
+<li>利用客户应用程序对存在于客户端的数据执行应用逻辑要求。</li>
+</ol>
+<h3 id="图示-5"><a href="#图示-5" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%876.png" alt="6"></p>
+<p>处理流程：<br><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%877.png" alt="7"></p>
+<h3 id="优点-4"><a href="#优点-4" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>C/S 体系结构具有强大的数据操作和事务处理能力，模型思想简单，易于人们理解和接受。</li>
+<li>系统的客户应用程序和服务器构件分别运行在不同的计算机上，系统中每台服务器都可以适合各构件的要求，这对于硬件和软件的变化显示出极大的适应性和灵活性，而且易于对系统进行扩充和缩小。</li>
+<li>在C/S体系结构中，系统中的功能构件充分隔离，客户应用程序的开发集中于数据的显示和分析，而数据库服务器的开发则集中于数据的管理，不必在每一个新的应用程序中都要对一个DBMS进行编码。将大的应用处理任务分布到许多通过网络连接的低成本计算机上，以节约大量费用。 </li>
+</ul>
+<h3 id="缺点-4"><a href="#缺点-4" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>开发成本较高</li>
+<li>客户端程序设计复杂</li>
+<li>信息内容和形式单一</li>
+<li>用户界面风格不一，使用繁杂，不利于推广使用</li>
+<li>软件移植困难</li>
+<li>软件维护和升级困难</li>
+<li>新技术不能轻易应用</li>
+</ul>
+<h2 id="7-1-三层CS风格"><a href="#7-1-三层CS风格" class="headerlink" title="7.1 三层CS风格"></a>7.1 三层CS风格</h2><h3 id="图示-6"><a href="#图示-6" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%878.png" alt="8"></p>
+<p>流程处理:<br><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%879.png" alt="9"></p>
+<p>物理结构:<br><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8710.png" alt="10"></p>
+<h3 id="优点-5"><a href="#优点-5" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>允许合理地划分三层结构的功能，使之在逻辑上保持相对独立性，能提高系统和软件的可维护性和可扩展性。</li>
+<li>允许更灵活有效地选用相应的平台和硬件系统，使之在处理负荷能力上与处理特性上分别适应于结构清晰的三层；并且这些平台和各个组成部分可以具有良好的可升级性和开放性。</li>
+<li>应用的各层可以并行开发，可以选择各自最适合的开发语言。</li>
+<li>利用功能层有效地隔离开表示层与数据层，未授权的用户难以绕过功能层而利用数据库工具或黑客手段去非法地访问数据层，为严格的安全管理奠定了坚实的基础。</li>
+</ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>三层C/S结构各层间的通信效率若不高，即使分配给各层的硬件能力很强，其作为整体来说也达不到所要求的性能。</li>
+<li>设计时必须慎重考虑三层间的通信方法、通信频度及数据量。这和提高各层的独立性一样是三层C/S结构的关键问题。</li>
+</ul>
+<h2 id="8-B-S风格"><a href="#8-B-S风格" class="headerlink" title="8. B/S风格"></a>8. B/S风格</h2><h3 id="定义-6"><a href="#定义-6" class="headerlink" title="定义"></a>定义</h3><p>浏览器/服务器（B/S）风格就是上述三层应用结构的一种实现方式，其具体结构为：浏览器/Web服务器/数据库服务器。</p>
+<p> B/S体系结构主要是利用不断成熟的WWW浏览器技术，结合浏览器的多种脚本语言，用通用浏览器就实现了原来需要复杂的专用软件才能实现的强大功能，并节约了开发成本。从某种程度上来说，B/S结构是一种全新的软件体系结构。</p>
+<h3 id="图示-7"><a href="#图示-7" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8711.png" alt="11"></p>
+<h3 id="优点-6"><a href="#优点-6" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>基于B/S体系结构的软件，系统安装、修改和维护全在服务器端解决。用户在使用系统时，仅仅需要一个浏览器就可运行全部的模块，真正达到了“零客户端”的功能，很容易在运行时自动升级。</li>
+<li>B/S体系结构还提供了异种机、异种网、异种应用服务的联机、联网、统一服务的最现实的开放性基础。</li>
+</ul>
+<h3 id="缺点-5"><a href="#缺点-5" class="headerlink" title="缺点"></a>缺点</h3><ul>
+<li>B/S体系结构缺乏对动态页面的支持能力，没有集成有效的数据库处理功能。</li>
+<li>B/S体系结构的系统扩展能力差，安全性难以控制。</li>
+<li>采用B/S体系结构的应用系统，在数据查询等响应速度上，要远远地低于C/S体系结构。</li>
+<li>B/S体系结构的数据提交一般以页面为单位，数据的动态交互性不强，不利于在线事务处理(OLTP)应用。</li>
+</ul>
+<h2 id="9-对象管理结构"><a href="#9-对象管理结构" class="headerlink" title="9.对象管理结构"></a>9.对象管理结构</h2><h3 id="图示-8"><a href="#图示-8" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8712.png" alt="12"></p>
+<h2 id="10-CORBA技术规范-公共对象请求代理体系结构"><a href="#10-CORBA技术规范-公共对象请求代理体系结构" class="headerlink" title="10. CORBA技术规范 (公共对象请求代理体系结构)"></a>10. CORBA技术规范 (公共对象请求代理体系结构)</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><ol>
+<li>接口定义语言（IDL）</li>
+<li>接口池（IR）</li>
+<li>动态调用接口（DII）</li>
+<li>对象适配器（OA）</li>
+</ol>
+<h4 id="1-接口定义语言"><a href="#1-接口定义语言" class="headerlink" title="1. 接口定义语言"></a>1. 接口定义语言</h4><p>CORBA利用IDL统一地描述服务器对象（向调用者提供服务的对象）的接口。IDL本身也是面向对象的。它虽然不是编程语言，但它为客户对象（发出服务请求的对象）提供了语言的独立性，因为客户对象只需了解服务器对象的IDL接口，不必知道其编程语言。</p>
+<p>IDL语言是CORBA规范中定义的一种中性语言，它用来描述对象的接口，而不涉及对象的具体实现。</p>
+<p>在CORBA中定义了IDL语言到C、C++、SmallTalk和Java语言的映射。</p>
+<h4 id="2-接口池"><a href="#2-接口池" class="headerlink" title="2. 接口池"></a>2. 接口池</h4><p>CORBA的接口池包括了分布计算环境中所有可用的服务器对象的接口表示。它使动态搜索可用服务器的接口、动态构造请求及参数成为可能。</p>
+<h4 id="3-动态调用接口"><a href="#3-动态调用接口" class="headerlink" title="3. 动态调用接口"></a>3. 动态调用接口</h4><p>CORBA的动态调用接口提供了一些标准函数以供客户对象动态创建请求、动态构造请求参数。客户对象将动态调用接口与接口池配合使用可实现服务器对象接口的动态搜索、请求及参数的动态构造与动态发送。当然，只要客户对象在编译之前能够确定服务器对象的IDL接口，CORBA也允许客户对象使用静态调用机制。显然，静态机制的灵活性虽不及动态机制，但执行效率却胜过动态机制。 </p>
+<h4 id="4-对象适配器"><a href="#4-对象适配器" class="headerlink" title="4. 对象适配器"></a>4. 对象适配器</h4><p>在CORBA中，对象适配器用于<strong>屏蔽ORB内核的实现细节</strong>，为服务器对象的实现者<strong>提供抽象接口</strong>，以便他们使用ORB内部的某些功能。这些功能包括服务器对象的登录与激活、客户请求的认证等。 </p>
+<h3 id="图示-9"><a href="#图示-9" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8713.png" alt="13"></p>
+<h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ul>
+<li><strong>引入中间件作为事务代理，完成客户机向服务对象方（Server）提出的业务请求</strong>。</li>
+<li><strong>实现客户与服务对象的完全分开</strong>，客户不需要了解服务对象的实现过程以及具体位置。</li>
+<li>提供软总线机制，使得在任何环境下、采用任何语言开发的软件<strong>只要符合接口规范的定义，均能够集成到分布式系统中</strong>。</li>
+<li>CORBA规范软件系统采用面向对象的软件实现方法开发应用系统，<strong>实现对象内部细节的完整封装，保留对象方法的对外接口定义。</strong></li>
+</ul>
+<h2 id="11-正交软件体系结构"><a href="#11-正交软件体系结构" class="headerlink" title="11. 正交软件体系结构"></a>11. 正交软件体系结构</h2><h3 id="定义-7"><a href="#定义-7" class="headerlink" title="定义"></a>定义</h3><p>正交软件体系结构<strong>由组织层和线索的构件构成</strong>。层是由一组具有相同抽象级别的构件构成。线索是子系统的特例，它是由完成不同层次功能的构件组成（通过相互调用来关联），每一条线索完成整个系统中相对独立的一部分功能。每一条线索的实现与其他线索的实现无关或关联很少，在同一层中的构件之间是不存在相互调用的。</p>
+<p>如果线索是相互独立的，即不同线索中的构件之间没有相互调用，那么这个结构就是完全正交的。 </p>
+<h3 id="图示-10"><a href="#图示-10" class="headerlink" title="图示"></a>图示</h3><p><img src="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/%E5%9B%BE%E7%89%8714.png" alt="14"></p>
+<h3 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h3><ul>
+<li>正交软件体系结构由完成不同功能的n（n &gt; 1）个线索（子系统）组成；</li>
+<li>系统具有m（m &gt; 1）个不同抽象级别的层；</li>
+<li>线索之间是<strong>相互独立</strong>的（正交的）；</li>
+<li>系统有一个公共驱动层（一般为最高层）和公共数据结构（一般为最低层）。 </li>
+</ul>
+<h3 id="优点-7"><a href="#优点-7" class="headerlink" title="优点"></a>优点</h3><ul>
+<li><strong>结构清晰，易于理解</strong>。由于线索功能相互独立，不进行互相调用，结构简单、清晰，构件在结构图中的位置已经说明它所实现的是哪一级抽象，担负的是什么功能。</li>
+<li><strong>易修改，可维护性强</strong>。由于线索之间是相互独立的，所以对一个线索的修改不会影响到其他线索。系统功能的增加或减少，只需相应的增删线索构件族，而不影响整个正交体系结构，因此能方便地实现结构调整。</li>
+<li><strong>可移植性强，重用粒度大</strong>。因为正交结构可以为一个领域内的所有应用程序所共享，这些软件有着相同或类似的层次和线索，可以实现体系结构级的重用。</li>
+</ul>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>目前就这些吧。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/" rel="tag"># 常见软件体系风格</a>
+              <a href="/tags/%E5%A4%8D%E4%B9%A0/" rel="tag"># 复习</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/25/%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%E5%A4%8D%E4%B9%A0/" rel="prev" title="软件体系结构复习">
+      <i class="fa fa-chevron-left"></i> 软件体系结构复习
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#各体系风格"><span class="nav-number">2.</span> <span class="nav-text">各体系风格</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-管道和过滤器"><span class="nav-number">2.1.</span> <span class="nav-text">1. 管道和过滤器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示"><span class="nav-number">2.1.2.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">2.1.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">2.1.4.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-数据抽象和面向对象组织"><span class="nav-number">2.2.</span> <span class="nav-text">2. 数据抽象和面向对象组织</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-1"><span class="nav-number">2.2.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-1"><span class="nav-number">2.2.4.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-基于事件的隐式调用"><span class="nav-number">2.3.</span> <span class="nav-text">3. 基于事件的隐式调用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-2"><span class="nav-number">2.3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-2"><span class="nav-number">2.3.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-2"><span class="nav-number">2.3.3.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-分层系统"><span class="nav-number">2.4.</span> <span class="nav-text">4. 分层系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-3"><span class="nav-number">2.4.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-2"><span class="nav-number">2.4.2.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-3"><span class="nav-number">2.4.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-3"><span class="nav-number">2.4.4.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-仓库系统及知识库"><span class="nav-number">2.5.</span> <span class="nav-text">5. 仓库系统及知识库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-4"><span class="nav-number">2.5.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-3"><span class="nav-number">2.5.2.</span> <span class="nav-text">图示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-C2-风格"><span class="nav-number">2.6.</span> <span class="nav-text">6. C2 风格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-5"><span class="nav-number">2.6.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-4"><span class="nav-number">2.6.2.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.6.3.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-C-S-客户端-服务器-风格"><span class="nav-number">2.7.</span> <span class="nav-text">7. C&#x2F;S(客户端&#x2F;服务器)风格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">2.7.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务器"><span class="nav-number">2.7.1.1.</span> <span class="nav-text">服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端"><span class="nav-number">2.7.1.2.</span> <span class="nav-text">客户端</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-5"><span class="nav-number">2.7.2.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-4"><span class="nav-number">2.7.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-4"><span class="nav-number">2.7.4.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1-三层CS风格"><span class="nav-number">2.8.</span> <span class="nav-text">7.1 三层CS风格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-6"><span class="nav-number">2.8.1.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-5"><span class="nav-number">2.8.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">2.8.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-B-S风格"><span class="nav-number">2.9.</span> <span class="nav-text">8. B&#x2F;S风格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-6"><span class="nav-number">2.9.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-7"><span class="nav-number">2.9.2.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-6"><span class="nav-number">2.9.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点-5"><span class="nav-number">2.9.4.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-对象管理结构"><span class="nav-number">2.10.</span> <span class="nav-text">9.对象管理结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-8"><span class="nav-number">2.10.1.</span> <span class="nav-text">图示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10-CORBA技术规范-公共对象请求代理体系结构"><span class="nav-number">2.11.</span> <span class="nav-text">10. CORBA技术规范 (公共对象请求代理体系结构)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构"><span class="nav-number">2.11.1.</span> <span class="nav-text">结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-接口定义语言"><span class="nav-number">2.11.1.1.</span> <span class="nav-text">1. 接口定义语言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-接口池"><span class="nav-number">2.11.1.2.</span> <span class="nav-text">2. 接口池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-动态调用接口"><span class="nav-number">2.11.1.3.</span> <span class="nav-text">3. 动态调用接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-对象适配器"><span class="nav-number">2.11.1.4.</span> <span class="nav-text">4. 对象适配器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-9"><span class="nav-number">2.11.2.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-1"><span class="nav-number">2.11.3.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11-正交软件体系结构"><span class="nav-number">2.12.</span> <span class="nav-text">11. 正交软件体系结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义-7"><span class="nav-number">2.12.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图示-10"><span class="nav-number">2.12.2.</span> <span class="nav-text">图示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征"><span class="nav-number">2.12.3.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点-7"><span class="nav-number">2.12.4.</span> <span class="nav-text">优点</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CrabSaberV"
+      src="/asset/icons/crab_520x520.png">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrabSaberV" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrabSaberV" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:s46244934@gmail.com" title="E-Mail → mailto:s46244934@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
