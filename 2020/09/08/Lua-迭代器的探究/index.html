@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言先表明，我是个正在学习 Lua 的新手，在遇到些学习上的问题，经过思考尝试，让后写下我对相关问题知识的认识。 从菜鸟教程上学习 Lua 迭代器过程中，遇到了些障碍。虽然根据菜鸟教程中的解释：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Lua-迭代器的探究">
+<meta property="og:url" content="https://crabsaberv.github.io/2020/09/08/Lua-%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%8E%A2%E7%A9%B6/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="前言先表明，我是个正在学习 Lua 的新手，在遇到些学习上的问题，经过思考尝试，让后写下我对相关问题知识的认识。 从菜鸟教程上学习 Lua 迭代器过程中，遇到了些障碍。虽然根据菜鸟教程中的解释：">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-08T00:31:48.000Z">
+<meta property="article:modified_time" content="2020-09-09T01:25:29.354Z">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="Lua">
+<meta property="article:tag" content="迭代器">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://crabsaberv.github.io/2020/09/08/Lua-%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%8E%A2%E7%A9%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Lua-迭代器的探究 | CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/09/08/Lua-%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%8E%A2%E7%A9%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Lua-迭代器的探究
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-08 08:31:48" itemprop="dateCreated datePublished" datetime="2020-09-08T08:31:48+08:00">2020-09-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-09 09:25:29" itemprop="dateModified" datetime="2020-09-09T09:25:29+08:00">2020-09-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Lua/" itemprop="url" rel="index"><span itemprop="name">Lua</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>先表明，我是个正在学习 Lua 的新手，在遇到些学习上的问题，经过思考尝试，让后写下我对相关问题知识的认识。</p>
+<p>从<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>上学习 Lua 迭代器过程中，遇到了些障碍。虽然根据<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>中的解释：</p>
+<a id="more"></a>
+
+<blockquote>
+<p>下面我们看看泛型 for 的执行过程：</p>
+<ul>
+<li>首先，初始化，计算 in 后面表达式的值，表达式应该返回泛型 for 需要的三个值：迭代函数、状态常量、控制变量；与多值赋值一样，如果表达式返回的结果个数不足三个会自动用 nil 补足，多出部分会被忽略。</li>
+<li>第二，将状态常量和控制变量作为参数调用迭代函数（注意：对于 for 结构来说，状态常量没有用处，仅仅在初始化时获取他的值并传递给迭代函数）。</li>
+<li>第三，将迭代函数返回的值赋给变量列表。</li>
+<li>第四，如果返回的第一个值为nil循环结束，否则执行循环体。</li>
+<li>第五，回到第二步再次调用迭代函数</li>
+</ul>
+</blockquote>
+<p>但是在自己更具理解，试着编写一些测试 <strong>Lua 无状态迭代器</strong>代码时，出现的结果却让人捉急。<br>可先阅览 Lua 官方文档中对迭代器的描述: <a href="http://www.lua.org/manual/5.3/manual.html" target="_blank" rel="noopener">Lua 5.3 文档 -3.3.5</a><br>(能看懂官方解释，基本上本文就不必往下看了)</p>
+<h1 id="经历"><a href="#经历" class="headerlink" title="经历"></a>经历</h1><h2 id="初次编写"><a href="#初次编写" class="headerlink" title="初次编写"></a>初次编写</h2><p>开始根据<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>编写了一个<strong>无状态迭代器</strong>，当然运行结果也正常。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">square</span><span class="params">(iteratorMaxCount,currerntNumber)</span></span></span><br><span class="line">	<span class="keyword">if</span> currerntNumber &lt; iteratorMaxCount <span class="keyword">then</span></span><br><span class="line">		currerntNumber = currerntNumber+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">return</span> currerntNumber,currerntNumber*currerntNumber;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i,n <span class="keyword">in</span> square,<span class="number">10</span>,<span class="number">0</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(i,n)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>这段代码的行为其实很简单，就是打印了10以内所有的平方数。<br>根据<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>描述的 for 的执行过程可知，suqare 就是迭代器函数，10是状态常量，0则是控制变量。而当运行时，会先根据 square 以及参数，得到迭代器的三个元素（迭代函数，状态常量，控制变量），以后就会利用这三个元素来进行迭代的过程。</p>
+<p>但这里<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>对这里有些轻描淡写，并没说清楚真正各个参数是如何被使用，尤其是 square 的参数和返回值之间的联系或者是否有联系，却没讲清楚。</p>
+<h2 id="问题的出现"><a href="#问题的出现" class="headerlink" title="问题的出现"></a>问题的出现</h2><p>后来，我在想经常性在 for 中用两个变量来接收，能不能只用一个 临时变量来接收迭代结果，并且迭代器函数能否只有一个参数，一个返回值。</p>
+<p>于是有了下面的代码:</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span><span class="params">(a)</span></span></span><br><span class="line">	<span class="keyword">if</span> a&lt;<span class="number">10</span> <span class="keyword">then</span></span><br><span class="line">		a = a+<span class="number">1</span></span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> aa,<span class="number">1</span> <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(i)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+<p>以我最初对迭代器的理解，应该会执行10次运算，然而：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br><span class="line">2</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br></pre></td></tr></table></figure>
+<p>无限循环打印 2 。</p>
+<p>此时就开始纳闷了，这个迭代器的内部原理究竟是什么，aa() 被做了，其中的参数 a 又做了什么处理，返回的 a 除了赋值给了 i，然后又去了哪里。</p>
+<p>为了解决这些疑问，我尝试了很多种不同的组合形式，比如将参数设置为2个，返回值设置成多个，参数调换位置等，但很多时候最后的表现结果却和预期差的很远。</p>
+<p>没有办法，百度不给力，那就只能去看 Lua 的<a href="http://www.lua.org/manual/5.3/manual.html" target="_blank" rel="noopener">官方文档</a>了。</p>
+<p>果不其然，官方的解释非常好理解，还给了示例。</p>
+<h2 id="官方解释"><a href="#官方解释" class="headerlink" title="官方解释"></a>官方解释</h2><p>参照<a href="http://www.lua.org/manual/5.3/manual.html" target="_blank" rel="noopener">官方文档-3.3.5</a>的解释：</p>
+<blockquote>
+<p>for statement like</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> var_1, ···, var_n <span class="keyword">in</span> explist <span class="keyword">do</span> block <span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>is equivalent to the code:</p>
+</blockquote>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="keyword">local</span> f, s, var = explist</span><br><span class="line">  <span class="keyword">while</span> <span class="literal">true</span> <span class="keyword">do</span></span><br><span class="line">    <span class="keyword">local</span> var_1, ···, var_n = f(s, var)</span><br><span class="line">    var = var_1</span><br><span class="line">    <span class="keyword">if</span> var == <span class="literal">nil</span> <span class="keyword">then</span> <span class="keyword">break</span> <span class="keyword">end</span></span><br><span class="line">    block</span><br><span class="line">  <span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+
+
+<p>上面的迭代器遍历可以看作是下面的过程：</p>
+<p>可见一开始由 do 语句块将包裹起来，其中会创建三个变量，而这三个变量 f,s,var 正好对应着迭代器三元素：<strong>f-迭代器函数，s-状态常量，var-控制变量</strong>。其值由 explist 的返回值获得。这也就证明了为何 for 迭代器 in 后面的最终函数必须以：“迭代器函数，状态常量，控制变量“ 的形式/结构来编写。</p>
+<p>后来在语句块中编写一个 while 循环，其内部又用多个局部变量 var_x，来接收 f(s,var) 的结果。而能看出这些 var_x 就是我们 for 循环中用于接收迭代过程结果的变量。这就构成了一个闭包，f 就是这里的一个闭包函数。</p>
+<p>而下面的语句，将 var_1 接收到的 var 的值又再次赋值给 var。var 是一个外部变量，那么在下次循环中，<code>f(s,var)</code>  的 var 传入的就是新值，也即是控制变量的更新。</p>
+<p>当 var 为 nil 时，循环就会跳出。</p>
+<h1 id="思考后的结论"><a href="#思考后的结论" class="headerlink" title="思考后的结论"></a>思考后的结论</h1><h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>参考了这些，我认为对于<strong>无状态迭代器</strong>的编写<strong>需要遵守几个规则</strong>：</p>
+<ol>
+<li>for 迭代中，in 后面必须最终能接收到：<strong>迭代器函数，状态常量，控制变量</strong> ；且<strong>顺序不能改变。</strong></li>
+<li>我们自行创建的迭代器方法要<strong>保证能正常迭代</strong>，必须包含两个（或至少两个）参数；同时参数分别表示：”状态常量，控制变量”，<strong>顺序也不允许改变。</strong></li>
+<li>我们自建的迭代器方法的返回值的第一个值，会作为下一次迭代的<strong>控制变量</strong>参数传递进来。而其他参数只会用做返回赋值给 for 的接收变量。</li>
+</ol>
+<h2 id="认识"><a href="#认识" class="headerlink" title="认识"></a>认识</h2><p>参照这几个规则，基本上能保证我们编写的无状态迭代器不会出现什么超出预期的问题。</p>
+<p>而根据分析，也能得出关于迭代器的内部参数特点:</p>
+<ul>
+<li>for 迭代 in 的后面可以是个包装器，方便我们阅读，其返回值就是<strong>迭代器函数，状态常量，控制变量</strong> 这三个元素。</li>
+<li>内部实际上将迭代函数以闭包形式调用。</li>
+<li>可见<strong>状态常量</strong>只有一开始初始化迭代器三元素的过程中被使用，之后的时候都是不变的，且直接作为对于参数被传递给迭代器函数。</li>
+<li>迭代器函数的返回值有可能多也可能少，总之在填补的时候，没有的就会填补 nil ，多余的就被忽视。</li>
+<li>迭代器函数的第一个返回值，必须是表示<strong>控制变量</strong>的值。</li>
+<li>要使得迭代函数的迭代过程，只需要使得返回的<strong>控制变量</strong>的值为 nil 即可。</li>
+<li>最后根据<a href="http://www.lua.org/manual/5.3/manual.html" target="_blank" rel="noopener">官方描述-3.3.5</a>，for 中可以使用 break 中断结束循环迭代。</li>
+</ul>
+<h1 id><a href="#" class="headerlink" title></a></h1>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Lua/" rel="tag"># Lua</a>
+              <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8/" rel="tag"># 迭代器</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/26/%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E4%BD%93%E7%B3%BB%E9%A3%8E%E6%A0%BC/" rel="prev" title="常见软件体系风格">
+      <i class="fa fa-chevron-left"></i> 常见软件体系风格
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#经历"><span class="nav-number">2.</span> <span class="nav-text">经历</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初次编写"><span class="nav-number">2.1.</span> <span class="nav-text">初次编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题的出现"><span class="nav-number">2.2.</span> <span class="nav-text">问题的出现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#官方解释"><span class="nav-number">2.3.</span> <span class="nav-text">官方解释</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考后的结论"><span class="nav-number">3.</span> <span class="nav-text">思考后的结论</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#注意事项"><span class="nav-number">3.1.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#认识"><span class="nav-number">3.2.</span> <span class="nav-text">认识</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#null"><span class="nav-number">4.</span> <span class="nav-text"></span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CrabSaberV"
+      src="/asset/icons/crab_520x520.png">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrabSaberV" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrabSaberV" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:s46244934@gmail.com" title="E-Mail → mailto:s46244934@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
