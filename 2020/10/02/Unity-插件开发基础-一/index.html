@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言不必废话，既然要学 Unity ，那么开发个插件很理所应当吧。下面将是我总结的插件学习笔记，不定期更新。 菜单项相关MenuItem 特性使用 MenuItem 特性增加菜单项1234[MenuItem(&quot;Tools&#x2F;Test1&quot;)]public static void TheTest1()&amp;#123;	Debug.Log(&quot;you click the Tools&#x2F;Test1 &quot;);&amp;#125">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity 插件开发基础(一)">
+<meta property="og:url" content="https://crabsaberv.github.io/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="前言不必废话，既然要学 Unity ，那么开发个插件很理所应当吧。下面将是我总结的插件学习笔记，不定期更新。 菜单项相关MenuItem 特性使用 MenuItem 特性增加菜单项1234[MenuItem(&quot;Tools&#x2F;Test1&quot;)]public static void TheTest1()&amp;#123;	Debug.Log(&quot;you click the Tools&#x2F;Test1 &quot;);&amp;#125">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/1.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/2.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/3.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/4.png">
+<meta property="og:image" content="https://crabsaberv.github.io/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/5.png">
+<meta property="article:published_time" content="2020-10-02T10:13:10.000Z">
+<meta property="article:modified_time" content="2020-10-02T12:10:00.265Z">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="Unity3d">
+<meta property="article:tag" content="插件开发">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://crabsaberv.github.io/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/1.png">
+
+<link rel="canonical" href="https://crabsaberv.github.io/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Unity 插件开发基础(一) | CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Unity 插件开发基础(一)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-02 18:13:10 / 修改时间：20:10:00" itemprop="dateCreated datePublished" datetime="2020-10-02T18:13:10+08:00">2020-10-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index"><span itemprop="name">Unity3d</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>不必废话，既然要学 Unity ，那么开发个插件很理所应当吧。<br>下面将是我总结的插件学习笔记，不定期更新。</p>
+<h1 id="菜单项相关"><a href="#菜单项相关" class="headerlink" title="菜单项相关"></a>菜单项相关</h1><h2 id="MenuItem-特性"><a href="#MenuItem-特性" class="headerlink" title="MenuItem 特性"></a>MenuItem 特性</h2><h3 id="使用-MenuItem-特性增加菜单项"><a href="#使用-MenuItem-特性增加菜单项" class="headerlink" title="使用 MenuItem 特性增加菜单项"></a>使用 MenuItem 特性增加菜单项</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">MenuItem(<span class="meta-string">"Tools/Test1"</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TheTest1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Debug.Log(<span class="string">"you click the Tools/Test1 "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在一般的 CShape 脚本文件中，为一个<strong>公有静态类</strong>添加 MenuItem 特性，可将相关逻辑显示到菜单栏中。上面的这句的结果就是（下图）：<br><img src="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/1.png" alt="1"></p>
+<p>点击后的结果就是（下图）<br><img src="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/2.png" alt="2"></p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ul>
+<li>并<strong>不需要</strong>代码所在的脚本被<strong>挂载</strong>在某个 GameObject 上，直接存放在 Assets 中就行了</li>
+<li>使用 MenuItem 特性需要引入命名空间 <code>using UnityEditor</code></li>
+<li>MenuItem 的参数是一个字符串 string ，用 <code>/</code> 可以表示目录层级</li>
+<li>作为插件逻辑的代码必须是<strong>静态的</strong>，public 和 private 倒是无所谓</li>
+</ul>
+<h3 id="增加快捷键"><a href="#增加快捷键" class="headerlink" title="增加快捷键"></a>增加快捷键</h3><p>可以为我们刚创建的一个菜单项增加快捷键。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">MenuItem(<span class="meta-string">"Tools/Test1 _w"</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TheTest1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Debug.Log(<span class="string">"you click the Tools/Test1 "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再参数字符串中加入** “空格 + 下划线 + 按键”** ，就能增加快捷键，如下图（按下 W 就会启动）<br><img src="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/3.png" alt="3"></p>
+<h4 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h4><ul>
+<li>必须是 ** 空格 + 下划线（或其他符号） + 按键”** ，其中<strong>空格千万不要忘了</strong></li>
+<li>符号结合按键，就是我们要定制的快捷键，其中：</li>
+</ul>
+<ol>
+<li>下划线 ( _ ) ：表示单一按键，后跟一般按键（按键不区分大小写）,<code>_W</code> 就相当于 <code>W</code></li>
+<li># : 表示 shift 按键，<code>#W</code> 就相当于 <code>shift + W</code></li>
+<li>% : 表示 ctrl 按键， <code>%W</code> 就相当于 <code>ctrl + W</code></li>
+<li>&amp; : 表示 alt 按键， <code>&amp;W</code> 就相当于 <code>alt + W</code></li>
+</ol>
+<ul>
+<li>其实按键可以组合使用，比如  <code>%#W</code> 就相当于 <code>ctrl+ shift + W</code> </li>
+<li>还要注意设定的快捷键可能会和原本热键<strong>有冲突</strong>，需要注意</li>
+</ul>
+<h3 id="其他参数"><a href="#其他参数" class="headerlink" title="其他参数"></a>其他参数</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">MenuItem(<span class="keyword">string</span> itemName, <span class="keyword">bool</span> isValidateFunction, <span class="keyword">int</span> priority);</span><br></pre></td></tr></table></figure>
+<ol>
+<li>itemName : 则是菜单项名称以及目录层级</li>
+<li>isValidateFunction ：默认为 false ，true 则不会在菜单栏出现，会有同名 ItemName 项调用前被调用</li>
+<li>priority : 优先级，其实是菜单项之间的顺序，越小则越靠前</li>
+</ol>
+<h2 id="AddComponent-特性"><a href="#AddComponent-特性" class="headerlink" title="AddComponent 特性"></a>AddComponent 特性</h2><p>用于添加在 Component 下的菜单项。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">AddComponentMenu(<span class="meta-string">"BB/MyComponent"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyPlugins</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果：<br><img src="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/4.png" alt="4"></p>
+<h3 id="注意-2"><a href="#注意-2" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>同样需要引入命名空间 <code>using UnityEditor</code></li>
+<li>由于是用于增加组件的选项，因此特性应该加载我们定义的组件的类名上（<strong>与类同级</strong>）</li>
+<li>重载：<code>AddComponentMenu(string menuName, int order)</code></li>
+</ul>
+<h2 id="ContextMenu-特性"><a href="#ContextMenu-特性" class="headerlink" title="ContextMenu 特性"></a>ContextMenu 特性</h2><p>上下文菜单则是提供在 Inspector 上对组件进行额外的操作的特性。因此特性必须写在 实例方法上。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">ContextMenu(<span class="meta-string">"test"</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ThisIsContext</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>效果：<br><img src="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/5.png" alt="5"></p>
+<h3 id="注意-3"><a href="#注意-3" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>必须加在对应组件的<strong>实例方法（非静态方法）</strong>上</li>
+<li>当点击添加的选项就会执行我们编写的逻辑</li>
+<li>重载：<code>ContextMenu(string itemName, bool isValidateFunction, int priority)</code></li>
+</ul>
+<h2 id="RequireComponent-特性"><a href="#RequireComponent-特性" class="headerlink" title="RequireComponent 特性"></a>RequireComponent 特性</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">RequireComponent(typeof(Rigidbody))</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyPlugins</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>很简单，当我们挂载这个脚本时，会自动为所在对象增加 Rigidbody 组件。<br>一般用于防止我们会遗漏增加某些组件。</p>
+<h3 id="注意-4"><a href="#注意-4" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>如果组件已经挂载在对象上，之后再添加 RequireComponent 特性，是没有效果的，必须重新挂载组件，才会自动增添 RequireComponent 的组件。</li>
+<li>RequireComponent 可以有多个</li>
+<li>一旦组件增加了 RequireComponent 特性，则 Inspector 上的对应组件是无法删除的。除非去掉 RequireComponent</li>
+</ul>
+<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>这就是基本的菜单项相关的特性，后续会继续更新其余部分。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Unity3d/" rel="tag"># Unity3d</a>
+              <a href="/tags/%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/" rel="tag"># 插件开发</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/20/%E5%9F%BA%E7%A1%80-%E7%BD%91%E7%BB%9C%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" rel="prev" title="基础--网络体系结构">
+      <i class="fa fa-chevron-left"></i> 基础--网络体系结构
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#菜单项相关"><span class="nav-number">2.</span> <span class="nav-text">菜单项相关</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MenuItem-特性"><span class="nav-number">2.1.</span> <span class="nav-text">MenuItem 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-MenuItem-特性增加菜单项"><span class="nav-number">2.1.1.</span> <span class="nav-text">使用 MenuItem 特性增加菜单项</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">2.1.1.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#增加快捷键"><span class="nav-number">2.1.2.</span> <span class="nav-text">增加快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#注意-1"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他参数"><span class="nav-number">2.1.3.</span> <span class="nav-text">其他参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AddComponent-特性"><span class="nav-number">2.2.</span> <span class="nav-text">AddComponent 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意-2"><span class="nav-number">2.2.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ContextMenu-特性"><span class="nav-number">2.3.</span> <span class="nav-text">ContextMenu 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意-3"><span class="nav-number">2.3.1.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RequireComponent-特性"><span class="nav-number">2.4.</span> <span class="nav-text">RequireComponent 特性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注意-4"><span class="nav-number">2.4.1.</span> <span class="nav-text">注意</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CrabSaberV"
+      src="/asset/icons/crab_520x520.png">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">59</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">64</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrabSaberV" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrabSaberV" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:s46244934@gmail.com" title="E-Mail → mailto:s46244934@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
