@@ -186,10 +186,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-10-02 18:13:10 / 修改时间：20:26:12" itemprop="dateCreated datePublished" datetime="2020-10-02T18:13:10+08:00">2020-10-02</time>
+              <time title="创建时间：2020-10-02 18:13:10" itemprop="dateCreated datePublished" datetime="2020-10-02T18:13:10+08:00">2020-10-02</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-03 17:11:44" itemprop="dateModified" datetime="2020-10-03T17:11:44+08:00">2020-10-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -212,7 +218,7 @@
 
       
           <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>不必废话，既然要学 Unity ，那么开发个插件很理所应当吧。<br>下面将是我总结的插件学习笔记，不定期更新。</p>
-<h1 id="菜单项相关"><a href="#菜单项相关" class="headerlink" title="菜单项相关"></a>菜单项相关</h1><h2 id="MenuItem-特性"><a href="#MenuItem-特性" class="headerlink" title="MenuItem 特性"></a>MenuItem 特性</h2><h3 id="使用-MenuItem-特性增加菜单项"><a href="#使用-MenuItem-特性增加菜单项" class="headerlink" title="使用 MenuItem 特性增加菜单项"></a>使用 MenuItem 特性增加菜单项</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">MenuItem(<span class="meta-string">"Tools/Test1"</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TheTest1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Debug.Log(<span class="string">"you click the Tools/Test1 "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="菜单项相关"><a href="#菜单项相关" class="headerlink" title="菜单项相关"></a>菜单项相关</h1><h2 id="1-MenuItem-特性"><a href="#1-MenuItem-特性" class="headerlink" title="1. MenuItem 特性"></a>1. MenuItem 特性</h2><h3 id="使用-MenuItem-特性增加菜单项"><a href="#使用-MenuItem-特性增加菜单项" class="headerlink" title="使用 MenuItem 特性增加菜单项"></a>使用 MenuItem 特性增加菜单项</h3><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">MenuItem(<span class="meta-string">"Tools/Test1"</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">TheTest1</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	Debug.Log(<span class="string">"you click the Tools/Test1 "</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在一般的 CShape 脚本文件中，为一个<strong>公有静态类</strong>添加 MenuItem 特性，可将相关逻辑显示到菜单栏中。上面的这句的结果就是（下图）：<br><img src="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/1.png" alt="1"></p>
 <p>点击后的结果就是（下图）<br><img src="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/2.png" alt="2"></p>
 <h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ul>
@@ -245,7 +251,8 @@
 <li>isValidateFunction ：默认为 false ，true 则不会在菜单栏出现，会有同名 ItemName 项调用前被调用</li>
 <li>priority : 优先级，其实是菜单项之间的顺序，越小则越靠前</li>
 </ol>
-<h2 id="AddComponent-特性"><a href="#AddComponent-特性" class="headerlink" title="AddComponent 特性"></a>AddComponent 特性</h2><p>用于添加在 Component 下的菜单项。</p>
+<p><br><br></p>
+<h2 id="2-AddComponent-特性"><a href="#2-AddComponent-特性" class="headerlink" title="2. AddComponent 特性"></a>2. AddComponent 特性</h2><p>用于添加在 Component 下的菜单项。</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">AddComponentMenu(<span class="meta-string">"BB/MyComponent"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyPlugins</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>效果：<br><img src="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/4.png" alt="4"></p>
 <h3 id="注意-2"><a href="#注意-2" class="headerlink" title="注意"></a>注意</h3><ul>
@@ -253,7 +260,8 @@
 <li>由于是用于增加组件的选项，因此特性应该加载我们定义的组件的类名上（<strong>与类同级</strong>）</li>
 <li>重载：<code>AddComponentMenu(string menuName, int order)</code></li>
 </ul>
-<h2 id="ContextMenu-特性"><a href="#ContextMenu-特性" class="headerlink" title="ContextMenu 特性"></a>ContextMenu 特性</h2><p>上下文菜单则是提供在 Inspector 上对组件进行额外的操作的特性。因此特性必须写在 实例方法上。</p>
+<p><br><br></p>
+<h2 id="3-ContextMenu-特性"><a href="#3-ContextMenu-特性" class="headerlink" title="3. ContextMenu 特性"></a>3. ContextMenu 特性</h2><p>上下文菜单则是提供在 Inspector 上对组件进行额外的操作的特性。因此特性必须写在 实例方法上。</p>
 <figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">ContextMenu(<span class="meta-string">"test"</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ThisIsContext</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>效果：<br><img src="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/5.png" alt="5"></p>
@@ -262,7 +270,8 @@
 <li>当点击添加的选项就会执行我们编写的逻辑</li>
 <li>重载：<code>ContextMenu(string itemName, bool isValidateFunction, int priority)</code></li>
 </ul>
-<h2 id="RequireComponent-特性"><a href="#RequireComponent-特性" class="headerlink" title="RequireComponent 特性"></a>RequireComponent 特性</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">RequireComponent(typeof(Rigidbody))</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyPlugins</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><br><br></p>
+<h2 id="4-RequireComponent-特性"><a href="#4-RequireComponent-特性" class="headerlink" title="4. RequireComponent 特性"></a>4. RequireComponent 特性</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">RequireComponent(typeof(Rigidbody))</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyPlugins</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>很简单，当我们挂载这个脚本时，会自动为所在对象增加 Rigidbody 组件。<br>一般用于防止我们会遗漏增加某些组件。</p>
 <h3 id="注意-4"><a href="#注意-4" class="headerlink" title="注意"></a>注意</h3><ul>
@@ -270,8 +279,32 @@
 <li>RequireComponent 可以有多个</li>
 <li>一旦组件增加了 RequireComponent 特性，则 Inspector 上的对应组件是无法删除的。除非去掉 RequireComponent</li>
 </ul>
-<h1 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h1><p>这就是基本的菜单项相关的特性，后续会继续更新其余部分。</p>
+<p><br><br></p>
+<h1 id="Inspector-相关特性"><a href="#Inspector-相关特性" class="headerlink" title="Inspector 相关特性"></a>Inspector 相关特性</h1><h2 id="1-HideInInspector-特性"><a href="#1-HideInInspector-特性" class="headerlink" title="1. HideInInspector 特性"></a>1. HideInInspector 特性</h2><p>一般我们将成员变量访问性改为 public ，就能在 Inspector 界面中显示并对其数值进行初始化。</p>
+<p>但有时我们希望 public 访问性的参数不显示在 Inspector 面板中，因为我们可能只在运行时才去根据情况进行特定初始化。</p>
+<p>HideInInspector 特性可以使得 public 访问性变量不在面板中显示。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">HideInInspector</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">float</span> range;</span><br></pre></td></tr></table></figure>
 
+<p><br><br></p>
+<h2 id="2-NoSerialized-特性"><a href="#2-NoSerialized-特性" class="headerlink" title="2. NoSerialized 特性"></a>2. NoSerialized 特性</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">NonSerialized</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> speed;</span><br></pre></td></tr></table></figure>
+
+<p>不序列化，和 HideInInspector 相同作用，不过需要注意的，此特性是 System 命名空间下的特性，非 Unity 内置特性。与其相应的有 Serializable 特性，即序列化。</p>
+<h3 id="注意-5"><a href="#注意-5" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>这属于数据序列化的相关特性，序列化往往被用于数据的传输。（具体可自行了解）</li>
+<li>不过 Serializable 特性，标识我们自定义的类，这样可以使得我们定义的类的属性可展示在 Inspector 上，如：</li>
+</ul>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">Serializable</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyType</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">int</span> speed;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MyComponent</span> : <span class="title">MonoBehaviour</span>&#123;</span><br><span class="line">	<span class="keyword">public</span> MyType typr = <span class="keyword">new</span> MyType();  <span class="comment">// typr 就会显示在 Inspector 面板上</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NonSerialized 与 HideInspector 不同在于，前者并不保存对变量初始化的修改，后者只是单纯的隐藏，而对参数进行的修改依旧会被应用。<br><br><br></li>
+</ul>
+<h2 id="3-SerializeField-特性"><a href="#3-SerializeField-特性" class="headerlink" title="3. SerializeField 特性"></a>3. SerializeField 特性</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">SerializeField</span>]</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">float</span> speed;</span><br></pre></td></tr></table></figure>
+
+<p>可将我们定义的私有变量显示在 Inspector 上，并且可修改。效果和访问符为 public 相同。</p>
+<p>不过并不影响变量是私有的访问域。</p>
+<br>
+# 结语
+这就是基本的菜单项相关的特性，后续会继续更新其余部分。
       
     </div>
 
