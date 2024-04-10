@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -218,7 +218,7 @@
 
       
         <p>在相应面板脚本的 <code>OnInspectorGUI()</code> 中加入</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (GUI.changed)</span><br><span class="line">&#123;</span><br><span class="line">	Undo.RecordObject(target, <span class="string">"target change"</span>);</span><br><span class="line">    EditorUtility.SetDirty(target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (GUI.changed)</span><br><span class="line">&#123;</span><br><span class="line">	Undo.RecordObject(target, <span class="string">&quot;target change&quot;</span>);</span><br><span class="line">    EditorUtility.SetDirty(target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     

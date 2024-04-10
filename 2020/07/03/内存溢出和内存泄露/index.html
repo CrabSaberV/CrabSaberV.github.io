@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -226,7 +226,7 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>内存这边一直都是让人头大的部分，而 “内存溢出” 和 “内存泄露” 一直都被我搞混。这里将形象的解释什么是 “内存溢出” 和 “内存泄漏” 以及区别。</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="简述"><a href="#简述" class="headerlink" title="简述"></a>简述</h2><p><strong>内存溢出</strong>：当<strong>程序申请不到足够的内存</strong>时，就会发生内存溢出。换句话说当给一个整型 int 赋值超出 int 数值范围时，就是内存溢出。</p>
 <p><strong>内存泄漏</strong>：当<strong>程序中已被使用的空间无法被释放</strong>，久而久之会造成堆积，最终导致的结果就是内存溢出了。</p>
 <h2 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h2><h3 id="内存溢出-out-of-memory"><a href="#内存溢出-out-of-memory" class="headerlink" title="内存溢出 out of memory"></a>内存溢出 out of memory</h3><p>更浅显的理解，当程序运行时假设需要 150mb 的内存，但是实际内存或者空闲空间只有 100mb ，此时就是所谓的内存溢出。<strong>设备内存不足以满足程序的内存需求</strong>，这就是内存溢出。</p>

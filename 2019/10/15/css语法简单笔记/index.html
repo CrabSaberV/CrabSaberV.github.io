@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -232,7 +232,7 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> 由于没有好好学习前端开发，就进行前端的设计，困难重重，为此，自己试着学习css的简单语法知识。这里作为个人的学习笔记，时刻可以使用更新，记录在学习css中的心得。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h2><h3 id="构成"><a href="#构成" class="headerlink" title="构成"></a>构成</h3><p>css由<strong>选择器</strong>，一条或者多条<strong>声明</strong> 构成。（如下图）<br><img src="/2019/10/15/css%E8%AF%AD%E6%B3%95%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/1.png" alt="结构" title="css结构--来自菜鸟教程"></p>
 <ul>
@@ -245,10 +245,10 @@
 <p>则会使得 html 中所有 <code>&lt;p&gt;</code> 标签的内容颜色改为红色。</p>
 <h4 id="id选择器"><a href="#id选择器" class="headerlink" title="id选择器"></a>id选择器</h4><p>html的标签通过id来匹配css的选择器，或者可以理解为id选择器会根据html的标签id来匹配对应的样式。</p>
 <p>例如：在css中 (<em>注意css内部的属性需要以分号<code>;</code>结尾</em>)</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#p1</span>&#123;</span><br><span class="line">	<span class="attribute">color</span>:blue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#p1</span>&#123;</span><br><span class="line">	<span class="attribute">color</span>:blue;</span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
 
 <p>在html中</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">"p1"</span>&gt;</span>颜色变为蓝色<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>但是这个却没有颜色变化<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p1&quot;</span>&gt;</span>颜色变为蓝色<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>但是这个却没有颜色变化<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>(<em>注意id名称可不要以数字开头</em>)</p>
@@ -258,7 +258,7 @@
 <ul>
 <li>例如：在html中</li>
 </ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span>效果是类名为center的样式<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">"center"</span>&gt;</span>效果是类名为center的样式<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;center&quot;</span>&gt;</span>效果是类名为center的样式<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;center&quot;</span>&gt;</span>效果是类名为center的样式<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>在css中，名称前有个点<code>.</code>，那么表示所有center的类名的标签都是用此样式</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.center</span>&#123;</span><br><span class="line">    <span class="attribute">text-align</span>:center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

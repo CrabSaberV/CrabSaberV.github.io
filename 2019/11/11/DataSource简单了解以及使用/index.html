@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -230,7 +230,7 @@
 <p>回到正题，最近正好开始接触Java Web的开发学习。在完成老师课题的时候就遇到了我这个新手闻所未闻的名词 <strong>DataSource</strong>。</p>
 <p>接下来我将简单介绍我在摸索 <code>DataSource</code> 时，我对 <code>DataSource</code> 的理解。</p>
 <p>内容不多，虽然繁琐，但请耐心看完。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><code>DataSource</code>中文名——数据源，是JNDI资源的一种。</p>
 <p>简单的理解，数据源是一种数据库对编程提供的一个接口，每个数据源对应一个数据库，也就是记录是连接哪个数据库，如何连接这个数据库。</p>
@@ -248,7 +248,7 @@
 <p>(这里都将以 Mysql数据库 为例子展开讨论)</p>
 </blockquote>
 <p>我们常用的连接数据的方法，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String driverUrl = <span class="string">"com.mysql.cj.jdbc.Driver"</span>;</span><br><span class="line">String connUrl = <span class="string">"jdbc:mysql://localhost:3306/GuestBook?serverTimezone=UTC"</span>;</span><br><span class="line"></span><br><span class="line">String connUser = <span class="string">"mysqluser"</span>;</span><br><span class="line">String connPwd = <span class="string">"123456"</span>;</span><br><span class="line">	</span><br><span class="line">Class.forName(driverUrl);</span><br><span class="line">		Connection conn = DriverManager.getConnection(connUrl,connUser,connPwd);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String driverUrl = <span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>;</span><br><span class="line">String connUrl = <span class="string">&quot;jdbc:mysql://localhost:3306/GuestBook?serverTimezone=UTC&quot;</span>;</span><br><span class="line"></span><br><span class="line">String connUser = <span class="string">&quot;mysqluser&quot;</span>;</span><br><span class="line">String connPwd = <span class="string">&quot;123456&quot;</span>;</span><br><span class="line">	</span><br><span class="line">Class.forName(driverUrl);</span><br><span class="line">		Connection conn = DriverManager.getConnection(connUrl,connUser,connPwd);</span><br></pre></td></tr></table></figure>
 <p>这时由 sun公司 开始封装好的方法，也是我们初学者常用到的。但是往往我们初学者常常容易在这里栽跟头，什么连接错误，找不到包之类的奇怪问题，一堆又一堆呀。</p>
 <blockquote>
 <p>而对于 <code>DataSource</code>  可以不编写连接数据库的方法，直接引用 <code>DataSource</code> 连接的数据库的对象即可，主要用于获取 <code>Connection</code> 的对象。</p>
@@ -279,7 +279,7 @@
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><blockquote>
 <p>感谢这些文献，非常感谢。</p>
 </blockquote>
-<p>[1]： DataSource数据源简单理解 — 布玮博客 — <a href="https://blog.csdn.net/qq_40910541/article/details/80771607" target="_blank" rel="noopener">https://blog.csdn.net/qq_40910541/article/details/80771607</a><br>[2]：DataSource 的理解 — predisw 博客—<a href="https://blog.csdn.net/predisw/article/details/50151849" target="_blank" rel="noopener">https://blog.csdn.net/predisw/article/details/50151849</a><br>[3]：JDBC 学习复习9 配置Tomcat数据源 —言非言 博客—<a href="https://www.cnblogs.com/humi/p/7958738.html" target="_blank" rel="noopener">https://www.cnblogs.com/humi/p/7958738.html</a><br>[4]：【Java】JAVA数据源 — 薛8 博客 —<a href="https://blog.csdn.net/xueba8/article/details/84107204" target="_blank" rel="noopener">https://blog.csdn.net/xueba8/article/details/84107204</a></p>
+<p>[1]： DataSource数据源简单理解 — 布玮博客 — <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_40910541/article/details/80771607">https://blog.csdn.net/qq_40910541/article/details/80771607</a><br>[2]：DataSource 的理解 — predisw 博客—<a target="_blank" rel="noopener" href="https://blog.csdn.net/predisw/article/details/50151849">https://blog.csdn.net/predisw/article/details/50151849</a><br>[3]：JDBC 学习复习9 配置Tomcat数据源 —言非言 博客—<a target="_blank" rel="noopener" href="https://www.cnblogs.com/humi/p/7958738.html">https://www.cnblogs.com/humi/p/7958738.html</a><br>[4]：【Java】JAVA数据源 — 薛8 博客 —<a target="_blank" rel="noopener" href="https://blog.csdn.net/xueba8/article/details/84107204">https://blog.csdn.net/xueba8/article/details/84107204</a></p>
 
     </div>
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -231,7 +231,7 @@
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>输入/输出（I/O）是我们学习编程的必经之路。往往程序的本质就是对数据进行处理，而一些数据以便持久化而存储于文件中，有些数据用于临时使用存于内存中。换句话说，都知道一般游戏会有存档存储游戏数据，那么了解了这里的I/O，就能实现游戏的存档问题了。</p>
 <p>必须说的是，由于Java的输入输出并不是很难，这里简单提一下流的使用，更多是作为笔记，记录各种Java流而已。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h2 id="流式的输入-输出"><a href="#流式的输入-输出" class="headerlink" title="流式的输入/输出"></a>流式的输入/输出</h2><h3 id="流的概念"><a href="#流的概念" class="headerlink" title="流的概念"></a>流的概念</h3><p>Java中，数据以流的方式传输。流是从源到目的地的字节的有序序列。流中字节依据先进先出存取数据。<br>流可以理解为一条单向的河流，一端是源，一头是目的地，数据是通过河流从源流到了目的地。</p>
 <h4 id="流的读写过程"><a href="#流的读写过程" class="headerlink" title="流的读写过程"></a>流的读写过程</h4><p>读操作：打开流→流中存在数据将其读取出来→关闭流</p>
@@ -287,7 +287,7 @@
 <h2 id="对象的串行化"><a href="#对象的串行化" class="headerlink" title="对象的串行化"></a>对象的串行化</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>将java程序中的对象保存在外存中，成为对象永久化。</p>
 <p>通过<code>ObjectInputStream</code>和<code>ObjectOutputStream</code>对对象读和写。</p>
 <p>对象永久化关键在于将其以一种串行格式表示出来，以便后面读取对象能将其重构。所以对java对象的读写过程称为对象序列化（object serialization）。</p>
-<h3 id="读写操作"><a href="#读写操作" class="headerlink" title="读写操作"></a>读写操作</h3><p>比较简单自行查找<a href="http://www.matools.com/api/java8" target="_blank" rel="noopener">API</a>即可。</p>
+<h3 id="读写操作"><a href="#读写操作" class="headerlink" title="读写操作"></a>读写操作</h3><p>比较简单自行查找<a target="_blank" rel="noopener" href="http://www.matools.com/api/java8">API</a>即可。</p>
 <p>值得注意的是读操作可以只读取对象的数据，读操作读取对象前，要先构造对象（创建对应的对象）然后用<code>readObject()</code>获取对象，最好进行强制类型转换。</p>
 <h3 id="构造可串行化对象的类"><a href="#构造可串行化对象的类" class="headerlink" title="构造可串行化对象的类"></a>构造可串行化对象的类</h3><p>也就是需要串行化的类最好实现串行化接口（<code>Serializable</code>），这样其对象就可串行化。</p>
 <p>java中的<code>Serializable</code>接口的定义</p>

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -225,7 +225,7 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>Shader 也称着色器其实属于应用程序层，用于调用和使用图形API，以编程的形式来控制图形渲染。<br>本文将初探 Shader</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="Shader-分类"><a href="#Shader-分类" class="headerlink" title="Shader 分类"></a>Shader 分类</h2><p>这里的分类是主流的大体分类。</p>
 <ol>
 <li>Vertex Shader （顶点着色器），模型的顶点决定了模型的形状以及位置。更像是模型框架结构。</li>
@@ -241,14 +241,14 @@
 <h2 id="ShaderLab-语法结构"><a href="#ShaderLab-语法结构" class="headerlink" title="ShaderLab 语法结构"></a>ShaderLab 语法结构</h2><p>ShaderLab 是 Unity 封装了一层 CG/HLSL/GLSL 接口，但为了跨平台 Unity 重点支持 CG 语言。</p>
 <h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Shader &quot;Custom&#x2F;myShader&quot;&#123;</span><br><span class="line">	Properties&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	SubShader&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	Fallback &quot;VertexLit&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol>
-<li>外部结构 <code>Shader &quot;name&quot;{}</code> ，其中的 <code>name</code> 不需要保证与文件名相同，其表示 Unity 的 Meteria 面板中的 shader目录名。’/‘ 用于表示目录父子关系。</li>
-<li><code>Properties{}</code> 其中负责声明定义 Shader 属性，将会显示在 Material 的面板中，以便自定义属性。可以为空，可以没有，但最多只有一个此结构。</li>
-<li><code>SubShader{}</code> 至少要有一个，显卡通过 SubShader 来决定渲染方式，是程序入口，因此至少要有一个，可以有多个。当有多个时，会先从第一个 SubShader 编译，当编译不通过，会选择第二个，以此类推。而当有一个可以编译通过，就不再运行后面的 SubShader 。有些时候，一些设备版本不支持的渲染编码，会使得SubShader 无法编译通过,这可以称作是替代方案。</li>
+<li>外部结构 <code>Shader &quot;name&quot;&#123;&#125;</code> ，其中的 <code>name</code> 不需要保证与文件名相同，其表示 Unity 的 Meteria 面板中的 shader目录名。’/‘ 用于表示目录父子关系。</li>
+<li><code>Properties&#123;&#125;</code> 其中负责声明定义 Shader 属性，将会显示在 Material 的面板中，以便自定义属性。可以为空，可以没有，但最多只有一个此结构。</li>
+<li><code>SubShader&#123;&#125;</code> 至少要有一个，显卡通过 SubShader 来决定渲染方式，是程序入口，因此至少要有一个，可以有多个。当有多个时，会先从第一个 SubShader 编译，当编译不通过，会选择第二个，以此类推。而当有一个可以编译通过，就不再运行后面的 SubShader 。有些时候，一些设备版本不支持的渲染编码，会使得SubShader 无法编译通过,这可以称作是替代方案。</li>
 <li><code>Fallback &quot;ShaderName&quot;</code> 当所有的 <code>SubShader</code> 都无法通过时，会执行此方案中的 Shader 。<code>ShaderName</code> 必须是系统提供或者自建存在的 shader,当有重名时考虑其目录名。被称为后备方案。</li>
 </ol>
-<h3 id="Properties-结构"><a href="#Properties-结构" class="headerlink" title="Properties 结构"></a>Properties 结构</h3><p>定义在<code>Properties{}</code>  的属性会显示在 Inspector面板中。可以理解为全局属性。</p>
+<h3 id="Properties-结构"><a href="#Properties-结构" class="headerlink" title="Properties 结构"></a>Properties 结构</h3><p>定义在<code>Properties&#123;&#125;</code>  的属性会显示在 Inspector面板中。可以理解为全局属性。</p>
 <h4 id="属性定义方式"><a href="#属性定义方式" class="headerlink" title="属性定义方式"></a>属性定义方式</h4><p><code>属性名(&quot;外部显示名&quot;,属性类型)</code>，属性名为内部编程调用的属性名称；外部属性名可以任意命名是 Inspector 面板中显示的属性名称；属性类型，则是变量的数据类型。</p>
-<p>在 <code>Properties{}</code> 中定义的属性必须初始化，并且不需要分号结尾。</p>
+<p>在 <code>Properties&#123;&#125;</code> 中定义的属性必须初始化，并且不需要分号结尾。</p>
 <h4 id="基础数据类型"><a href="#基础数据类型" class="headerlink" title="基础数据类型"></a>基础数据类型</h4><table>
 <thead>
 <tr>
@@ -294,17 +294,17 @@
 <tbody><tr>
 <td align="center">2D</td>
 <td align="left">2D 类型，往往用于指定图片，纹理。<br>而不指定图片源，可以是设置的默认颜色。<br>注意颜色名是字符串。</td>
-<td align="left"><code>_2D(&quot;Texture&quot;,2D) = &quot;red&quot;{}</code></td>
+<td align="left"><code>_2D(&quot;Texture&quot;,2D) = &quot;red&quot;&#123;&#125;</code></td>
 </tr>
 <tr>
 <td align="center">Cube</td>
 <td align="left">Cube 类型，是多个纹理图片组成的立方体6面，可以看作是 2D 类型的数组类型，往往多用于天空盒。</td>
-<td align="left"><code>_Cube(&quot;Cube&quot;,Cube) = &quot;White&quot;{}</code></td>
+<td align="left"><code>_Cube(&quot;Cube&quot;,Cube) = &quot;White&quot;&#123;&#125;</code></td>
 </tr>
 <tr>
 <td align="center">3D</td>
 <td align="left">3D类型，目前我还没找到一些资料解释，这里称作 3D 纹理。</td>
-<td align="left"><code>_3D(&quot;3D&quot;,3D)=&quot;blue&quot;{}</code></td>
+<td align="left"><code>_3D(&quot;3D&quot;,3D)=&quot;blue&quot;&#123;&#125;</code></td>
 </tr>
 </tbody></table>
 <h3 id="SubShader-结构"><a href="#SubShader-结构" class="headerlink" title="SubShader 结构"></a>SubShader 结构</h3><p>SubShader 表示一种渲染方案，也是我们编程的主要入口。<br>结构：</p>

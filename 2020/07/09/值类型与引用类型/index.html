@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -221,7 +221,7 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>值类型与引用类型的区别，是我们学习面向对象语言必须掌握的重要知识点。</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="迅速回顾"><a href="#迅速回顾" class="headerlink" title="迅速回顾"></a>迅速回顾</h2><h3 id="值类型"><a href="#值类型" class="headerlink" title="值类型"></a>值类型</h3><p>值类型变量直接存储数据，其数据存储在<strong>栈内存</strong>中。在栈内存中存储的是值类型的数据，而不是地址。</p>
 <p>主要的值类型，也被称为基本数据类型，有：byte，short，int，long，double，float，char，bool（java 中是 boolean ，c语言无），char，以及 struct （结构体），枚举 。</p>
 <p>值类型的变量声明后，<strong>编译器会为其分配内存</strong>，无论是否赋值。</p>
@@ -254,9 +254,9 @@
 <li>结构体不能声明默认的构造函数。（但可以写带参构造函数）</li>
 </ol>
 <p>结构体中 </p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> PR&#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">int</span> a;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main:</span><br><span class="line"></span><br><span class="line">	PR pr_1 = <span class="keyword">new</span> PR();<span class="comment">// 会初始化成员</span></span><br><span class="line">    pr_1.a;</span><br><span class="line">    </span><br><span class="line">    pR pr_2;			<span class="comment">// 不会初始化必须赋值</span></span><br><span class="line">    pr_2.a;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> PR&#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="built_in">int</span> a;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">main:</span><br><span class="line"></span><br><span class="line">	PR pr_1 = <span class="keyword">new</span> PR();<span class="comment">// 会初始化成员</span></span><br><span class="line">    pr_1.a;</span><br><span class="line">    </span><br><span class="line">    pR pr_2;			<span class="comment">// 不会初始化必须赋值</span></span><br><span class="line">    pr_2.a;</span><br></pre></td></tr></table></figure>
 <p>使用 new  与不使用的区别在于，new 会进行默认赋值的初始化。而不使用 new 其第二句<code>pr_2.a</code> 是会报错，提示没有进行初始化赋值。</p>
-<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a href="https://www.cnblogs.com/zhanlang/p/9603592.html" target="_blank" rel="noopener">c#基础系列1——深入理解值类型和引用类型</a></p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhanlang/p/9603592.html">c#基础系列1——深入理解值类型和引用类型</a></p>
 
     </div>
 

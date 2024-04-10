@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -228,8 +228,8 @@
 <p>终于决定了要好好学习一番Unity，或许，这就是我的第一部选择吧。</p>
 </blockquote>
 <p>本文章将简单梳理unity相关的必知知识点，边写边学。</p>
-<a id="more"></a>
-<p>结构参考于csdn：<a href="https://blog.csdn.net/qq_34937637/article/details/79653525" target="_blank" rel="noopener">https://blog.csdn.net/qq_34937637/article/details/79653525</a></p>
+<span id="more"></span>
+<p>结构参考于csdn：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34937637/article/details/79653525">https://blog.csdn.net/qq_34937637/article/details/79653525</a></p>
 <h2 id="一、什么是协同程序"><a href="#一、什么是协同程序" class="headerlink" title="一、什么是协同程序"></a>一、什么是协同程序</h2><p>在主线程运行的同时开启另一段逻辑处理，来协助当前程序的执行。<br>协程很像多线程，但不是多线程。<br>Unity 协程在每帧结束后去检测 yield 的条件是否满足。</p>
 <p>详见：<a href="/2020/05/14/Unity-%E6%8E%A2%E7%B4%A2%E5%8D%8F%E7%A8%8B/" title="Unity-探索协程">Unity-探索协程</a></p>
 <h2 id="二、Unity3d-中的碰撞器和触发器的区别"><a href="#二、Unity3d-中的碰撞器和触发器的区别" class="headerlink" title="二、Unity3d 中的碰撞器和触发器的区别"></a>二、Unity3d 中的碰撞器和触发器的区别</h2><p>碰撞器是触发器的载体，触发器只是碰撞器的一个属性。（2d/3d 碰撞器都是这样）</p>
@@ -349,13 +349,13 @@
 <li><code>Assembly.Load(&quot;程序集&quot;)</code> 加载程序集，返回一个 Assembly</li>
 <li>得到程序集中所有类的名称</li>
 </ol>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(Type type <span class="keyword">in</span> assembly.GetTypes())&#123;</span><br><span class="line">	<span class="keyword">string</span> t = type.Name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span>(Type type <span class="keyword">in</span> assembly.GetTypes())&#123;</span><br><span class="line">	<span class="built_in">string</span> t = type.Name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ol start="4">
 <li><code>Type type = assembly.GetType(&quot;程序集.类名&quot;);</code> 获取当前类的类型</li>
 <li>获取</li>
 </ol>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Activator.CreateInstance(type);  <span class="comment">// 创建此类型实例</span></span><br><span class="line">MethodInfo mInfo = type.GetMethod(<span class="string">"方法名"</span>);  <span class="comment">// 获取当前方法</span></span><br><span class="line">mInfo.Invoke(<span class="literal">null</span>,方法参数);		<span class="comment">//带参函数的传值调用</span></span><br></pre></td></tr></table></figure>
-<p>详见：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Activator.CreateInstance(type);  <span class="comment">// 创建此类型实例</span></span><br><span class="line">MethodInfo mInfo = type.GetMethod(<span class="string">&quot;方法名&quot;</span>);  <span class="comment">// 获取当前方法</span></span><br><span class="line">mInfo.Invoke(<span class="literal">null</span>,方法参数);		<span class="comment">//带参函数的传值调用</span></span><br></pre></td></tr></table></figure>
+<p>详见：<a href="#">Post not found: C#反射机制</a></p>
 <h2 id="四十、简述四元数的作用，四元数对欧拉角的优点"><a href="#四十、简述四元数的作用，四元数对欧拉角的优点" class="headerlink" title="四十、简述四元数的作用，四元数对欧拉角的优点"></a>四十、简述四元数的作用，四元数对欧拉角的优点</h2><p>四元数用于表示旋转。<br>优点：</p>
 <ol>
 <li>能进行增量旋转。</li>
@@ -369,9 +369,9 @@
 <p><strong>像素处理：</strong> 此阶段（对每个像素进行光栅化处理期间）GPU 完成对像素的计算和处理，从而确定每个像素的最终属性。在支持 DX8 和 DX9 规格的 GPU 中，这些工作由硬件实现的 Pixel Shader （像素着色器）完成。</p>
 <p><strong>最终输出：</strong> 由 ROP（光栅化引擎）最终完成像素的输出，1帧渲染完毕后，被送到显存帧缓冲区。</p>
 <p>总结：GPU 工作通俗来讲时完成 3D 图形的生成，将图形映射到相应像素点上，对每个像素进行计算确定最终颜色并完成输出。</p>
-<p><img src="/2020/05/14/Unity-%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AE%80%E5%8D%95%E6%A2%B3%E7%90%86/Gpu%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.jpg" alt="1"><br>详见：<a href="https://zhuanlan.zhihu.com/p/34675934" target="_blank" rel="noopener">GPU工作原理</a></p>
+<p><img src="/2020/05/14/Unity-%E7%9F%A5%E8%AF%86%E7%82%B9%E7%AE%80%E5%8D%95%E6%A2%B3%E7%90%86/Gpu%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86.jpg" alt="1"><br>详见：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/34675934">GPU工作原理</a></p>
 <h2 id="四十三、什么是渲染管线"><a href="#四十三、什么是渲染管线" class="headerlink" title="四十三、什么是渲染管线"></a>四十三、什么是渲染管线</h2><p>在显示器上为了显示出图像而经过一些列必要操作。<br>渲染管线由很多步骤，都要将几何图形从一个坐标中变换到另一个坐标系中。<br>主要步骤：<br>本地坐标 -&gt; 视图坐标 -&gt; 背面裁剪 -&gt; 光照 -&gt; 裁剪 -&gt; 投影 -&gt; 视图变换 -&gt; 光栅化<br>或<br>物体空间 -&gt; 世界空间 -&gt; 观察空间 -&gt; 裁剪空间 -&gt; 屏幕空间</p>
-<p>详见：<a href="https://blog.csdn.net/AvatarForTest/article/details/80438344" target="_blank" rel="noopener">渲染管线</a></p>
+<p>详见：<a target="_blank" rel="noopener" href="https://blog.csdn.net/AvatarForTest/article/details/80438344">渲染管线</a></p>
 <h2 id="四十四、如何优化内存"><a href="#四十四、如何优化内存" class="headerlink" title="四十四、如何优化内存"></a>四十四、如何优化内存</h2><ol>
 <li>将暂时不用但以后会用的物体隐藏起来而不是直接 Destory 。</li>
 <li>释放 AssetBundle 占用的资源。</li>

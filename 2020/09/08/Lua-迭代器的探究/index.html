@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -224,8 +224,8 @@
 
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>先表明，我是个正在学习 Lua 的新手，在遇到些学习上的问题，经过思考尝试，让后写下我对相关问题知识的认识。</p>
-<p>从<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>上学习 Lua 迭代器过程中，遇到了些障碍。虽然根据<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>中的解释：</p>
-<a id="more"></a>
+<p>从<a target="_blank" rel="noopener" href="https://www.runoob.com/lua/lua-iterators.html">菜鸟教程</a>上学习 Lua 迭代器过程中，遇到了些障碍。虽然根据<a target="_blank" rel="noopener" href="https://www.runoob.com/lua/lua-iterators.html">菜鸟教程</a>中的解释：</p>
+<span id="more"></span>
 
 <blockquote>
 <p>下面我们看看泛型 for 的执行过程：</p>
@@ -237,24 +237,24 @@
 <li>第五，回到第二步再次调用迭代函数</li>
 </ul>
 </blockquote>
-<p>但是在自己更具理解，试着编写一些测试 <strong>Lua 无状态迭代器</strong>代码时，出现的结果却让人捉急。<br>可先阅览 Lua 官方文档中对迭代器的描述: <a href="http://www.lua.org/manual/5.3/manual.html" target="_blank" rel="noopener">Lua 5.3 文档 -3.3.5</a><br>(能看懂官方解释，基本上本文就不必往下看了)</p>
-<h1 id="经历"><a href="#经历" class="headerlink" title="经历"></a>经历</h1><h2 id="初次编写"><a href="#初次编写" class="headerlink" title="初次编写"></a>初次编写</h2><p>开始根据<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>编写了一个<strong>无状态迭代器</strong>，当然运行结果也正常。</p>
+<p>但是在自己更具理解，试着编写一些测试 <strong>Lua 无状态迭代器</strong>代码时，出现的结果却让人捉急。<br>可先阅览 Lua 官方文档中对迭代器的描述: <a target="_blank" rel="noopener" href="http://www.lua.org/manual/5.3/manual.html">Lua 5.3 文档 -3.3.5</a><br>(能看懂官方解释，基本上本文就不必往下看了)</p>
+<h1 id="经历"><a href="#经历" class="headerlink" title="经历"></a>经历</h1><h2 id="初次编写"><a href="#初次编写" class="headerlink" title="初次编写"></a>初次编写</h2><p>开始根据<a target="_blank" rel="noopener" href="https://www.runoob.com/lua/lua-iterators.html">菜鸟教程</a>编写了一个<strong>无状态迭代器</strong>，当然运行结果也正常。</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">square</span><span class="params">(iteratorMaxCount,currerntNumber)</span></span></span><br><span class="line">	<span class="keyword">if</span> currerntNumber &lt; iteratorMaxCount <span class="keyword">then</span></span><br><span class="line">		currerntNumber = currerntNumber+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">return</span> currerntNumber,currerntNumber*currerntNumber;</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i,n <span class="keyword">in</span> square,<span class="number">10</span>,<span class="number">0</span></span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(i,n)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
-<p>这段代码的行为其实很简单，就是打印了10以内所有的平方数。<br>根据<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>描述的 for 的执行过程可知，suqare 就是迭代器函数，10是状态常量，0则是控制变量。而当运行时，会先根据 square 以及参数，得到迭代器的三个元素（迭代函数，状态常量，控制变量），以后就会利用这三个元素来进行迭代的过程。</p>
-<p>但这里<a href="https://www.runoob.com/lua/lua-iterators.html" target="_blank" rel="noopener">菜鸟教程</a>对这里有些轻描淡写，并没说清楚真正各个参数是如何被使用，尤其是 square 的参数和返回值之间的联系或者是否有联系，却没讲清楚。</p>
+<p>这段代码的行为其实很简单，就是打印了10以内所有的平方数。<br>根据<a target="_blank" rel="noopener" href="https://www.runoob.com/lua/lua-iterators.html">菜鸟教程</a>描述的 for 的执行过程可知，suqare 就是迭代器函数，10是状态常量，0则是控制变量。而当运行时，会先根据 square 以及参数，得到迭代器的三个元素（迭代函数，状态常量，控制变量），以后就会利用这三个元素来进行迭代的过程。</p>
+<p>但这里<a target="_blank" rel="noopener" href="https://www.runoob.com/lua/lua-iterators.html">菜鸟教程</a>对这里有些轻描淡写，并没说清楚真正各个参数是如何被使用，尤其是 square 的参数和返回值之间的联系或者是否有联系，却没讲清楚。</p>
 <h2 id="问题的出现"><a href="#问题的出现" class="headerlink" title="问题的出现"></a>问题的出现</h2><p>后来，我在想经常性在 for 中用两个变量来接收，能不能只用一个 临时变量来接收迭代结果，并且迭代器函数能否只有一个参数，一个返回值。</p>
 <p>于是有了下面的代码:</p>
 <figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span><span class="params">(a)</span></span></span><br><span class="line">	<span class="keyword">if</span> a&lt;<span class="number">10</span> <span class="keyword">then</span></span><br><span class="line">		a = a+<span class="number">1</span></span><br><span class="line">		<span class="keyword">return</span> a</span><br><span class="line">	<span class="keyword">end</span></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> aa,<span class="number">1</span> <span class="keyword">do</span></span><br><span class="line">	<span class="built_in">print</span>(i)</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 
 <p>以我最初对迭代器的理解，应该会执行10次运算，然而：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br><span class="line">2</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br><span class="line">2</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>无限循环打印 2 。</p>
 <p>此时就开始纳闷了，这个迭代器的内部原理究竟是什么，aa() 被做了，其中的参数 a 又做了什么处理，返回的 a 除了赋值给了 i，然后又去了哪里。</p>
 <p>为了解决这些疑问，我尝试了很多种不同的组合形式，比如将参数设置为2个，返回值设置成多个，参数调换位置等，但很多时候最后的表现结果却和预期差的很远。</p>
-<p>没有办法，百度不给力，那就只能去看 Lua 的<a href="http://www.lua.org/manual/5.3/manual.html" target="_blank" rel="noopener">官方文档</a>了。</p>
+<p>没有办法，百度不给力，那就只能去看 Lua 的<a target="_blank" rel="noopener" href="http://www.lua.org/manual/5.3/manual.html">官方文档</a>了。</p>
 <p>果不其然，官方的解释非常好理解，还给了示例。</p>
-<h2 id="官方解释"><a href="#官方解释" class="headerlink" title="官方解释"></a>官方解释</h2><p>参照<a href="http://www.lua.org/manual/5.3/manual.html" target="_blank" rel="noopener">官方文档-3.3.5</a>的解释：</p>
+<h2 id="官方解释"><a href="#官方解释" class="headerlink" title="官方解释"></a>官方解释</h2><p>参照<a target="_blank" rel="noopener" href="http://www.lua.org/manual/5.3/manual.html">官方文档-3.3.5</a>的解释：</p>
 <blockquote>
 <p>for statement like</p>
 </blockquote>
@@ -285,7 +285,7 @@
 <li>迭代器函数的返回值有可能多也可能少，总之在填补的时候，没有的就会填补 nil ，多余的就被忽视。</li>
 <li>迭代器函数的第一个返回值，必须是表示<strong>控制变量</strong>的值。</li>
 <li>要使得迭代函数的迭代过程，只需要使得返回的<strong>控制变量</strong>的值为 nil 即可。</li>
-<li>最后根据<a href="http://www.lua.org/manual/5.3/manual.html" target="_blank" rel="noopener">官方描述-3.3.5</a>，for 中可以使用 break 中断结束循环迭代。</li>
+<li>最后根据<a target="_blank" rel="noopener" href="http://www.lua.org/manual/5.3/manual.html">官方描述-3.3.5</a>，for 中可以使用 break 中断结束循环迭代。</li>
 </ul>
 <h1 id><a href="#" class="headerlink" title></a></h1>
     </div>

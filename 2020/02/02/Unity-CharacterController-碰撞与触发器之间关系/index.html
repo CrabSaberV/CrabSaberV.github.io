@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -218,7 +218,7 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自从接触了 CharactorController 来控制角色后，异常的有意思，对于控制一些人形角色控制上带来了便利，化简了刚体控制中种种麻烦问题。<br>但是也遇到了 CharactorController 与碰撞体和触发器之间的问题和疑问。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="角色控制器"><a href="#角色控制器" class="headerlink" title="角色控制器"></a>角色控制器</h2><p>CharactorController 其自身包含一个胶囊碰撞体，自身也用于类似刚体的属性，因此并不需要为拥有 CharactorController 的对象添加 刚体 。一般而言也不需要添加另外添加碰撞体，但面对一些复杂情况需要额外的碰撞器来处理，那么问题就在于 CharacterController 自带的碰撞器 与 常规碰撞器（collider）之间有何关系有何区别，与触发器（trigger）联系。</p>
 <h2 id="特点与联系"><a href="#特点与联系" class="headerlink" title="特点与联系"></a>特点与联系</h2><p>前提，A对象 拥有刚体和碰撞器，B对象 拥有角色控制器。</p>
 <p>A不开启触发器( <code>isTrigger = false</code> ) , 与 B 接触会发射碰撞效果，但是 <code>onCollider...</code> 是无法检测到的，可被 <code>void OnControllerColliderHit(ControllerColliderHit hit)</code> 检测到，简单地说 <code>onControllerColliderHit</code> 代替了原有的 <code>onCollider...</code> 碰撞检测。 <em>（仅对 characterController 与 碰撞体间有效）</em></p>

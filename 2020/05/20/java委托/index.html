@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -226,7 +226,7 @@
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>一直很好奇 java 所谓的委托究竟是什么，在C#中听说过委托，而我找遍网络，发现 java 并不存在委托机制。<br>既然如此，那么 java 通过其他方式来实现 委托机制。<br>这里简单的讲解 java 的委托实现</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="探究"><a href="#探究" class="headerlink" title="探究"></a>探究</h2><h3 id="何为委托"><a href="#何为委托" class="headerlink" title="何为委托"></a>何为委托</h3><p>其实首先关于 “委托” 这个概念，其实就是将方法函数可以作为参数来传递。<br>这个详细可见: <a href="/2020/05/21/%E6%B5%85%E8%B0%88C-%E5%A7%94%E6%89%98%E6%9C%BA%E5%88%B6/" title="浅谈C#委托机制">浅谈C#委托机制</a></p>
 <h3 id="java-的委托实现"><a href="#java-的委托实现" class="headerlink" title="java 的委托实现"></a>java 的委托实现</h3><p>java 没有委托机制，主要在于 java 隐藏了指针的操作，这使得我们没法构建指针。<br>但通过一些设计模型也可以达到同样的效果。</p>
 <p>比如：</p>

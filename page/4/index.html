@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -434,10 +434,10 @@
 
       
           <p>LinearLayout 布局属性 设置为</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:gravity="center"</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:gravity=&quot;center&quot;</span><br></pre></td></tr></table></figure>
 
 <p>再将所有控件的 width 属性设置为</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:layout_width="wrap_content"</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android:layout_width=&quot;wrap_content&quot;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -505,7 +505,7 @@
 
       
           <p>在相应面板脚本的 <code>OnInspectorGUI()</code> 中加入</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (GUI.changed)</span><br><span class="line">&#123;</span><br><span class="line">	Undo.RecordObject(target, <span class="string">"target change"</span>);</span><br><span class="line">    EditorUtility.SetDirty(target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (GUI.changed)</span><br><span class="line">&#123;</span><br><span class="line">	Undo.RecordObject(target, <span class="string">&quot;target change&quot;</span>);</span><br><span class="line">    EditorUtility.SetDirty(target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -577,7 +577,7 @@
 <li>static 修饰的成员变量，在 inspector 中是不会显示的，而且 只能由 类名.变量 的形式来取值。</li>
 <li>在运行期间，通过 类名.变量 获取的值也是随之变化的（如果类中会不停的修改这个静态值）。</li>
 <li>不能使用 对象 获取静态变量。</li>
-<li>private 变量对应的 public GETTER/SETTER 变量<br>例如：<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">public</span>  <span class="keyword">int</span> A =&gt; a;</span><br></pre></td></tr></table></figure></li>
+<li>private 变量对应的 public GETTER/SETTER 变量<br>例如：<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="built_in">int</span> a;</span><br><span class="line"><span class="keyword">public</span>  <span class="built_in">int</span> A =&gt; a;</span><br></pre></td></tr></table></figure></li>
 </ul>
 <ol>
 <li>如果 public 变量 加上 static 修饰符，则 private 变量 也需要加上。</li>

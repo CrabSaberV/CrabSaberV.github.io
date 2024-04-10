@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -210,9 +210,9 @@
           <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
 <p>紧接之前的 Shader结构，这里将讲述CG编程的基础数据类型。</p>
 </blockquote>
-<p>首先要说的是，在 <a href="/2020/06/14/Shader%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84/" title="Shader框架结构">Shader框架结构</a> 中提到的数据类型的定义，是 <code>Properties{}</code>结构中的数据类型，将会展示在 Inspector 中。<br>而这里的数据类是 CG 编程中用到的数据类型，由于 <code>Properties{}</code> 中的属性不能直接用于编程，这里的数据类型是十分重要的。</p>
+<p>首先要说的是，在 <a href="/2020/06/14/Shader%E6%A1%86%E6%9E%B6%E7%BB%93%E6%9E%84/" title="Shader框架结构">Shader框架结构</a> 中提到的数据类型的定义，是 <code>Properties&#123;&#125;</code>结构中的数据类型，将会展示在 Inspector 中。<br>而这里的数据类是 CG 编程中用到的数据类型，由于 <code>Properties&#123;&#125;</code> 中的属性不能直接用于编程，这里的数据类型是十分重要的。</p>
 <blockquote>
-<p>注意：CG中要使用<code>Properties{}</code> 中的变量，则 <strong>CG 中的变量类型</strong>（CG中的变量类型与 Properties 中是不同的，但也有一定的对应关系）要<strong>对应</strong>，同时 <strong>CG 变量名与 Properties 变量名相同</strong>  。</p>
+<p>注意：CG中要使用<code>Properties&#123;&#125;</code> 中的变量，则 <strong>CG 中的变量类型</strong>（CG中的变量类型与 Properties 中是不同的，但也有一定的对应关系）要<strong>对应</strong>，同时 <strong>CG 变量名与 Properties 变量名相同</strong>  。</p>
 </blockquote>
           <!--noindex-->
             <div class="post-button">

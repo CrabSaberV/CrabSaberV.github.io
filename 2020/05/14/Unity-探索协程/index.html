@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.4.0">
+<meta name="generator" content="Hexo 5.4.2">
   <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
@@ -226,12 +226,12 @@
 
       
         <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学习 Unity 那么对于协程的学习也是必不可少。我们常常会使用协程实现异步加载场景，或者一个计时器，其作用强大，这里我将结合我的了解，来学习一番。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h2 id="协程是什么"><a href="#协程是什么" class="headerlink" title="协程是什么"></a>协程是什么</h2><p>Unity 的协程是一个会暂停协程的任务，主线程去完成调用协程的函数的剩余代码，而每帧 Unity 都会去协程的 yield 检索其 return 条件，直到条件符合，将会执行 yield 的后续代码。</p>
-<h2 id="协程的结构用法"><a href="#协程的结构用法" class="headerlink" title="协程的结构用法"></a>协程的结构用法</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">otherMethod()&#123;</span><br><span class="line">	...</span><br><span class="line">	StartCoroutine(test());</span><br><span class="line">	Debug.Log(<span class="string">"This is remain code！"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 迭代器</span></span><br><span class="line"><span class="function">IEnumerator <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">yield</span> return new <span class="title">WaitForSenconds</span>(<span class="params"><span class="number">2f</span></span>)</span>; <span class="comment">// 暂停两秒</span></span><br><span class="line">	Debug.Log(<span class="string">"I can do!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="协程的结构用法"><a href="#协程的结构用法" class="headerlink" title="协程的结构用法"></a>协程的结构用法</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">otherMethod()&#123;</span><br><span class="line">	...</span><br><span class="line">	StartCoroutine(test());</span><br><span class="line">	Debug.Log(<span class="string">&quot;This is remain code！&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 迭代器</span></span><br><span class="line"><span class="function">IEnumerator <span class="title">test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	...</span><br><span class="line">	<span class="function"><span class="keyword">yield</span> <span class="keyword">return</span> <span class="keyword">new</span> <span class="title">WaitForSenconds</span>(<span class="params"><span class="number">2f</span></span>)</span>; <span class="comment">// 暂停两秒</span></span><br><span class="line">	Debug.Log(<span class="string">&quot;I can do!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>其运行流程</p>
 <ol>
-<li><code>otherMethod(){}</code> 运行到  <code>StartCoroutine(test())</code></li>
+<li><code>otherMethod()&#123;&#125;</code> 运行到  <code>StartCoroutine(test())</code></li>
 <li>执行 <code>test()</code> 语句 到 <code>yield return new WaitForSenconds(2f)</code> 则会返回，运行 <code>Debug.Log(&quot;This is remain code！&quot;)</code> 语句</li>
 <li>随后每帧都会判定 yield 的条件，也即是等待 2s</li>
 <li>时间到达后，就会执行协程 yield 的后面语句 <code>Debug.Log(&quot;I can do!&quot;)</code></li>
