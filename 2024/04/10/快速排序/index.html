@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="排序算法——快速排序">
+<meta property="og:type" content="article">
+<meta property="og:title" content="快速排序">
+<meta property="og:url" content="https://crabsaberv.github.io/2024/04/10/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="排序算法——快速排序">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-04-10T07:45:02.000Z">
+<meta property="article:modified_time" content="2024-04-10T07:45:02.222Z">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="开发者口袋">
+<meta property="article:tag" content="排序">
+<meta property="article:tag" content="快速排序">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://crabsaberv.github.io/2024/04/10/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>快速排序 | CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2024/04/10/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          快速排序
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-04-10 15:45:02" itemprop="dateCreated datePublished" datetime="2024-04-10T15:45:02+08:00">2024-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">排序算法</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="排序算法——快速排序"><a href="#排序算法——快速排序" class="headerlink" title="排序算法——快速排序"></a>排序算法——快速排序</h1><span id="more"></span>
+<p>这些比较基础的知识要时常回顾一下。</p>
+<h1 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h1><p>快速排序是冒泡排序的一个改进算法，采用了分治的思想。</p>
+<p>其主要思想是将序列进行分割成左右两个部分，左侧数全部小于右侧数，接着不断对每个序列进行同样的分割处理，最终使得整个序列有序。</p>
+<p>实现思路：</p>
+<ol>
+<li>一般从序列左边第一个元素作为基准数取出来。</li>
+<li>维护左和右两个指针，由于基准数是左指针下的数被取出来，所以先是右指针向左移动遍历。</li>
+<li>右侧指针向左移动，当指针所指的数小于基准数，则可以认为右侧指针下的数应该前往左侧，而基准数base应该属于右指针的位置。所以将右指针的数填给左指针的位置。</li>
+<li>接着左指针开始向右侧移动，同理当左指针数大于基准数时，将左指针的数填给右指针的位置，后续又从右指针位置继续向左移动。</li>
+<li>重复一样行为，直到左右两个指针相遇，则该位置就是基准数的最终位置。此时该位置的左侧都是小于base的数，右侧都是大于base的数。</li>
+<li>接着以base分割两个序列。对两个序列进行同样处理。</li>
+<li>最终情况是数组不能在被分割，此时整个序列就已经有序了。</li>
+</ol>
+<p>这其中从一个序列分割出两个序列的过程就是一次快速排序操作。</p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>前提：<br>确保数组不为空，<code>QuickSort()</code>将是快速排序算法的方法</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public <span class="built_in">int</span><span class="literal">[]</span> <span class="constructor">SortArray(<span class="params">int</span>[] <span class="params">nums</span>)</span> &#123;</span><br><span class="line">    <span class="constructor">QuickSort(<span class="params">nums</span>,0,<span class="params">nums</span>.Length-1)</span>;</span><br><span class="line">    return nums;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="递归方案"><a href="#递归方案" class="headerlink" title="递归方案"></a>递归方案</h2><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">    </span><br><span class="line"><span class="comment">// 快速排序</span></span><br><span class="line"><span class="keyword">private</span> void <span class="constructor">QuickSort(<span class="params">int</span>[] <span class="params">nums</span>,<span class="params">int</span> <span class="params">start</span>,<span class="params">int</span> <span class="params">end</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(start &gt;= <span class="keyword">end</span>)&#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">int</span> mid = <span class="constructor">DoSort(<span class="params">nums</span>,<span class="params">start</span>,<span class="params">end</span>)</span>;</span><br><span class="line">    <span class="comment">// 分治</span></span><br><span class="line">    <span class="constructor">QuickSort(<span class="params">nums</span>,<span class="params">start</span>,<span class="params">mid</span>-1)</span>; <span class="comment">// 左侧</span></span><br><span class="line">    <span class="constructor">QuickSort(<span class="params">nums</span>,<span class="params">mid</span> + 1,<span class="params">end</span>)</span>; <span class="comment">// 右侧</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一次排序，返回得到基准数的最终位置（指针相遇位置）</span></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">int</span> <span class="constructor">DoSort(<span class="params">int</span>[] <span class="params">nums</span>,<span class="params">int</span> <span class="params">left</span>,<span class="params">int</span> <span class="params">right</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">int</span> b = nums<span class="literal">[<span class="identifier">left</span>]</span>; <span class="comment">// 基准数</span></span><br><span class="line">    <span class="keyword">while</span>(left &lt; right)&#123;</span><br><span class="line">        <span class="keyword">while</span>(left &lt; right<span class="operator"> &amp;&amp; </span>nums<span class="literal">[<span class="identifier">right</span>]</span> &gt;= b)&#123;</span><br><span class="line">            right--;</span><br><span class="line">        &#125;</span><br><span class="line">        nums<span class="literal">[<span class="identifier">left</span>]</span> = nums<span class="literal">[<span class="identifier">right</span>]</span>;</span><br><span class="line">        <span class="comment">// 左</span></span><br><span class="line">        <span class="keyword">while</span>(left &lt; right<span class="operator"> &amp;&amp; </span>nums<span class="literal">[<span class="identifier">left</span>]</span> &lt;= b )&#123;</span><br><span class="line">            left++;</span><br><span class="line">        &#125;</span><br><span class="line">        nums<span class="literal">[<span class="identifier">right</span>]</span> = nums<span class="literal">[<span class="identifier">left</span>]</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 基准数的最终归宿位置</span></span><br><span class="line">    nums<span class="literal">[<span class="identifier">left</span>]</span> = b; </span><br><span class="line"></span><br><span class="line">    return left;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="迭代方案"><a href="#迭代方案" class="headerlink" title="迭代方案"></a>迭代方案</h2><p>递归的写法很简单，而且也容易理解。不过记住一个重点<strong>往往递归都能通过栈结构来实现迭代。因为递归的本质就是栈的逻辑。栈结构要记录的是每次递归会改变的数据。</strong></p>
+<p>迭代方法相比迭代不会因为数据过大导致方法栈溢出（递归会保留上一个递归的数据参数）。但是需要分配堆内存来管理数据。</p>
+<p>由于<code>DoSort()</code>方法是通用的，所以下面代码就不写了，只写<code>QuickSort()</code>方法。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> void <span class="constructor">QuickSort(<span class="params">int</span>[] <span class="params">nums</span>,<span class="params">int</span> <span class="params">start</span>,<span class="params">int</span> <span class="params">end</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 非递归可以通过栈来存储边界下标</span></span><br><span class="line">    Stack&lt;<span class="built_in">int</span>&gt; stack = <span class="keyword">new</span> Stack&lt;<span class="built_in">int</span>&gt;<span class="literal">()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 入栈顺序是先左后右，那么出栈时要注意，先出栈的是右。</span></span><br><span class="line">    stack.<span class="constructor">Push(<span class="params">start</span>)</span>;</span><br><span class="line">    stack.<span class="constructor">Push(<span class="params">end</span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(stack.Count &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="comment">// 出栈先出的右</span></span><br><span class="line">        <span class="built_in">int</span> r = stack.<span class="constructor">Pop()</span>;</span><br><span class="line">        <span class="built_in">int</span> l = stack.<span class="constructor">Pop()</span>;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">int</span> mid = <span class="constructor">DoSort(<span class="params">nums</span>,<span class="params">l</span>,<span class="params">r</span>)</span>;</span><br><span class="line">        <span class="comment">// 控制栈输入，如果边界和mid相遇，则表示不能再分治了</span></span><br><span class="line">        <span class="keyword">if</span>(l &lt; mid - <span class="number">1</span>)&#123;</span><br><span class="line">            stack.<span class="constructor">Push(<span class="params">l</span>)</span>;</span><br><span class="line">            stack.<span class="constructor">Push(<span class="params">mid</span>-1)</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(r &gt; mid + <span class="number">1</span> )&#123;</span><br><span class="line">            stack.<span class="constructor">Push(<span class="params">mid</span>+1)</span>;</span><br><span class="line">            stack.<span class="constructor">Push(<span class="params">r</span>)</span>;</span><br><span class="line">        &#125;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a>稳定性</h1><p>这里稳定性说的是数据中重复元素的相对位置。因为快速排序是跳跃式排序，可能会使得重复元素的相对顺序发生改变。</p>
+<p>假如排序的不是单纯的数，而是某个数据结构，排序依据是某个id，那么可能最终顺序后的重复元素间的顺序不是排序前的顺序了。</p>
+<h1 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h1><p>快速排序的平均时间复杂度是O(nlogn)。</p>
+<p>极端情况比如数据本身就是有序的，那么复杂对会变为O(n²)，可以想象每此判断后都是每次都是少一个数的比较，那么次数就是 $$ \sum_{n-1}^{i=1}n-i = n-1+n-2+….+1 = \frac{n(n-1)}{2}$$ 结果就是O(n^2)。</p>
+<h1 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h1><p>基本是递归造成的栈空间使用，最好情况树的深度为 log2n<br>空间复杂度为：O(logn)</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%BC%80%E5%8F%91%E8%80%85%E5%8F%A3%E8%A2%8B/" rel="tag"># 开发者口袋</a>
+              <a href="/tags/%E6%8E%92%E5%BA%8F/" rel="tag"># 排序</a>
+              <a href="/tags/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/" rel="tag"># 快速排序</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/02/Unity-%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91%E5%9F%BA%E7%A1%80-%E4%B8%80/" rel="prev" title="Unity 插件开发基础(一)">
+      <i class="fa fa-chevron-left"></i> Unity 插件开发基础(一)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E2%80%94%E2%80%94%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">排序算法——快速排序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E6%83%B3"><span class="nav-number">2.</span> <span class="nav-text">思想</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%96%B9%E6%A1%88"><span class="nav-number">3.1.</span> <span class="nav-text">递归方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%96%B9%E6%A1%88"><span class="nav-number">3.2.</span> <span class="nav-text">迭代方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">稳定性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">复杂度分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">6.</span> <span class="nav-text">空间复杂度</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CrabSaberV"
+      src="/asset/icons/crab_520x520.png">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">67</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrabSaberV" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrabSaberV" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:s46244934@gmail.com" title="E-Mail → mailto:s46244934@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
