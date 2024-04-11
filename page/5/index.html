@@ -159,6 +159,227 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/02/29/Unity-%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8Fstatic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/29/Unity-%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8Fstatic/" class="post-title-link" itemprop="url">Unity-静态变量static</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-29 14:12:57 / 修改时间：14:33:58" itemprop="dateCreated datePublished" datetime="2020-02-29T14:12:57+08:00">2020-02-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index"><span itemprop="name">Unity3d</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>以下几点：</p>
+<ul>
+<li>static 修饰的成员变量，在 inspector 中是不会显示的，而且 只能由 类名.变量 的形式来取值。</li>
+<li>在运行期间，通过 类名.变量 获取的值也是随之变化的（如果类中会不停的修改这个静态值）。</li>
+<li>不能使用 对象 获取静态变量。</li>
+<li>private 变量对应的 public GETTER/SETTER 变量<br>例如：<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="built_in">int</span> a;</span><br><span class="line"><span class="keyword">public</span>  <span class="built_in">int</span> A =&gt; a;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol>
+<li>如果 public 变量 加上 static 修饰符，则 private 变量 也需要加上。</li>
+<li>如果 private 加上 static ，public可不加（不加的话，其实对于静态变量private来说就没意义了）</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/02/02/Unity-CharacterController-%E7%A2%B0%E6%92%9E%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/02/02/Unity-CharacterController-%E7%A2%B0%E6%92%9E%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB/" class="post-title-link" itemprop="url">Unity-CharacterController 碰撞与触发器之间关系</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-02-02 15:54:17 / 修改时间：16:54:38" itemprop="dateCreated datePublished" datetime="2020-02-02T15:54:17+08:00">2020-02-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index"><span itemprop="name">Unity3d</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>自从接触了 CharactorController 来控制角色后，异常的有意思，对于控制一些人形角色控制上带来了便利，化简了刚体控制中种种麻烦问题。<br>但是也遇到了 CharactorController 与碰撞体和触发器之间的问题和疑问。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/02/02/Unity-CharacterController-%E7%A2%B0%E6%92%9E%E4%B8%8E%E8%A7%A6%E5%8F%91%E5%99%A8%E4%B9%8B%E9%97%B4%E5%85%B3%E7%B3%BB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/30/Unity-%E4%BA%BA%E7%89%A9%E8%BD%AC%E5%90%91%E4%B8%80%E9%A3%9E%E5%86%B2%E5%A4%A9%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/01/30/Unity-%E4%BA%BA%E7%89%A9%E8%BD%AC%E5%90%91%E4%B8%80%E9%A3%9E%E5%86%B2%E5%A4%A9%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Unity-人物转向一飞冲天问题</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-01-30 12:48:12 / 修改时间：12:52:54" itemprop="dateCreated datePublished" datetime="2020-01-30T12:48:12+08:00">2020-01-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity3d/" itemprop="url" rel="index"><span itemprop="name">Unity3d</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>加了“角色控制器”(CharacterController) 的角色是不需要加“刚体”的，去除拥有“角色控制器”的物体的“刚体组件”，就能解决人物旋转一飞冲天的问题。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/29/Unity-%E7%9B%B8%E6%9C%BA%E6%8A%96%E5%8A%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -684,248 +905,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
-      <meta itemprop="name" content="CrabSaberV">
-      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CrabSaberV is here">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">Spring-构造函数依赖注入</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-01-08 17:18:04 / 修改时间：17:43:35" itemprop="dateCreated datePublished" datetime="2020-01-08T17:18:04+08:00">2020-01-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Spring 的构造函数依赖注入中配置 bean.xml 需要注意的。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/01/08/Spring-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2019/11/25/session%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
-      <meta itemprop="name" content="CrabSaberV">
-      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CrabSaberV is here">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/25/session%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" class="post-title-link" itemprop="url">session生命周期</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-25 22:26:26" itemprop="dateCreated datePublished" datetime="2019-11-25T22:26:26+08:00">2019-11-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-28 22:49:23" itemprop="dateModified" datetime="2019-11-28T22:49:23+08:00">2019-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index"><span itemprop="name">Java Web</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
-<p>一般我们认为 session 是当浏览器打开时 session 将会创建，关闭浏览器时 session 又会失效，那么究竟是不是这样呢？我们具体来了解以下 session 的生命周期。</p>
-</blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/25/session%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
-      <meta itemprop="name" content="CrabSaberV">
-      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CrabSaberV is here">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Tomcat 9.0 配置数据源笔记</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2019-11-14 12:35:23" itemprop="dateCreated datePublished" datetime="2019-11-14T12:35:23+08:00">2019-11-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-11-28 22:47:28" itemprop="dateModified" datetime="2019-11-28T22:47:28+08:00">2019-11-28</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java-Web/" itemprop="url" rel="index"><span itemprop="name">Java Web</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>这是一个初级的笔记，我们利用 Tomcat 来配置数据源</p>
-</blockquote>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇将会简单讲解 Tomcat 数据源的配置，以及连接池配合数据源的实现连接数据库的方法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2019/11/14/Tomcat-9-0-%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -997,20 +976,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">70</span>
+        <span class="site-state-item-count">76</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

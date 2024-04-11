@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/asset/icons/crab_192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/asset/icons/crab_32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/asset/icons/crab_16x16.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"crabsaberv.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="二叉树——中序遍历为什么这里特指二叉树的中序遍历呢？因为中序遍历的顺序是：左子结点-&gt;父结点-&gt;右子结点，如果是N叉树就不符合这个顺序特征了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树-中序遍历">
+<meta property="og:url" content="https://crabsaberv.github.io/2024/04/11/%E6%A0%91-%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/index.html">
+<meta property="og:site_name" content="CrabSaberV is here">
+<meta property="og:description" content="二叉树——中序遍历为什么这里特指二叉树的中序遍历呢？因为中序遍历的顺序是：左子结点-&gt;父结点-&gt;右子结点，如果是N叉树就不符合这个顺序特征了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://crabsaberv.github.io/2024/04/11/%E6%A0%91-%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BE%8B%E5%9B%BE.png">
+<meta property="article:published_time" content="2024-04-11T02:03:16.000Z">
+<meta property="article:modified_time" content="2024-04-11T02:07:09.271Z">
+<meta property="article:author" content="CrabSaberV">
+<meta property="article:tag" content="基础">
+<meta property="article:tag" content="树结构">
+<meta property="article:tag" content="二叉树">
+<meta property="article:tag" content="深度遍历">
+<meta property="article:tag" content="中序遍历">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://crabsaberv.github.io/2024/04/11/%E6%A0%91-%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BE%8B%E5%9B%BE.png">
+
+<link rel="canonical" href="https://crabsaberv.github.io/2024/04/11/%E6%A0%91-%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>树-中序遍历 | CrabSaberV is here</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">CrabSaberV is here</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://crabsaberv.github.io/2024/04/11/%E6%A0%91-%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/asset/icons/crab_520x520.png">
+      <meta itemprop="name" content="CrabSaberV">
+      <meta itemprop="description" content="This is my presonal blog. Here will be conplete.Let's look forward!">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CrabSaberV is here">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          树-中序遍历
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-04-11 10:03:16 / 修改时间：10:07:09" itemprop="dateCreated datePublished" datetime="2024-04-11T10:03:16+08:00">2024-04-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A0%91%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">树结构</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="二叉树——中序遍历"><a href="#二叉树——中序遍历" class="headerlink" title="二叉树——中序遍历"></a>二叉树——中序遍历</h1><p>为什么这里特指二叉树的中序遍历呢？因为中序遍历的顺序是：左子结点-&gt;父结点-&gt;右子结点，如果是N叉树就不符合这个顺序特征了。</p>
+<span id="more"></span>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>按照左子结点-&gt;父结点-&gt;右子结点的顺序遍历即可。如果是递归法，那么控制递归顺序就能实现。</p>
+<p>下图例子：</p>
+<p><img src="/2024/04/11/%E6%A0%91-%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E4%BE%8B%E5%9B%BE.png" alt="中序遍历例图"></p>
+<p>结果为:<code>[1,3,2]</code></p>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>前提代码</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TreeNode</span> &#123;</span><br><span class="line">     <span class="keyword">public</span> <span class="built_in">int</span> val;</span><br><span class="line">     <span class="keyword">public</span> TreeNode left;</span><br><span class="line">     <span class="keyword">public</span> TreeNode right;</span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span>(<span class="params"><span class="built_in">int</span> val=<span class="number">0</span>, TreeNode left=<span class="literal">null</span>, TreeNode right=<span class="literal">null</span></span>)</span> &#123;</span><br><span class="line">         <span class="keyword">this</span>.val = val;</span><br><span class="line">         <span class="keyword">this</span>.left = left;</span><br><span class="line">         <span class="keyword">this</span>.right = right;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> IList&lt;<span class="built_in">int</span>&gt; <span class="title">InorderTraversal</span>(<span class="params">TreeNode root</span>)</span> &#123;</span><br><span class="line">    <span class="comment">// 只有二叉树有中序遍历</span></span><br><span class="line">    <span class="comment">// 其逻辑是，遍历顺序是：左子节点 -&gt; 父节点 -&gt; 右结点</span></span><br><span class="line">    IList&lt;<span class="built_in">int</span>&gt; list = <span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">    <span class="keyword">if</span>(root == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> list;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    InOrder(root,list);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="递归法"><a href="#递归法" class="headerlink" title="递归法"></a>递归法</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">InOrder</span>(<span class="params">TreeNode node,IList&lt;<span class="built_in">int</span>&gt; list</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    InOrder(node.left,list);</span><br><span class="line">    list.Add(node.val);</span><br><span class="line">    InOrder(node.right,list); </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="迭代法"><a href="#迭代法" class="headerlink" title="迭代法"></a>迭代法</h2><p>这里迭代法我写两个方案，一份是我自己的思路，一份是官方给的思路。<br>我自己的思路虽然解决了问题，但额外引入了数组，代码稍显笨拙。<br>官方的思路代码比较简单。</p>
+<h3 id="迭代法1（个人）"><a href="#迭代法1（个人）" class="headerlink" title="迭代法1（个人）"></a>迭代法1（个人）</h3><p>按照中序的路径：左子节点-&gt;父节点-&gt;右子结点，那么入栈顺序要保证：右子节点-&gt;父节点-&gt;左子节点。<br>其中特别点是一个树杈的“左子节点-&gt;父节点-&gt;右子结点”都是紧挨在一起在栈内的。</p>
+<ol>
+<li>遍历时先考虑将右子节点入栈。条件是右子节点没有在栈内，同时也没有输出过。（因为当父节点出栈时,走循环内的流程，要防止重复将右结点入栈）</li>
+<li>如果左子结点存在，且没有输出过，那么继续深入遍历，就需要将当前结点和左子节点入栈;</li>
+<li>如果左子结点不存在，或者左子节点已经被输出过了，那么可以说明现在处于回溯的流程中，就可以输出该结点了，同时将该结点存储到已输出序列中。</li>
+<li>按照上述逻辑，直到栈空则遍历完毕了。</li>
+</ol>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">InOrder</span>(<span class="params">TreeNode node,IList&lt;<span class="built_in">int</span>&gt; list</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    List&lt;TreeNode&gt; overNodes = <span class="keyword">new</span> List&lt;TreeNode&gt;(); <span class="comment">// 记录输出过的node</span></span><br><span class="line">    Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">    stack.Push(node);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(stack.Count &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        TreeNode pNode = stack.Pop();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 确保栈中没有，且没有被输出过才入栈</span></span><br><span class="line">        <span class="keyword">if</span>(pNode.right != <span class="literal">null</span> &amp;&amp; !overNodes.Contains(pNode.right) &amp;&amp; (stack.Count &lt;= <span class="number">0</span> || stack.Peek() != pNode.right))&#123;</span><br><span class="line">                <span class="comment">// right 不为空，且没被输出，则入栈</span></span><br><span class="line">            stack.Push(pNode.right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pNode.left == <span class="literal">null</span> || overNodes.Contains(pNode.left))&#123;</span><br><span class="line">            <span class="comment">// left 已经输出过了，则打印该node</span></span><br><span class="line">            list.Add(pNode.val);</span><br><span class="line">            overNodes.Add(pNode);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="comment">// 有 left,且没有打印</span></span><br><span class="line">            stack.Push(pNode);</span><br><span class="line">            stack.Push(pNode.left);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点：</p>
+<ol>
+<li>代码的结点可能有2次入栈遍历，所以事件复杂度为O(logn)</li>
+<li>引入了一个数组用于记录输出的结点，增加了空间和时间。</li>
+</ol>
+<h3 id="迭代法1（官方）"><a href="#迭代法1（官方）" class="headerlink" title="迭代法1（官方）"></a>迭代法1（官方）</h3><p>其步骤是：</p>
+<ol>
+<li>每次循环，先内部循环将结点下的左节点入栈，直到为空。（因为深入遍历过程中，父节点和左子节点是同一个方向）</li>
+<li>当内部遍历左结点结束后，出栈一个结点就可以输出。</li>
+<li>接着入栈一个右节点，来对右节点进行同样的内部循环遍历过程。</li>
+</ol>
+<p>能看出来也是递归方案的迭代写法，而且看着很清晰。迭代写法中每次迭代都是先深入左子节点，然后回溯到父节点，接着是由结点做同样操作。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">InOrder</span>(<span class="params">TreeNode node,IList&lt;<span class="built_in">int</span>&gt; list</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(node == <span class="literal">null</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">    <span class="keyword">while</span> (node != <span class="literal">null</span> || stack.Count &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="literal">null</span>) &#123;</span><br><span class="line">            stack.Push(node);</span><br><span class="line">            node = node.left;</span><br><span class="line">        &#125;</span><br><span class="line">        node = stack.Pop();</span><br><span class="line">        list.Add(node.val);</span><br><span class="line">        node = node.right;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我写出来的代码较为臃肿，也说明我对递归到迭代的理解还不够透彻。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%9F%BA%E7%A1%80/" rel="tag"># 基础</a>
+              <a href="/tags/%E6%A0%91%E7%BB%93%E6%9E%84/" rel="tag"># 树结构</a>
+              <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag"># 二叉树</a>
+              <a href="/tags/%E6%B7%B1%E5%BA%A6%E9%81%8D%E5%8E%86/" rel="tag"># 深度遍历</a>
+              <a href="/tags/%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="tag"># 中序遍历</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/04/11/%E6%A0%91-%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="prev" title="树-前序遍历">
+      <i class="fa fa-chevron-left"></i> 树-前序遍历
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/04/11/%E6%A0%91-%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="next" title="树-后序遍历">
+      树-后序遍历 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E2%80%94%E2%80%94%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.</span> <span class="nav-text">二叉树——中序遍历</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">递归法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">迭代法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%951%EF%BC%88%E4%B8%AA%E4%BA%BA%EF%BC%89"><span class="nav-number">3.2.1.</span> <span class="nav-text">迭代法1（个人）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3%E6%B3%951%EF%BC%88%E5%AE%98%E6%96%B9%EF%BC%89"><span class="nav-number">3.2.2.</span> <span class="nav-text">迭代法1（官方）</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="CrabSaberV"
+      src="/asset/icons/crab_520x520.png">
+  <p class="site-author-name" itemprop="name">CrabSaberV</p>
+  <div class="site-description" itemprop="description">This is my presonal blog. Here will be conplete.Let's look forward!</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">76</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/CrabSaberV" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;CrabSaberV" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:s46244934@gmail.com" title="E-Mail → mailto:s46244934@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CrabSaberV</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+</body>
+</html>
