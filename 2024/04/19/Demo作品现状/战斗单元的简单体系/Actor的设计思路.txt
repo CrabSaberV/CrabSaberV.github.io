@@ -1,0 +1,9 @@
+展示的仅仅是一个简单的结构
+
+Actor 是游戏中玩家，敌人，npc等基础单元。
+
+ActorData:主要存储单元的属性和参数相关的数据
+ActorBehaviour:主要管理Actor的模型和移动等表现相关的组件。
+FSMManager: 管理状态机
+CommandManager:管理该Actor相关的指令，例如玩家输入指令，释放技能指令等
+CommponentAgent: 可以为Actor添加不同的Component以实现不同的逻辑。
